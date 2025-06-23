@@ -27,7 +27,7 @@ export const changeLanguage = (lng: string) => {
 const updateDirection = (lng: string) => {
   const isRTL = lng === "he";
   const html = document.documentElement;
-  
+
   if (isRTL) {
     html.setAttribute("dir", "rtl");
     html.setAttribute("lang", "he");
@@ -35,7 +35,7 @@ const updateDirection = (lng: string) => {
     html.setAttribute("dir", "ltr");
     html.setAttribute("lang", "en");
   }
-  
+
   // Add or remove RTL class for CSS styling
   if (isRTL) {
     document.body.classList.add("rtl");
