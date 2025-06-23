@@ -1,0 +1,11 @@
+{
+  "title": "Geographic Coordinate Converter",
+  "utmToWgs84": "UTM to WGS84",
+  "wgs84ToUtm": "WGS84 to UTM",
+  "utmInputPlaceholder": "Enter UTM coordinates (e.g., 32T 0377299 5255068)",
+  "wgs84InputPlaceholder": "Enter WGS84 coordinates (e.g., 47.123456, 8.654321)",
+  "convert": "Convert",
+  "result": "Result",
+  "invalidInput": "Invalid input",
+  "conversionError": "Conversion error"
+}

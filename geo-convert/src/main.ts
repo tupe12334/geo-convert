@@ -5,6 +5,7 @@ import {
   parseUTMInputs,
 } from "./converters";
 import { generateId } from "./utils/generateId";
+import { initI18n, changeLanguage, t } from "./i18n";
 import type {
   ConversionRecord,
   UTMCoordinate,
@@ -13,7 +14,17 @@ import type {
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
-    <h1>UTM ⇄ WGS84 Converter</h1>      <div class="bg-white/5 rounded-xl p-8 my-8 border border-white/10 w-full max-w-full box-border">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="mb-0" data-i18n="title">UTM ⇄ WGS84 Converter</h1>
+      <div class="flex items-center gap-2">
+        <label for="language-select" class="text-white/80 text-sm">Language:</label>
+        <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-1 text-white text-sm">
+          <option value="he">עברית</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </div>
+    <div class="bg-white/5 rounded-xl p-8 my-8 border border-white/10 w-full max-w-full box-border">
       <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-8 w-full">
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-branch-section">
           <h3>Working Branch</h3>
@@ -37,13 +48,14 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         </div>
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section">
-          <h3>UTM Coordinates</h3>
+          <h3 data-i18n="utmToWgs84">UTM Coordinates</h3>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="easting-input">Easting (X):</label>
               <input 
                 type="number" 
                 id="easting-input" 
+                data-i18n-placeholder="utmInputPlaceholder"
                 placeholder="500000"
                 step="0.01"
               />
@@ -76,17 +88,18 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               </select>
             </div>
           </div>
-          <button id="convert-to-wgs84">Convert to WGS84 →</button>
+          <button id="convert-to-wgs84" data-i18n="convert">Convert to WGS84 →</button>
         </div>
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
-          <h3>WGS84 Coordinates</h3>
+          <h3 data-i18n="wgs84ToUtm">WGS84 Coordinates</h3>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="latitude-input">Latitude:</label>
               <input 
                 type="number" 
                 id="latitude-input" 
+                data-i18n-placeholder="wgs84InputPlaceholder"
                 placeholder="41.123456"
                 step="0.00000001"
               />
@@ -101,7 +114,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               />
             </div>
           </div>
-          <button id="convert-to-utm">← Convert to UTM</button>
+          <button id="convert-to-utm" data-i18n="convert">← Convert to UTM</button>
         </div>
 
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section">
@@ -124,6 +137,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     </div>
   </div>
 `;
+
+// Initialize i18n
+initI18n().then(() => {
+  // Load language preference after i18n is initialized
+  loadLanguagePreference();
+});
 
 // History management
 let conversionHistory: ConversionRecord[] = [];
@@ -564,4 +583,50 @@ hemisphereSelect.addEventListener("change", () => {
   ) {
     convertUTMToWGS84();
   }
+});
+
+// Language select functionality
+const languageSelect =
+  document.querySelector<HTMLSelectElement>("#language-select")!;
+
+// Load saved language preference
+function loadLanguagePreference(): void {
+  try {
+    const savedLanguage = localStorage.getItem("geo-convert-language");
+    if (savedLanguage && (savedLanguage === "he" || savedLanguage === "en")) {
+      languageSelect.value = savedLanguage;
+      changeLanguage(savedLanguage);
+    } else {
+      // Default to Hebrew if no preference saved
+      languageSelect.value = "he";
+      changeLanguage("he");
+    }
+  } catch (error) {
+    console.warn("Failed to load language preference:", error);
+    languageSelect.value = "he";
+    changeLanguage("he");
+  }
+}
+
+// Save language preference
+function saveLanguagePreference(language: string): void {
+  try {
+    localStorage.setItem("geo-convert-language", language);
+  } catch (error) {
+    console.warn("Failed to save language preference:", error);
+  }
+}
+
+// Handle language change
+languageSelect.addEventListener("change", (e: Event) => {
+  const target = e.target as HTMLSelectElement;
+  const selectedLanguage = target.value;
+
+  saveLanguagePreference(selectedLanguage);
+  changeLanguage(selectedLanguage);
+
+  const languageName = target.options[target.selectedIndex].text;
+  status.innerHTML = `<span class="success">✓ ${t(
+    "result"
+  )}: ${languageName}</span>`;
 });
