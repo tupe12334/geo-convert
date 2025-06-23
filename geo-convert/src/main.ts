@@ -28,8 +28,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <option value="he">עברית</option>
           <option value="en">English</option>
         </select>
-        <button id="info-btn" class="info-button" title="Info">
-          <i data-lucide="info"></i>
+        <button id="info-btn" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full flex items-center justify-center hover:bg-white/15 hover:border-white/30 transition-all duration-200" title="Info">
+          <i data-lucide="info" class="w-4 h-4"></i>
         </button>
       </div>
     </div>
