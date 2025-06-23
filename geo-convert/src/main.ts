@@ -578,7 +578,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
               </tr>
             </thead>
           </table>
-          <div class="max-h-60 overflow-y-auto">
+          <div class="max-h-96 overflow-y-auto">
             <table class="w-full border-collapse text-sm">
               <tbody>
                 ${parseResult.data
