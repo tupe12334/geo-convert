@@ -7,5 +7,7 @@
   "convert": "המר",
   "result": "תוצאה",
   "invalidInput": "קלט לא תקין",
-  "conversionError": "שגיאה בהמרה"
+  "conversionError": "שגיאה בהמרה",
+  "clearHistory": "נקה היסטוריה",
+  "exportHistory": "ייצא היסטוריה"
 }

@@ -7,5 +7,7 @@
   "convert": "Convert",
   "result": "Result",
   "invalidInput": "Invalid input",
-  "conversionError": "Conversion error"
+  "conversionError": "Conversion error",
+  "clearHistory": "Clear History",
+  "exportHistory": "Export History"
 }
