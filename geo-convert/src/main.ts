@@ -3,8 +3,9 @@ import {
   convertUTMtoWGS84,
   convertWGS84toUTM,
   parseUTMInputs,
+  parseCSV,
 } from "./converters";
-import { createIcons, Pencil, Trash2 } from "lucide";
+import { createIcons, Pencil, Trash2, Upload } from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t } from "./i18n";
 import { Notyf } from "notyf";
@@ -13,6 +14,8 @@ import type {
   ConversionRecord,
   UTMCoordinate,
   WGS84Coordinate,
+  CoordinateType,
+  CSVParseResult,
 } from "./converters/types";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -48,6 +51,13 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               placeholder="Use this area for notes, calculations, or temporary data storage. This field doesn't affect coordinate conversions."
               rows="6"
             ></textarea>
+          </div>
+          <div class="mt-4">
+            <button id="import-csv-btn" class="import-csv-button w-full" data-i18n="importCSV">
+              <i data-lucide="upload"></i>
+              Import CSV File
+            </button>
+            <input type="file" id="csv-file-input" accept=".csv" style="display: none;" />
           </div>
         </div>
         
@@ -135,7 +145,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     </div>
   </div>
 `;
-createIcons({ icons: { Pencil, Trash2 } });
+createIcons({ icons: { Pencil, Trash2, Upload } });
 
 // Initialize Notyf for toast notifications
 const notyf = new Notyf({
@@ -468,6 +478,238 @@ function exportHistory(): void {
 
   notyf.success(`✓ ${t("historyExported")}`);
 }
+
+// CSV Import functionality
+function importCSVFile(): void {
+  const csvFileInput =
+    document.querySelector<HTMLInputElement>("#csv-file-input")!;
+  csvFileInput.click();
+}
+
+function handleCSVFileSelect(event: Event): void {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+
+  if (!file) return;
+
+  if (!file.name.toLowerCase().endsWith(".csv")) {
+    notyf.error("Please select a CSV file");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const csvText = e.target?.result as string;
+      const parseResult = parseCSV(csvText);
+
+      if (parseResult.data.length === 0) {
+        notyf.error(t("noValidData"));
+        return;
+      }
+
+      showCSVImportDialog(parseResult);
+    } catch (error) {
+      console.error("CSV parsing error:", error);
+      notyf.error(t("csvError"));
+    }
+  };
+
+  reader.readAsText(file);
+
+  // Reset the input value to allow selecting the same file again
+  target.value = "";
+}
+
+function showCSVImportDialog(parseResult: CSVParseResult): void {
+  const modal = document.createElement("div");
+  modal.className = "csv-import-modal";
+
+  const detectedTypeText = parseResult.coordinateType
+    ? `${t("csvDetectedAs")} ${parseResult.coordinateType}`
+    : "";
+
+  const columnMappingHTML = parseResult.detectedColumns
+    ? `<div class="column-mapping">
+        <h4>${t("csvColumnMapping")}</h4>
+        ${Object.entries(parseResult.detectedColumns)
+          .map(([key, value]) => `<div>${key}: <strong>${value}</strong></div>`)
+          .join("")}
+      </div>`
+    : "";
+
+  modal.innerHTML = `
+    <div class="csv-import-dialog">
+      <h3>${t("selectCoordinateType")}</h3>
+      ${
+        detectedTypeText
+          ? `<p class="detected-type">${detectedTypeText}</p>`
+          : ""
+      }
+      ${columnMappingHTML}
+      
+      <div class="coordinate-type-selection">
+        <label>
+          <input type="radio" name="coordinate-type" value="UTM" ${
+            parseResult.coordinateType === "UTM" ? "checked" : ""
+          }>
+          UTM
+        </label>
+        <label>
+          <input type="radio" name="coordinate-type" value="WGS84" ${
+            parseResult.coordinateType === "WGS84" ? "checked" : ""
+          }>
+          WGS84
+        </label>
+      </div>
+      
+      <div class="csv-preview">
+        <h4>Preview (first 3 rows):</h4>
+        <table>
+          <thead>
+            <tr>
+              ${parseResult.headers
+                .map((header) => `<th>${header}</th>`)
+                .join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${parseResult.data
+              .slice(0, 3)
+              .map(
+                (row) =>
+                  `<tr>${parseResult.headers
+                    .map((header) => `<td>${row[header] || ""}</td>`)
+                    .join("")}</tr>`
+              )
+              .join("")}
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="dialog-actions">
+        <button id="cancel-csv-import" class="cancel-button">${t(
+          "cancelImport"
+        )}</button>
+        <button id="confirm-csv-import" class="confirm-button">${t(
+          "confirmImport"
+        )}</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Add event listeners
+  const cancelBtn = modal.querySelector("#cancel-csv-import")!;
+  const confirmBtn = modal.querySelector("#confirm-csv-import")!;
+
+  cancelBtn.addEventListener("click", () => {
+    document.body.removeChild(modal);
+  });
+
+  confirmBtn.addEventListener("click", () => {
+    const selectedType = modal.querySelector<HTMLInputElement>(
+      'input[name="coordinate-type"]:checked'
+    )?.value as CoordinateType;
+
+    if (!selectedType) {
+      notyf.error("Please select a coordinate type");
+      return;
+    }
+
+    document.body.removeChild(modal);
+    processCSVData(parseResult, selectedType);
+  });
+
+  // Close on outside click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+    }
+  });
+}
+
+function processCSVData(
+  parseResult: CSVParseResult,
+  coordinateType: CoordinateType
+): void {
+  let convertedCount = 0;
+  const errors: string[] = [];
+
+  for (const [index, row] of parseResult.data.entries()) {
+    try {
+      if (coordinateType === "UTM") {
+        // Convert UTM to WGS84
+        const utm = extractUTMFromRow(row, parseResult.detectedColumns);
+        if (utm) {
+          const wgs84 = convertUTMtoWGS84(utm);
+          addToHistory("UTM_TO_WGS84", utm, wgs84, `CSV Row ${index + 1}`);
+          convertedCount++;
+        }
+      } else {
+        // Convert WGS84 to UTM
+        const wgs84 = extractWGS84FromRow(row, parseResult.detectedColumns);
+        if (wgs84) {
+          const utm = convertWGS84toUTM(wgs84);
+          addToHistory("WGS84_TO_UTM", wgs84, utm, `CSV Row ${index + 1}`);
+          convertedCount++;
+        }
+      }
+    } catch (error) {
+      errors.push(`Row ${index + 1}: ${error}`);
+    }
+  }
+
+  if (convertedCount > 0) {
+    const message = t("csvProcessed").replace(
+      "{count}",
+      convertedCount.toString()
+    );
+    notyf.success(`✓ ${message}`);
+  }
+
+  if (errors.length > 0) {
+    console.warn("CSV import errors:", errors);
+    if (convertedCount === 0) {
+      notyf.error(t("noValidData"));
+    }
+  }
+}
+
+function extractUTMFromRow(
+  row: any,
+  detectedColumns: any
+): UTMCoordinate | null {
+  if (!detectedColumns) return null;
+
+  const easting = parseFloat(row[detectedColumns.easting || ""]);
+  const northing = parseFloat(row[detectedColumns.northing || ""]);
+  const zone = parseInt(row[detectedColumns.zone || ""], 10);
+  const hemisphere = row[detectedColumns.hemisphere || ""] as "N" | "S";
+
+  if (isNaN(easting) || isNaN(northing) || isNaN(zone) || !hemisphere) {
+    return null;
+  }
+
+  return { easting, northing, zone, hemisphere };
+}
+
+function extractWGS84FromRow(
+  row: any,
+  detectedColumns: any
+): WGS84Coordinate | null {
+  if (!detectedColumns) return null;
+
+  const latitude = parseFloat(row[detectedColumns.latitude || ""]);
+  const longitude = parseFloat(row[detectedColumns.longitude || ""]);
+
+  if (isNaN(latitude) || isNaN(longitude)) {
+    return null;
+  }
+
+  return { latitude, longitude };
+}
 // Set up event listeners
 const conversionTitleInput =
   document.querySelector<HTMLInputElement>("#conversion-title")!;
@@ -490,6 +732,10 @@ const clearHistoryBtn =
   document.querySelector<HTMLButtonElement>("#clear-history")!;
 const exportHistoryBtn =
   document.querySelector<HTMLButtonElement>("#export-history")!;
+const importCSVBtn =
+  document.querySelector<HTMLButtonElement>("#import-csv-btn")!;
+const csvFileInput =
+  document.querySelector<HTMLInputElement>("#csv-file-input")!;
 
 // Initialize history on page load
 loadHistory();
@@ -581,6 +827,8 @@ convertToWGS84Btn.addEventListener("click", convertUTMToWGS84);
 convertToUTMBtn.addEventListener("click", convertWGS84ToUTM);
 clearHistoryBtn.addEventListener("click", clearHistory);
 exportHistoryBtn.addEventListener("click", exportHistory);
+importCSVBtn.addEventListener("click", importCSVFile);
+csvFileInput.addEventListener("change", handleCSVFileSelect);
 
 // Add Enter key support for UTM inputs
 const utmInputs = [eastingInput, northingInput, zoneInput];

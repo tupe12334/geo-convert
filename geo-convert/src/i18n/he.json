@@ -25,5 +25,16 @@
   "workingBench": "שולחן עבודה",
   "notesAndCalculations": "הערות וחישובים",
   "load": "טען",
-  "conversionTitlePlaceholder": "הבית של פיסטוק"
+  "conversionTitlePlaceholder": "הבית של פיסטוק",
+  "importCSV": "ייבא קובץ CSV",
+  "selectCSVFile": "בחר קובץ CSV",
+  "csvImported": "קובץ CSV יובא בהצלחה",
+  "csvError": "שגיאה בייבוא קובץ CSV",
+  "selectCoordinateType": "בחר סוג קואורדינטות עבור נתוני CSV:",
+  "csvDetectedAs": "CSV זוהה כ:",
+  "csvColumnMapping": "מיפוי עמודות:",
+  "confirmImport": "אשר ייבוא",
+  "cancelImport": "ביטול",
+  "noValidData": "לא נמצאו נתוני קואורדינטות תקינים ב-CSV",
+  "csvProcessed": "CSV עובד: {count} קואורדינטות הומרו"
 }

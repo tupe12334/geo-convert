@@ -25,5 +25,16 @@
   "workingBench": "Working Bench",
   "notesAndCalculations": "Notes & Calculations",
   "load": "Load",
-  "conversionTitlePlaceholder": "Pistachio's House"
+  "conversionTitlePlaceholder": "Pistachio's House",
+  "importCSV": "Import CSV File",
+  "selectCSVFile": "Select CSV File",
+  "csvImported": "CSV file imported successfully",
+  "csvError": "Error importing CSV file",
+  "selectCoordinateType": "Select coordinate type for CSV data:",
+  "csvDetectedAs": "CSV detected as:",
+  "csvColumnMapping": "Column Mapping:",
+  "confirmImport": "Confirm Import",
+  "cancelImport": "Cancel",
+  "noValidData": "No valid coordinate data found in CSV",
+  "csvProcessed": "CSV processed: {count} coordinates converted"
 }

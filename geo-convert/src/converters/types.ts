@@ -18,3 +18,6 @@ export interface ConversionRecord {
   output: WGS84Coordinate | UTMCoordinate;
   title?: string;
 }
+
+// Re-export CSV types
+export type { CoordinateType, CSVParseResult, CSVRow } from "./parseCSV/types";

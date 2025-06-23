@@ -412,6 +412,247 @@ button:active {
   color: #fff;
 }
 
+/* CSV Import Styles */
+.import-csv-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  background: linear-gradient(135deg, #059669, #10b981);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.import-csv-button:hover {
+  background: linear-gradient(135deg, #047857, #059669);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.import-csv-button [data-lucide] {
+  width: 18px;
+  height: 18px;
+}
+
+/* CSV Import Modal */
+.csv-import-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.csv-import-dialog {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.csv-import-dialog h3 {
+  margin: 0 0 1.5rem 0;
+  color: #fff;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.detected-type {
+  background: rgba(100, 108, 255, 0.2);
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 500;
+}
+
+.column-mapping {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.column-mapping h4 {
+  margin: 0 0 0.75rem 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.column-mapping div {
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.column-mapping div:last-child {
+  margin-bottom: 0;
+}
+
+.coordinate-type-selection {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.coordinate-type-selection label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.coordinate-type-selection label:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.coordinate-type-selection input[type="radio"] {
+  margin: 0;
+  accent-color: #646cff;
+}
+
+.csv-preview {
+  margin-bottom: 1.5rem;
+}
+
+.csv-preview h4 {
+  margin: 0 0 0.75rem 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.csv-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.8rem;
+}
+
+.csv-preview th,
+.csv-preview td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  word-break: break-word;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.csv-preview th {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  color: #646cff;
+}
+
+.csv-preview tr:last-child td {
+  border-bottom: none;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.confirm-button {
+  background: linear-gradient(135deg, #646cff, #535bf2);
+  color: white;
+}
+
+.confirm-button:hover {
+  background: linear-gradient(135deg, #535bf2, #646cff);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+}
+
+/* Responsive CSV Modal */
+@media (max-width: 600px) {
+  .csv-import-modal {
+    padding: 0.5rem;
+  }
+
+  .csv-import-dialog {
+    padding: 1.5rem;
+    max-height: 90vh;
+  }
+
+  .coordinate-type-selection {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dialog-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .csv-preview table {
+    font-size: 0.7rem;
+  }
+
+  .csv-preview th,
+  .csv-preview td {
+    padding: 0.4rem;
+    max-width: 80px;
+  }
+}
+
 /* Large screen optimizations */
 @media (min-width: 1400px) {
   #app {
