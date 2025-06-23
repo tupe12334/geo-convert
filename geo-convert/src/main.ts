@@ -539,7 +539,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
     : "";
 
   modal.innerHTML = `
-    <div class="csv-import-dialog">
+    <div class="csv-import-dialog max-h-[95vh] overflow-y-auto">
       <h3>${t("selectCoordinateType")}</h3>
       ${
         detectedTypeText
@@ -578,7 +578,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
               </tr>
             </thead>
           </table>
-          <div class="max-h-96 overflow-y-auto">
+          <div class="max-h-48 overflow-y-auto">
             <table class="w-full border-collapse text-sm">
               <tbody>
                 ${parseResult.data
@@ -728,7 +728,7 @@ function offerCSVDownload(
   const targetType = coordinateType === "UTM" ? "WGS84" : "UTM";
 
   modal.innerHTML = `
-    <div class="csv-download-dialog">
+    <div class="csv-download-dialog max-h-[80vh] overflow-y-auto">
       <h3>${t("downloadConvertedCSV")}</h3>
       <p>Your CSV has been converted from ${coordinateType} to ${targetType}. Would you like to download the results?</p>
       
