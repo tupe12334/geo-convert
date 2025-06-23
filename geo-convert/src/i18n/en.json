@@ -36,8 +36,8 @@
   "confirmImport": "Confirm Import",
   "cancelImport": "Cancel",
   "noValidData": "No valid coordinate data found in CSV",
-  "csvProcessed": "CSV processed: {count} coordinates converted",
-  "csvPreview": "Preview (first 3 rows):",
+  "csvProcessed": "CSV processed: {{count}} coordinates converted",
+  "csvPreview": "Preview (first {{count}} rows):",
   "downloadConvertedCSV": "Download Converted CSV",
   "csvDownloaded": "Converted coordinates downloaded as CSV"
 }

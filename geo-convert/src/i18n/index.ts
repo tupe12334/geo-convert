@@ -46,7 +46,8 @@ const updateDirection = (lng: string) => {
   }
 };
 
-export const t = (key: string) => i18next.t(key);
+export const t = (key: string, options?: any): string =>
+  i18next.t(key, options) as string;
 
 const updateUI = () => {
   // Update all elements with data-i18n attribute
@@ -64,7 +65,11 @@ const updateUI = () => {
   );
   placeholderElements.forEach((element) => {
     const key = element.getAttribute("data-i18n-placeholder");
-    if (key && (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement)) {
+    if (
+      key &&
+      (element instanceof HTMLInputElement ||
+        element instanceof HTMLTextAreaElement)
+    ) {
       element.placeholder = t(key);
     }
   });

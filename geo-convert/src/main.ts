@@ -568,7 +568,9 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       </div>
       
       <div class="csv-preview">
-        <h4>${t("csvPreview")}</h4>
+        <h4>${t("csvPreview", {
+          count: Math.min(parseResult.data.length, 100),
+        })}</h4>
         <div class="rounded-md border border-white/10 bg-white/5">
           <table class="w-full border-collapse text-sm">
             <thead>
@@ -697,10 +699,7 @@ function processCSVData(
   }
 
   if (convertedCount > 0) {
-    const message = t("csvProcessed").replace(
-      "{count}",
-      convertedCount.toString()
-    );
+    const message = t("csvProcessed", { count: convertedCount });
     notyf.success(`✓ ${message}`);
 
     // Offer to download converted data
@@ -1109,6 +1108,8 @@ const showInfoDialog = (): void => {
   });
 };
 
-document.querySelector<HTMLButtonElement>("#info-btn")!.addEventListener("click", () => {
-  showInfoDialog();
-});
+document
+  .querySelector<HTMLButtonElement>("#info-btn")!
+  .addEventListener("click", () => {
+    showInfoDialog();
+  });
