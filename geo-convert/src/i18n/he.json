@@ -5,6 +5,7 @@
   "utmInputPlaceholder": "הכנס קואורדינטות UTM (דוגמה: 32T 0377299 5255068)",
   "wgs84InputPlaceholder": "הכנס קואורדינטות WGS84 (דוגמה: 47.123456, 8.654321)",
   "convert": "המר",
+  "conversionTitle": "כותרת המרה",
   "result": "תוצאה",
   "invalidInput": "קלט לא תקין",
   "conversionError": "שגיאה בהמרה",

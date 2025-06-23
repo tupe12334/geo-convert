@@ -87,11 +87,11 @@ h3 {
 
 /* .coordinates-grid converted to Tailwind classes */
 
-/* .utm-section, .wgs84-section, .working-branch-section, .history-section converted to Tailwind classes */
+/* .utm-section, .wgs84-section, .working-bench-section, .history-section converted to Tailwind classes */
 
 .utm-section h3,
 .wgs84-section h3,
-.working-branch-section h3,
+.working-bench-section h3,
 .history-section h3 {
   margin-top: 0;
   margin-bottom: 1.5rem;
@@ -120,7 +120,7 @@ h3 {
 
 .input-section input,
 .input-section select,
-.working-branch-section textarea {
+.working-bench-section textarea {
   padding: 0.75rem;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
@@ -132,7 +132,7 @@ h3 {
 
 .input-section input:focus,
 .input-section select:focus,
-.working-branch-section textarea:focus {
+.working-bench-section textarea:focus {
   outline: none;
   border-color: #646cff;
 }
@@ -141,7 +141,7 @@ h3 {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.working-branch-section textarea {
+.working-bench-section textarea {
   width: 100%;
   min-height: 120px;
   resize: vertical;
@@ -151,11 +151,11 @@ h3 {
   max-width: 100%;
 }
 
-.working-branch-section textarea::placeholder {
+.working-bench-section textarea::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.working-branch-section label {
+.working-bench-section label {
   display: block;
   margin-bottom: 0.5rem;
   color: #fff;

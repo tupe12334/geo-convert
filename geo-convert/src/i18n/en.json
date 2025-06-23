@@ -5,6 +5,7 @@
   "utmInputPlaceholder": "Enter UTM coordinates (e.g., 32T 0377299 5255068)",
   "wgs84InputPlaceholder": "Enter WGS84 coordinates (e.g., 47.123456, 8.654321)",
   "convert": "Convert",
+  "conversionTitle": "Conversion Title",
   "result": "Result",
   "invalidInput": "Invalid input",
   "conversionError": "Conversion error",
