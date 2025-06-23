@@ -107,5 +107,21 @@ describe("convertWGS84toUTM", () => {
       expect(typeof result.easting).toBe("number");
       expect(typeof result.northing).toBe("number");
     });
+
+    it("should convert coordinates 32.062289, 34.772015 correctly", () => {
+      const wgs84: WGS84Coordinate = {
+        latitude: 32.062289,
+        longitude: 34.772015,
+      };
+
+      const result = convertWGS84toUTM(wgs84);
+
+      console.log("Conversion result:", result);
+      // The coordinates are in Israel, which should be zone 36, northern hemisphere
+      expect(result.zone).toBe(36);
+      expect(result.hemisphere).toBe("S");
+      expect(result.easting).toBeCloseTo(667274.762, 2);
+      expect(result.northing).toBeCloseTo(3548713.386, 3);
+    });
   });
 });
