@@ -17,18 +17,18 @@ import type {
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
-    <div class="flex justify-between items-center mb-8">
-      <h1 class="mb-0" data-i18n="title">Geographic Coordinate Converter</h1>
-      <div class="flex items-center gap-2">
-        <label for="language-select" class="text-white/80 text-sm">Language:</label>
-        <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-1 text-white text-sm">
+    <div class="flex flex-wrap sm:flex-nowrap justify-between items-center mb-8 gap-4">
+      <h1 class="mb-0 flex-shrink-0 leading-none" data-i18n="title">Geographic Coordinate Converter</h1>
+      <div class="flex items-center gap-2 flex-shrink-0 h-[2.5rem]">
+        <label for="language-select" class="text-white/80 text-sm whitespace-nowrap">Language:</label>
+        <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full">
           <option value="he">עברית</option>
           <option value="en">English</option>
         </select>
       </div>
     </div>
-    <div class="bg-white/5 rounded-xl p-8 my-8 border border-white/10 w-full max-w-full box-border">
-      <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-8 w-full">
+    <div class="bg-white/5 rounded-xl p-8 border border-white/10 w-full max-w-full box-border">
+      <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-2 w-full">
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section">
           <h3 data-i18n="workingBench">Working Bench</h3>
           <div class="flex flex-col w-full mb-4">
