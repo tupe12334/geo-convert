@@ -7,5 +7,6 @@
   "convert": "המר",
   "result": "תוצאה",
   "invalidInput": "קלט לא תקין",
-  "conversionError": "שגיאה בהמרה"
+  "conversionError": "שגיאה בהמרה",
+  "notesPlaceholder": "השתמש באזור זה לרישומים, חישובים או אחסון זמני. שדה זה אינו משפיע על המרות הקואורדינטות."
 }
