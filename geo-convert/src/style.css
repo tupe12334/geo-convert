@@ -35,12 +35,6 @@ body.ltr {
   direction: ltr;
 }
 
-h1 {
-  font-size: 2.5em;
-  line-height: 1.1;
-  color: #fff;
-}
-
 /* Language select styling */
 #language-select {
   background-color: rgba(255, 255, 255, 0.1);
