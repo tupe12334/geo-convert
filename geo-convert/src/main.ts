@@ -565,26 +565,40 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       
       <div class="csv-preview">
         <h4>${t("csvPreview")}</h4>
-        <table>
-          <thead>
-            <tr>
-              ${parseResult.headers
-                .map((header) => `<th>${header}</th>`)
-                .join("")}
-            </tr>
-          </thead>
-          <tbody>
-            ${parseResult.data
-              .slice(0, 3)
-              .map(
-                (row) =>
-                  `<tr>${parseResult.headers
-                    .map((header) => `<td>${row[header] || ""}</td>`)
-                    .join("")}</tr>`
-              )
-              .join("")}
-          </tbody>
-        </table>
+        <div class="rounded-md border border-white/10 bg-white/5">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr>
+                ${parseResult.headers
+                  .map(
+                    (header) =>
+                      `<th class="bg-white/10 px-2 py-2 text-left font-semibold text-blue-400 border-b border-white/10 sticky top-0 z-10">${header}</th>`
+                  )
+                  .join("")}
+              </tr>
+            </thead>
+          </table>
+          <div class="max-h-60 overflow-y-auto">
+            <table class="w-full border-collapse text-sm">
+              <tbody>
+                ${parseResult.data
+                  .slice(0, 100)
+                  .map(
+                    (row) =>
+                      `<tr class="border-b border-white/10 last:border-b-0">${parseResult.headers
+                        .map(
+                          (header) =>
+                            `<td class="px-2 py-2 text-white max-w-32 truncate">${
+                              row[header] || ""
+                            }</td>`
+                        )
+                        .join("")}</tr>`
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
       
       <div class="dialog-actions">
