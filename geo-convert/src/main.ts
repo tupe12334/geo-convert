@@ -224,9 +224,7 @@ function updateHistoryDisplay(): void {
               <button class="history-delete" data-id="${
                 record.id
               }" title="Delete this conversion">🗑️</button>
-              <button class="history-load" data-id="${
-                record.id
-              }">Load</button>
+              <button class="history-load" data-id="${record.id}">Load</button>
             </div>
             <div class="history-content">
               <div class="history-input">
@@ -260,9 +258,7 @@ function updateHistoryDisplay(): void {
               <button class="history-delete" data-id="${
                 record.id
               }" title="Delete this conversion">🗑️</button>
-              <button class="history-load" data-id="${
-                record.id
-              }">Load</button>
+              <button class="history-load" data-id="${record.id}">Load</button>
             </div>
             <div class="history-content">
               <div class="history-input">
@@ -365,7 +361,7 @@ function deleteHistoryItem(id: string): void {
   const record = conversionHistory.find((r) => r.id === id);
   if (!record) return;
 
-  const confirmMessage = record.title 
+  const confirmMessage = record.title
     ? `Are you sure you want to delete "${record.title}"?`
     : "Are you sure you want to delete this conversion?";
 
