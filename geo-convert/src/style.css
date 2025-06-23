@@ -19,6 +19,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -34,10 +36,12 @@ h3 {
 }
 
 #app {
-  max-width: 800px;
+  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .converter {
@@ -46,13 +50,17 @@ h3 {
   padding: 2rem;
   margin: 2rem 0;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .coordinates-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .utm-section,
@@ -63,6 +71,9 @@ h3 {
   border-radius: 8px;
   padding: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 0; /* Allow sections to shrink below their content width */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .utm-section h3,
@@ -383,26 +394,30 @@ button:active {
   color: #fff;
 }
 
+/* Large screen optimizations */
+@media (min-width: 1400px) {
+  .coordinates-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+  }
+  
+  #app {
+    padding: 3rem;
+  }
+  
+  .converter {
+    padding: 2.5rem;
+  }
+}
+
 @media (max-width: 1200px) {
   .coordinates-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
   }
 
-  .working-branch-section {
-    order: 3;
-  }
-
-  .utm-section {
-    order: 1;
-  }
-
-  .wgs84-section {
-    order: 2;
-  }
-
-  .history-section {
-    order: 4;
+  #app {
+    padding: 1.5rem;
   }
 }
 
@@ -412,20 +427,8 @@ button:active {
     gap: 1.5rem;
   }
 
-  .working-branch-section {
-    order: 4; /* Place working branch at the bottom on mobile */
-  }
-
-  .utm-section {
-    order: 1;
-  }
-
-  .wgs84-section {
-    order: 2;
-  }
-
-  .history-section {
-    order: 3;
+  #app {
+    padding: 1rem;
   }
 
   .history-controls {
@@ -437,24 +440,34 @@ button:active {
 @media (max-width: 600px) {
   #app {
     padding: 1rem;
+    max-width: 100%;
   }
 
   .converter {
-    padding: 1.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
   }
 
   h1 {
-    font-size: 2em;
+    font-size: 1.8em;
+    margin-bottom: 1.5rem;
   }
 
   .coordinates-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .input-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .utm-section,
+  .wgs84-section,
+  .working-branch-section,
+  .history-section {
+    padding: 1rem;
   }
 }
 .logo:hover {
