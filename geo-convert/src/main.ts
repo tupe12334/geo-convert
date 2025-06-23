@@ -18,6 +18,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <div class="working-branch-section">
           <h3>Working Branch</h3>
           <div class="input-group">
+            <label for="conversion-title">Conversion Title (optional):</label>
+            <input 
+              type="text" 
+              id="conversion-title" 
+              placeholder="e.g., Survey Point A, Building Corner, etc."
+              maxlength="100"
+            />
+          </div>
+          <div class="input-group">
             <label for="working-notes">Notes & Calculations:</label>
             <textarea 
               id="working-notes" 
@@ -153,7 +162,8 @@ function saveHistory(): void {
 function addToHistory(
   type: "UTM_TO_WGS84" | "WGS84_TO_UTM",
   input: UTMCoordinate | WGS84Coordinate,
-  output: WGS84Coordinate | UTMCoordinate
+  output: WGS84Coordinate | UTMCoordinate,
+  title?: string
 ): void {
   const record: ConversionRecord = {
     id: generateId(),
@@ -161,6 +171,7 @@ function addToHistory(
     type,
     input,
     output,
+    title: title?.trim() || undefined,
   };
 
   conversionHistory.unshift(record); // Add to beginning of array
@@ -192,6 +203,8 @@ function updateHistoryDisplay(): void {
     .map((record) => {
       const time = record.timestamp.toLocaleTimeString();
       const date = record.timestamp.toLocaleDateString();
+      const titleDisplay = record.title ? 
+        `<div class="history-title">${record.title}</div>` : '';
 
       if (record.type === "UTM_TO_WGS84") {
         const input = record.input as UTMCoordinate;
@@ -201,8 +214,12 @@ function updateHistoryDisplay(): void {
             <div class="history-header">
               <span class="history-type">UTM → WGS84</span>
               <span class="history-time">${date} ${time}</span>
-              <button class="history-load" data-id="${record.id}">Load</button>
+              <div class="history-actions">
+                <button class="history-edit-title" data-id="${record.id}" title="Edit title">📝</button>
+                <button class="history-load" data-id="${record.id}">Load</button>
+              </div>
             </div>
+            ${titleDisplay}
             <div class="history-content">
               <div class="history-input">
                 <strong>UTM:</strong> ${input.easting.toFixed(
@@ -226,8 +243,12 @@ function updateHistoryDisplay(): void {
             <div class="history-header">
               <span class="history-type">WGS84 → UTM</span>
               <span class="history-time">${date} ${time}</span>
-              <button class="history-load" data-id="${record.id}">Load</button>
+              <div class="history-actions">
+                <button class="history-edit-title" data-id="${record.id}" title="Edit title">📝</button>
+                <button class="history-load" data-id="${record.id}">Load</button>
+              </div>
             </div>
+            ${titleDisplay}
             <div class="history-content">
               <div class="history-input">
                 <strong>WGS84:</strong> ${input.latitude.toFixed(
@@ -252,6 +273,14 @@ function updateHistoryDisplay(): void {
     button.addEventListener("click", (e) => {
       const id = (e.target as HTMLButtonElement).dataset.id;
       if (id) loadFromHistory(id);
+    });
+  });
+
+  // Add event listeners for edit title buttons
+  historyList.querySelectorAll(".history-edit-title").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const id = (e.target as HTMLButtonElement).dataset.id;
+      if (id) editHistoryTitle(id);
     });
   });
 }
@@ -283,7 +312,28 @@ function loadFromHistory(id: string): void {
     hemisphereSelect.value = output.hemisphere;
   }
 
+  // Load title if it exists
+  if (record.title) {
+    conversionTitleInput.value = record.title;
+  }
+
   status.innerHTML = '<span class="success">✓ Loaded from history</span>';
+}
+
+// Edit history title
+function editHistoryTitle(id: string): void {
+  const record = conversionHistory.find((r) => r.id === id);
+  if (!record) return;
+
+  const currentTitle = record.title || '';
+  const newTitle = prompt('Enter title for this conversion:', currentTitle);
+  
+  if (newTitle !== null) { // User didn't cancel
+    record.title = newTitle.trim() || undefined;
+    saveHistory();
+    updateHistoryDisplay();
+    status.innerHTML = '<span class="success">✓ Title updated</span>';
+  }
 }
 
 // Clear history
@@ -327,6 +377,8 @@ function exportHistory(): void {
   status.innerHTML = '<span class="success">✓ History exported</span>';
 }
 // Set up event listeners
+const conversionTitleInput =
+  document.querySelector<HTMLInputElement>("#conversion-title")!;
 const eastingInput =
   document.querySelector<HTMLInputElement>("#easting-input")!;
 const northingInput =
@@ -383,7 +435,11 @@ function convertUTMToWGS84() {
     status.innerHTML = '<span class="success">✓ Converted UTM to WGS84</span>';
 
     // Add to history
-    addToHistory("UTM_TO_WGS84", utm, wgs84);
+    const title = conversionTitleInput.value.trim();
+    addToHistory("UTM_TO_WGS84", utm, wgs84, title);
+    
+    // Clear title input after successful conversion
+    conversionTitleInput.value = '';
   } catch (error) {
     status.innerHTML =
       '<span class="error">Error during UTM to WGS84 conversion</span>';
@@ -425,7 +481,11 @@ function convertWGS84ToUTM() {
     status.innerHTML = '<span class="success">✓ Converted WGS84 to UTM</span>';
 
     // Add to history
-    addToHistory("WGS84_TO_UTM", { latitude, longitude }, utm);
+    const title = conversionTitleInput.value.trim();
+    addToHistory("WGS84_TO_UTM", { latitude, longitude }, utm, title);
+    
+    // Clear title input after successful conversion
+    conversionTitleInput.value = '';
   } catch (error) {
     status.innerHTML =
       '<span class="error">Error during WGS84 to UTM conversion</span>';

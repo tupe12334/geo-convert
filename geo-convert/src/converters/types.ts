@@ -16,4 +16,5 @@ export interface ConversionRecord {
   type: "UTM_TO_WGS84" | "WGS84_TO_UTM";
   input: UTMCoordinate | WGS84Coordinate;
   output: WGS84Coordinate | UTMCoordinate;
+  title?: string;
 }
