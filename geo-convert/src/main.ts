@@ -12,7 +12,7 @@ import type {
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
-    <h1>UTM ⇄ WGS84 Converter</h1>      <div class="converter">
+    <h1>UTM ⇄ WGS84 Converter</h1>      <div class="bg-white/5 rounded-xl p-8 my-8 border border-white/10 w-full max-w-full box-border">
       <div class="coordinates-grid">
         <div class="working-branch-section">
           <h3>Working Branch</h3>
