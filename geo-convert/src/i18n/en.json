@@ -39,5 +39,8 @@
   "csvProcessed": "CSV processed: {{count}} coordinates converted",
   "csvPreview": "Preview (first {{count}} rows):",
   "downloadConvertedCSV": "Download Converted CSV",
-  "csvDownloaded": "Converted coordinates downloaded as CSV"
+  "csvDownloaded": "Converted coordinates downloaded as CSV",
+  "infoDialogTitle": "Ofek Gabay - אופק גבאי",
+  "infoDialogMessage": "Feel free to contact me for any issue - Ofek Gabay {{phone}} This system is a pilot for a civilian system",
+  "close": "Close"
 }

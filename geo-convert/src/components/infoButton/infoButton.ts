@@ -1,4 +1,5 @@
 import { getPhone } from "../../utils/getPhone";
+import { t } from "../../i18n";
 
 /**
  * Creates and returns an info button element with proper styling and event handling
@@ -25,10 +26,10 @@ const showInfoDialog = (): void => {
   modal.className = "info-modal";
   modal.innerHTML = `
     <div class="info-dialog">
-      <h3>Ofek Gabay - אופק גבאי</h3>
-      <p>${getPhone()}</p>
+      <h3>${t("infoDialogTitle")}</h3>
+      <p>${t("infoDialogMessage", { phone: getPhone() })}</p>
       <div class="dialog-actions">
-        <button id="close-info" class="confirm-button">Close</button>
+        <button id="close-info" class="confirm-button">${t("close")}</button>
       </div>
     </div>
   `;

@@ -39,5 +39,8 @@
   "csvProcessed": "CSV עובד: {{count}} קואורדינטות הומרו",
   "csvPreview": "תצוגה מקדימה ({{count}} שורות ראשונות):",
   "downloadConvertedCSV": "הורד CSV מומר",
-  "csvDownloaded": "קואורדינטות מומרות הורדו כ-CSV"
+  "csvDownloaded": "קואורדינטות מומרות הורדו כ-CSV",
+  "infoDialogTitle": "אופק גבאי - Ofek Gabay",
+  "infoDialogMessage": "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{phone}} המערכת היא הלבנה של מערכת אזרחית",
+  "close": "סגור"
 }
