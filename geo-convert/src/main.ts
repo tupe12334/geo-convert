@@ -49,7 +49,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         </div>
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section">
-          <h3 data-i18n="utmToWgs84">UTM Coordinates</h3>
+          <h3 data-i18n="utm">UTM Coordinates</h3>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="easting-input">Easting (X):</label>
@@ -93,7 +93,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         </div>
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
-          <h3 data-i18n="wgs84ToUtm">WGS84 Coordinates</h3>
+          <h3>WGS84</h3>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="latitude-input">Latitude:</label>

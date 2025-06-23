@@ -20,7 +20,30 @@ export const initI18n = async () => {
 
 export const changeLanguage = (lng: string) => {
   i18next.changeLanguage(lng);
+  updateDirection(lng);
   updateUI();
+};
+
+const updateDirection = (lng: string) => {
+  const isRTL = lng === "he";
+  const html = document.documentElement;
+
+  if (isRTL) {
+    html.setAttribute("dir", "rtl");
+    html.setAttribute("lang", "he");
+  } else {
+    html.setAttribute("dir", "ltr");
+    html.setAttribute("lang", "en");
+  }
+
+  // Add or remove RTL class for CSS styling
+  if (isRTL) {
+    document.body.classList.add("rtl");
+    document.body.classList.remove("ltr");
+  } else {
+    document.body.classList.add("ltr");
+    document.body.classList.remove("rtl");
+  }
 };
 
 export const t = (key: string) => i18next.t(key);
@@ -56,5 +79,5 @@ const updateUI = () => {
   });
 };
 
-// Export updateUI for external use
+// Export updateUI and updateDirection for external use
 export { updateUI };

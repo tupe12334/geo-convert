@@ -26,6 +26,15 @@ body {
   box-sizing: border-box;
 }
 
+/* RTL/LTR Support */
+body.rtl {
+  direction: rtl;
+}
+
+body.ltr {
+  direction: ltr;
+}
+
 h1 {
   font-size: 2.5em;
   line-height: 1.1;
@@ -205,8 +214,17 @@ button:active {
 
 .success {
   color: #4ade80;
-  text-align: left;
+  text-align: start;
   width: 100%;
+}
+
+/* RTL specific adjustments */
+body.rtl .success {
+  text-align: start;
+}
+
+body.ltr .success {
+  text-align: start;
 }
 
 .coordinate-pair {

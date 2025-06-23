@@ -1,7 +1,7 @@
 {
   "title": "ממיר קואורדינטות גיאוגרפיות",
-  "utmToWgs84": "UTM ל-WGS84",
-  "wgs84ToUtm": "WGS84 ל-UTM",
+  "utm": "UTM",
+  "wgs84": "WGS84",
   "utmInputPlaceholder": "הכנס קואורדינטות UTM (דוגמה: 32T 0377299 5255068)",
   "wgs84InputPlaceholder": "הכנס קואורדינטות WGS84 (דוגמה: 47.123456, 8.654321)",
   "convert": "המר",
