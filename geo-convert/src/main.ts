@@ -257,7 +257,7 @@ function updateHistoryDisplay(): void {
         const input = record.input as UTMCoordinate;
         const output = record.output as WGS84Coordinate;
         return `
-          <div class="history-item" data-id="${record.id}">
+          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${record.id}">
             <div class="history-header">
               <span class="history-type">UTM → WGS84</span>
               <span class="history-time">${date} ${time}</span>
@@ -291,7 +291,7 @@ function updateHistoryDisplay(): void {
         const input = record.input as WGS84Coordinate;
         const output = record.output as UTMCoordinate;
         return `
-          <div class="history-item" data-id="${record.id}">
+          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${record.id}">
             <div class="history-header">
               <span class="history-type">WGS84 → UTM</span>
               <span class="history-time">${date} ${time}</span>
