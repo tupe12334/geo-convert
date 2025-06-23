@@ -215,19 +215,19 @@ function updateHistoryDisplay(): void {
             <div class="history-header">
               <span class="history-type">UTM → WGS84</span>
               <span class="history-time">${date} ${time}</span>
-              <div class="history-actions">
-                <button class="history-edit-title" data-id="${
-                  record.id
-                }" title="Edit title">📝</button>
-                <button class="history-delete" data-id="${
-                  record.id
-                }" title="Delete this conversion">🗑️</button>
-                <button class="history-load" data-id="${
-                  record.id
-                }">Load</button>
-              </div>
             </div>
             ${titleDisplay}
+            <div class="history-actions">
+              <button class="history-edit-title" data-id="${
+                record.id
+              }" title="Edit title">📝</button>
+              <button class="history-delete" data-id="${
+                record.id
+              }" title="Delete this conversion">🗑️</button>
+              <button class="history-load" data-id="${
+                record.id
+              }">Load</button>
+            </div>
             <div class="history-content">
               <div class="history-input">
                 <strong>UTM:</strong> ${input.easting.toFixed(
@@ -251,19 +251,19 @@ function updateHistoryDisplay(): void {
             <div class="history-header">
               <span class="history-type">WGS84 → UTM</span>
               <span class="history-time">${date} ${time}</span>
-              <div class="history-actions">
-                <button class="history-edit-title" data-id="${
-                  record.id
-                }" title="Edit title">📝</button>
-                <button class="history-delete" data-id="${
-                  record.id
-                }" title="Delete this conversion">🗑️</button>
-                <button class="history-load" data-id="${
-                  record.id
-                }">Load</button>
-              </div>
             </div>
             ${titleDisplay}
+            <div class="history-actions">
+              <button class="history-edit-title" data-id="${
+                record.id
+              }" title="Edit title">📝</button>
+              <button class="history-delete" data-id="${
+                record.id
+              }" title="Delete this conversion">🗑️</button>
+              <button class="history-load" data-id="${
+                record.id
+              }">Load</button>
+            </div>
             <div class="history-content">
               <div class="history-input">
                 <strong>WGS84:</strong> ${input.latitude.toFixed(
