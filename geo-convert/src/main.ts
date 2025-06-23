@@ -219,6 +219,9 @@ function updateHistoryDisplay(): void {
                 <button class="history-edit-title" data-id="${
                   record.id
                 }" title="Edit title">📝</button>
+                <button class="history-delete" data-id="${
+                  record.id
+                }" title="Delete this conversion">🗑️</button>
                 <button class="history-load" data-id="${
                   record.id
                 }">Load</button>
@@ -252,6 +255,9 @@ function updateHistoryDisplay(): void {
                 <button class="history-edit-title" data-id="${
                   record.id
                 }" title="Edit title">📝</button>
+                <button class="history-delete" data-id="${
+                  record.id
+                }" title="Delete this conversion">🗑️</button>
                 <button class="history-load" data-id="${
                   record.id
                 }">Load</button>
@@ -290,6 +296,14 @@ function updateHistoryDisplay(): void {
     button.addEventListener("click", (e) => {
       const id = (e.target as HTMLButtonElement).dataset.id;
       if (id) editHistoryTitle(id);
+    });
+  });
+
+  // Add event listeners for delete buttons
+  historyList.querySelectorAll(".history-delete").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const id = (e.target as HTMLButtonElement).dataset.id;
+      if (id) deleteHistoryItem(id);
     });
   });
 }
@@ -343,6 +357,23 @@ function editHistoryTitle(id: string): void {
     saveHistory();
     updateHistoryDisplay();
     status.innerHTML = '<span class="success">✓ Title updated</span>';
+  }
+}
+
+// Delete history item
+function deleteHistoryItem(id: string): void {
+  const record = conversionHistory.find((r) => r.id === id);
+  if (!record) return;
+
+  const confirmMessage = record.title 
+    ? `Are you sure you want to delete "${record.title}"?`
+    : "Are you sure you want to delete this conversion?";
+
+  if (confirm(confirmMessage)) {
+    conversionHistory = conversionHistory.filter((r) => r.id !== id);
+    saveHistory();
+    updateHistoryDisplay();
+    status.innerHTML = '<span class="success">✓ Conversion deleted</span>';
   }
 }
 
