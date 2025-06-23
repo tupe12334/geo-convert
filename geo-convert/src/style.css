@@ -165,13 +165,6 @@ h3 {
   color: #fff;
 }
 
-.input-help {
-  font-size: 0.9em;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 1.5rem;
-  line-height: 1.4;
-}
-
 button {
   background: linear-gradient(135deg, #646cff, #535bf2);
   border: none;
@@ -237,16 +230,6 @@ button:active {
 .status-section {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 1.5rem;
-}
-
-.status-display {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.95em;
 }
 
 .status-display .success {

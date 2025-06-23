@@ -107,7 +107,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       </div>
       
       <div class="status-section">
-        <div id="status" class="status-display">
+        <div id="status" class="bg-black/30 rounded-lg p-4 text-center text-white/80 border border-white/10 text-sm">
           Enter coordinates in either format to see the conversion
         </div>
       </div>
