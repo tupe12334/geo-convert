@@ -64,7 +64,7 @@ const updateUI = () => {
   );
   placeholderElements.forEach((element) => {
     const key = element.getAttribute("data-i18n-placeholder");
-    if (key && element instanceof HTMLInputElement) {
+    if (key && (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement)) {
       element.placeholder = t(key);
     }
   });

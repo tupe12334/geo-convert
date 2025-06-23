@@ -7,5 +7,6 @@
   "convert": "Convert",
   "result": "Result",
   "invalidInput": "Invalid input",
-  "conversionError": "Conversion error"
+  "conversionError": "Conversion error",
+  "notesPlaceholder": "Use this area for notes, calculations, or temporary data storage. This field doesn't affect coordinate conversions."
 }

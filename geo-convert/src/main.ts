@@ -40,8 +40,9 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           </div>
           <div class="flex flex-col w-full">
             <label for="working-notes">Notes & Calculations:</label>
-            <textarea 
-              id="working-notes" 
+            <textarea
+              id="working-notes"
+              data-i18n-placeholder="notesPlaceholder"
               placeholder="Use this area for notes, calculations, or temporary data storage. This field doesn't affect coordinate conversions."
               rows="6"
             ></textarea>
