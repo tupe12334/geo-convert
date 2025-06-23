@@ -230,20 +230,20 @@ button:active {
   #app {
     padding: 1rem;
   }
-  
+
   .converter {
     padding: 1.5rem;
   }
-  
+
   h1 {
     font-size: 2em;
   }
-  
+
   .coordinates-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .input-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
