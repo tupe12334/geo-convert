@@ -17,7 +17,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       <div class="coordinates-grid">
         <div class="working-branch-section">
           <h3>Working Branch</h3>
-          <div class="input-group">
+          <div class="flex flex-col w-full mb-4">
             <label for="conversion-title">Conversion Title (optional):</label>
             <input 
               type="text" 
@@ -26,7 +26,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               maxlength="100"
             />
           </div>
-          <div class="input-group">
+          <div class="flex flex-col w-full">
             <label for="working-notes">Notes & Calculations:</label>
             <textarea 
               id="working-notes" 
@@ -38,8 +38,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         
         <div class="utm-section">
           <h3>UTM Coordinates</h3>
-          <div class="input-grid">
-            <div class="input-group">
+          <div class="grid grid-cols-1 gap-4 mb-6">
+            <div class="flex flex-col w-full">
               <label for="easting-input">Easting (X):</label>
               <input 
                 type="number" 
@@ -48,7 +48,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
                 step="0.01"
               />
             </div>
-            <div class="input-group">
+            <div class="flex flex-col w-full">
               <label for="northing-input">Northing (Y):</label>
               <input 
                 type="number" 
@@ -57,7 +57,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
                 step="0.01"
               />
             </div>
-            <div class="input-group">
+            <div class="flex flex-col w-full">
               <label for="zone-input">Zone:</label>
               <input 
                 type="number" 
@@ -67,7 +67,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
                 max="60"
               />
             </div>
-            <div class="input-group">
+            <div class="flex flex-col w-full">
               <label for="hemisphere-select">Hemisphere:</label>
               <select id="hemisphere-select">
                 <option value="">Select</option>
@@ -81,8 +81,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         
         <div class="wgs84-section">
           <h3>WGS84 Coordinates</h3>
-          <div class="input-grid">
-            <div class="input-group">
+          <div class="grid grid-cols-1 gap-4 mb-6">
+            <div class="flex flex-col w-full">
               <label for="latitude-input">Latitude:</label>
               <input 
                 type="number" 
@@ -91,7 +91,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
                 step="0.00000001"
               />
             </div>
-            <div class="input-group">
+            <div class="flex flex-col w-full">
               <label for="longitude-input">Longitude:</label>
               <input 
                 type="number" 

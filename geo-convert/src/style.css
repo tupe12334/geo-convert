@@ -88,20 +88,6 @@ h3 {
   color: #fff;
 }
 
-.input-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 .input-section label {
   display: block;
   margin-bottom: 0.5rem;
