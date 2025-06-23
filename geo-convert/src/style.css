@@ -212,20 +212,7 @@ button:active {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.success {
-  color: #4ade80;
-  text-align: start;
-  width: 100%;
-}
-
-/* RTL specific adjustments */
-body.rtl .success {
-  text-align: start;
-}
-
-body.ltr .success {
-  text-align: start;
-}
+/* .success converted to Tailwind classes: text-green-400 text-start w-full */
 
 .coordinate-pair {
   margin-bottom: 0.5rem;
@@ -244,10 +231,7 @@ body.ltr .success {
   font-weight: 500;
 }
 
-.status-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1.5rem;
-}
+/* .status-section converted to Tailwind classes: border-t border-white/10 pt-6 */
 
 .status-display .success {
   color: #4ade80;

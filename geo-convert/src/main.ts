@@ -129,7 +129,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         </div>
       </div>
       
-      <div class="status-section">
+      <div class="border-t border-white/10 pt-6">
         <div id="status" class="bg-black/30 rounded-lg p-4 text-center text-white/80 border border-white/10 text-sm">
           Enter coordinates in either format to see the conversion
         </div>
@@ -355,7 +355,7 @@ function loadFromHistory(id: string): void {
     conversionTitleInput.value = record.title;
   }
 
-  status.innerHTML = '<span class="success">✓ Loaded from history</span>';
+  status.innerHTML = '<span class="text-green-400 text-start w-full">✓ Loaded from history</span>';
 }
 
 // Edit history title
@@ -371,7 +371,7 @@ function editHistoryTitle(id: string): void {
     record.title = newTitle.trim() || undefined;
     saveHistory();
     updateHistoryDisplay();
-    status.innerHTML = '<span class="success">✓ Title updated</span>';
+    status.innerHTML = '<span class="text-green-400 text-start w-full">✓ Title updated</span>';
   }
 }
 
@@ -388,7 +388,7 @@ function deleteHistoryItem(id: string): void {
     conversionHistory = conversionHistory.filter((r) => r.id !== id);
     saveHistory();
     updateHistoryDisplay();
-    status.innerHTML = '<span class="success">✓ Conversion deleted</span>';
+    status.innerHTML = '<span class="text-green-400 text-start w-full">✓ Conversion deleted</span>';
   }
 }
 
@@ -398,7 +398,7 @@ function clearHistory(): void {
     conversionHistory = [];
     saveHistory();
     updateHistoryDisplay();
-    status.innerHTML = '<span class="success">✓ History cleared</span>';
+    status.innerHTML = '<span class="text-green-400 text-start w-full">✓ History cleared</span>';
   }
 }
 
@@ -430,7 +430,7 @@ function exportHistory(): void {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  status.innerHTML = '<span class="success">✓ History exported</span>';
+  status.innerHTML = '<span class="text-green-400 text-start w-full">✓ History exported</span>';
 }
 // Set up event listeners
 const conversionTitleInput =
@@ -488,7 +488,7 @@ function convertUTMToWGS84() {
     const wgs84 = convertUTMtoWGS84(utm);
     latitudeInput.value = wgs84.latitude.toFixed(8);
     longitudeInput.value = wgs84.longitude.toFixed(8);
-    status.innerHTML = '<span class="success">✓ Converted UTM to WGS84</span>';
+    status.innerHTML = '<span class="text-green-400 text-start w-full">✓ Converted UTM to WGS84</span>';
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -534,7 +534,7 @@ function convertWGS84ToUTM() {
     northingInput.value = utm.northing.toFixed(2);
     zoneInput.value = utm.zone.toString();
     hemisphereSelect.value = utm.hemisphere;
-    status.innerHTML = '<span class="success">✓ Converted WGS84 to UTM</span>';
+    status.innerHTML = '<span class="text-green-400 text-start w-full">✓ Converted WGS84 to UTM</span>';
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -626,7 +626,7 @@ languageSelect.addEventListener("change", (e: Event) => {
   changeLanguage(selectedLanguage);
 
   const languageName = target.options[target.selectedIndex].text;
-  status.innerHTML = `<span class="success">✓ ${t(
+  status.innerHTML = `<span class="text-green-400 text-start w-full">✓ ${t(
     "result"
   )}: ${languageName}</span>`;
 });
