@@ -11,10 +11,11 @@ import type {
 } from "./converters/types";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div>
-    <h1>UTM ⇄ WGS84 Converter</h1>      <div class="converter">
+  <div class="max-w-screen-xl mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-8">UTM ⇄ WGS84 Converter</h1>
+    <div class="converter">
       <div class="coordinates-grid">
-        <div class="working-branch-section">
+        <div class="working-branch-section section">
           <h3>Working Branch</h3>
           <div class="input-group">
             <label for="working-notes">Notes & Calculations:</label>
@@ -26,7 +27,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           </div>
         </div>
         
-        <div class="utm-section">
+        <div class="utm-section section">
           <h3>UTM Coordinates</h3>
           <div class="input-grid">
             <div class="input-group">
@@ -69,7 +70,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <button id="convert-to-wgs84">Convert to WGS84 →</button>
         </div>
         
-        <div class="wgs84-section">
+        <div class="wgs84-section section">
           <h3>WGS84 Coordinates</h3>
           <div class="input-grid">
             <div class="input-group">
@@ -94,7 +95,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <button id="convert-to-utm">← Convert to UTM</button>
         </div>
 
-        <div class="history-section">
+        <div class="history-section section">
           <h3>Conversion History (<span id="history-count">0</span>)</h3>
           <div class="history-controls">
             <button id="clear-history" class="clear-button">Clear History</button>
