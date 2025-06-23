@@ -123,7 +123,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section">
           <h3><span data-i18n="conversionHistory">Conversion History</span> (<span id="history-count">0</span>)</h3>
-          <div class="history-controls">
+          <div class="flex gap-2 mb-4 justify-center">
             <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
             <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
