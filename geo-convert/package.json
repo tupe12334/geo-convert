@@ -19,6 +19,8 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "proj4": "^2.19.3"
+    "@tailwindcss/vite": "^4.1.10",
+    "proj4": "^2.19.3",
+    "tailwindcss": "^4.1.10"
   }
 }
