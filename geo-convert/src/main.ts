@@ -10,6 +10,18 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <h1>UTM ⇄ WGS84 Converter</h1>
     <div class="converter">
       <div class="coordinates-grid">
+        <div class="working-branch-section">
+          <h3>Working Branch</h3>
+          <div class="input-group">
+            <label for="working-notes">Notes & Calculations:</label>
+            <textarea 
+              id="working-notes" 
+              placeholder="Use this area for notes, calculations, or temporary data storage. This field doesn't affect coordinate conversions."
+              rows="10"
+            ></textarea>
+          </div>
+        </div>
+        
         <div class="utm-section">
           <h3>UTM Coordinates</h3>
           <div class="input-grid">

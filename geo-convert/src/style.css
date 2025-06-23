@@ -50,13 +50,14 @@ h3 {
 
 .coordinates-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
 }
 
 .utm-section,
-.wgs84-section {
+.wgs84-section,
+.working-branch-section {
   background: rgba(255, 255, 255, 0.03);
   border-radius: 8px;
   padding: 1.5rem;
@@ -64,7 +65,8 @@ h3 {
 }
 
 .utm-section h3,
-.wgs84-section h3 {
+.wgs84-section h3,
+.working-branch-section h3 {
   margin-top: 0;
   margin-bottom: 1.5rem;
   color: #fff;
@@ -92,6 +94,8 @@ h3 {
 .input-group {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input-section label {
@@ -103,7 +107,8 @@ h3 {
 }
 
 .input-section input,
-.input-section select {
+.input-section select,
+.working-branch-section textarea {
   padding: 0.75rem;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
@@ -114,13 +119,37 @@ h3 {
 }
 
 .input-section input:focus,
-.input-section select:focus {
+.input-section select:focus,
+.working-branch-section textarea:focus {
   outline: none;
   border-color: #646cff;
 }
 
 .input-section input::placeholder {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.working-branch-section textarea {
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.working-branch-section textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.working-branch-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  word-wrap: break-word;
 }
 
 .input-section select {
@@ -224,6 +253,25 @@ button:active {
 .status-display .error {
   color: #f87171;
   font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .coordinates-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .working-branch-section {
+    order: 3; /* Place working branch at the bottom on mobile */
+  }
+  
+  .utm-section {
+    order: 1;
+  }
+  
+  .wgs84-section {
+    order: 2;
+  }
 }
 
 @media (max-width: 600px) {
