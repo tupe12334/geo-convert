@@ -7,6 +7,8 @@ import {
 import { createIcons, Pencil, Trash2 } from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t } from "./i18n";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 import type {
   ConversionRecord,
   UTMCoordinate,
@@ -130,16 +132,37 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           </div>
         </div>
       </div>
-      
-      <div class="border-t border-white/10 pt-6">
-        <div id="status" class="bg-black/30 rounded-lg p-4 text-center text-white/80 border border-white/10 text-sm">
-          Enter coordinates in either format to see the conversion
-        </div>
-      </div>
     </div>
   </div>
 `;
 createIcons({ icons: { Pencil, Trash2 } });
+
+// Initialize Notyf for toast notifications
+const notyf = new Notyf({
+  duration: 4000,
+  position: {
+    x: "right",
+    y: "top",
+  },
+  types: [
+    {
+      type: "success",
+      background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+      icon: {
+        className: "notyf__icon--success",
+        tagName: "i",
+      },
+    },
+    {
+      type: "error",
+      background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+      icon: {
+        className: "notyf__icon--error",
+        tagName: "i",
+      },
+    },
+  ],
+});
 
 // Initialize i18n
 initI18n().then(() => {
@@ -359,8 +382,7 @@ function loadFromHistory(id: string): void {
     conversionTitleInput.value = record.title;
   }
 
-  status.innerHTML =
-    '<span class="text-green-400 text-start w-full">✓ Loaded from history</span>';
+  notyf.success("✓ Loaded from history");
 }
 
 // Edit history title
@@ -376,8 +398,7 @@ function editHistoryTitle(id: string): void {
     record.title = newTitle.trim() || undefined;
     saveHistory();
     updateHistoryDisplay();
-    status.innerHTML =
-      '<span class="text-green-400 text-start w-full">✓ Title updated</span>';
+    notyf.success("✓ Title updated");
   }
 }
 
@@ -394,8 +415,7 @@ function deleteHistoryItem(id: string): void {
     conversionHistory = conversionHistory.filter((r) => r.id !== id);
     saveHistory();
     updateHistoryDisplay();
-    status.innerHTML =
-      '<span class="text-green-400 text-start w-full">✓ Conversion deleted</span>';
+    notyf.success("✓ Conversion deleted");
   }
 }
 
@@ -405,15 +425,14 @@ function clearHistory(): void {
     conversionHistory = [];
     saveHistory();
     updateHistoryDisplay();
-    status.innerHTML =
-      '<span class="text-green-400 text-start w-full">✓ History cleared</span>';
+    notyf.success("✓ History cleared");
   }
 }
 
 // Export history
 function exportHistory(): void {
   if (conversionHistory.length === 0) {
-    status.innerHTML = '<span class="error">No history to export</span>';
+    notyf.error("No history to export");
     return;
   }
 
@@ -438,8 +457,7 @@ function exportHistory(): void {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  status.innerHTML =
-    '<span class="text-green-400 text-start w-full">✓ History exported</span>';
+  notyf.success("✓ History exported");
 }
 // Set up event listeners
 const conversionTitleInput =
@@ -463,7 +481,6 @@ const clearHistoryBtn =
   document.querySelector<HTMLButtonElement>("#clear-history")!;
 const exportHistoryBtn =
   document.querySelector<HTMLButtonElement>("#export-history")!;
-const status = document.querySelector<HTMLDivElement>("#status")!;
 
 // Initialize history on page load
 loadHistory();
@@ -475,8 +492,7 @@ function convertUTMToWGS84() {
   const hemisphereValue = hemisphereSelect.value;
 
   if (!eastingValue || !northingValue || !zoneValue || !hemisphereValue) {
-    status.innerHTML =
-      '<span class="error">Please fill in all UTM fields</span>';
+    notyf.error("Please fill in all UTM fields");
     return;
   }
 
@@ -488,8 +504,7 @@ function convertUTMToWGS84() {
   );
 
   if (!utm) {
-    status.innerHTML =
-      '<span class="error">Invalid UTM input values. Please check your coordinates.</span>';
+    notyf.error("Invalid UTM input values. Please check your coordinates.");
     return;
   }
 
@@ -497,8 +512,7 @@ function convertUTMToWGS84() {
     const wgs84 = convertUTMtoWGS84(utm);
     latitudeInput.value = wgs84.latitude.toFixed(8);
     longitudeInput.value = wgs84.longitude.toFixed(8);
-    status.innerHTML =
-      '<span class="text-green-400 text-start w-full">✓ Converted UTM to WGS84</span>';
+    notyf.success("✓ Converted UTM to WGS84");
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -507,8 +521,7 @@ function convertUTMToWGS84() {
     // Clear title input after successful conversion
     conversionTitleInput.value = "";
   } catch (error) {
-    status.innerHTML =
-      '<span class="error">Error during UTM to WGS84 conversion</span>';
+    notyf.error("Error during UTM to WGS84 conversion");
   }
 }
 
@@ -517,8 +530,7 @@ function convertWGS84ToUTM() {
   const longitudeValue = longitudeInput.value.trim();
 
   if (!latitudeValue || !longitudeValue) {
-    status.innerHTML =
-      '<span class="error">Please fill in both latitude and longitude fields</span>';
+    notyf.error("Please fill in both latitude and longitude fields");
     return;
   }
 
@@ -533,8 +545,9 @@ function convertWGS84ToUTM() {
     longitude < -180 ||
     longitude > 180
   ) {
-    status.innerHTML =
-      '<span class="error">Invalid WGS84 coordinates. Latitude: -90 to 90, Longitude: -180 to 180</span>';
+    notyf.error(
+      "Invalid WGS84 coordinates. Latitude: -90 to 90, Longitude: -180 to 180"
+    );
     return;
   }
 
@@ -544,8 +557,7 @@ function convertWGS84ToUTM() {
     northingInput.value = utm.northing.toFixed(2);
     zoneInput.value = utm.zone.toString();
     hemisphereSelect.value = utm.hemisphere;
-    status.innerHTML =
-      '<span class="text-green-400 text-start w-full">✓ Converted WGS84 to UTM</span>';
+    notyf.success("✓ Converted WGS84 to UTM");
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -554,8 +566,7 @@ function convertWGS84ToUTM() {
     // Clear title input after successful conversion
     conversionTitleInput.value = "";
   } catch (error) {
-    status.innerHTML =
-      '<span class="error">Error during WGS84 to UTM conversion</span>';
+    notyf.error("Error during WGS84 to UTM conversion");
   }
 }
 
@@ -637,7 +648,5 @@ languageSelect.addEventListener("change", (e: Event) => {
   changeLanguage(selectedLanguage);
 
   const languageName = target.options[target.selectedIndex].text;
-  status.innerHTML = `<span class="text-green-400 text-start w-full">✓ ${t(
-    "result"
-  )}: ${languageName}</span>`;
+  notyf.success(`✓ ${t("result")}: ${languageName}`);
 });
