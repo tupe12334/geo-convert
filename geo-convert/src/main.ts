@@ -5,8 +5,9 @@ import {
   parseUTMInputs,
   parseCSV,
 } from "./converters";
-import { createIcons, Pencil, Trash2, Upload } from "lucide";
+import { createIcons, Pencil, Trash2, Upload, Info } from "lucide";
 import { generateId } from "./utils/generateId";
+import { getPhone } from "./utils/getPhone";
 import { initI18n, changeLanguage, t } from "./i18n";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
@@ -27,6 +28,9 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <option value="he">עברית</option>
           <option value="en">English</option>
         </select>
+        <button id="info-btn" class="info-button" title="Info">
+          <i data-lucide="info"></i>
+        </button>
       </div>
     </div>
     <div class="bg-white/5 rounded-xl p-8 border border-white/10 w-full max-w-full box-border">
@@ -145,7 +149,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     </div>
   </div>
 `;
-createIcons({ icons: { Pencil, Trash2, Upload } });
+createIcons({ icons: { Pencil, Trash2, Upload, Info } });
 
 // Initialize Notyf for toast notifications
 const notyf = new Notyf({
@@ -1064,4 +1068,33 @@ languageSelect.addEventListener("change", (e: Event) => {
 
   const languageName = target.options[target.selectedIndex].text;
   notyf.success(`✓ ${t("result")}: ${languageName}`);
+});
+
+// Info modal handling
+const showInfoDialog = (): void => {
+  const modal = document.createElement("div");
+  modal.className = "info-modal";
+  modal.innerHTML = `
+    <div class="info-dialog">
+      <h3>Ofek Gabay - אופק גבאי</h3>
+      <p>${getPhone()}</p>
+      <div class="dialog-actions">
+        <button id="close-info" class="confirm-button">Close</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+    }
+  });
+  modal.querySelector("#close-info")!.addEventListener("click", () => {
+    document.body.removeChild(modal);
+  });
+};
+
+document.querySelector<HTMLButtonElement>("#info-btn")!.addEventListener("click", () => {
+  showInfoDialog();
 });
