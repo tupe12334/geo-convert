@@ -4,6 +4,7 @@ import {
   convertWGS84toUTM,
   parseUTMInputs,
 } from "./converters";
+import { generateId } from "./utils/generateId";
 import type {
   ConversionRecord,
   UTMCoordinate,
@@ -155,7 +156,7 @@ function addToHistory(
   output: WGS84Coordinate | UTMCoordinate
 ): void {
   const record: ConversionRecord = {
-    id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+    id: generateId(),
     timestamp: new Date(),
     type,
     input,
