@@ -239,7 +239,9 @@ function updateHistoryDisplay(): void {
   historyCount.textContent = conversionHistory.length.toString();
 
   if (conversionHistory.length === 0) {
-    historyList.innerHTML = `<div class="history-empty" data-i18n="noConversionsYet">${t("noConversionsYet")}</div>`;
+    historyList.innerHTML = `<div class="history-empty" data-i18n="noConversionsYet">${t(
+      "noConversionsYet"
+    )}</div>`;
     return;
   }
 
