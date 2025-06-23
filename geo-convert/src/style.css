@@ -243,6 +243,30 @@ button:active {
   font-weight: 500;
 }
 
+/* Lucide icon styling */
+[data-lucide] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.history-edit-title [data-lucide],
+.history-delete [data-lucide] {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.5;
+}
+
+.history-edit-title,
+.history-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* History Section Styles */
 .history-section {
   display: flex;
