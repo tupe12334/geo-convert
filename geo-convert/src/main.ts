@@ -18,7 +18,7 @@ import type {
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
     <div class="flex justify-between items-center mb-8">
-      <h1 class="mb-0" data-i18n="title">UTM ⇄ WGS84 Converter</h1>
+      <h1 class="mb-0" data-i18n="title">Geographic Coordinate Converter</h1>
       <div class="flex items-center gap-2">
         <label for="language-select" class="text-white/80 text-sm">Language:</label>
         <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-1 text-white text-sm">
@@ -30,9 +30,9 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <div class="bg-white/5 rounded-xl p-8 my-8 border border-white/10 w-full max-w-full box-border">
       <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-8 w-full">
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section">
-          <h3>Working Bench</h3>
+          <h3 data-i18n="workingBench">Working Bench</h3>
           <div class="flex flex-col w-full mb-4">
-            <label for="conversion-title">Conversion Title (optional):</label>
+            <label for="conversion-title" data-i18n="conversionTitle">Conversion Title (optional):</label>
             <input 
               type="text" 
               id="conversion-title" 
@@ -41,7 +41,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             />
           </div>
           <div class="flex flex-col w-full">
-            <label for="working-notes">Notes & Calculations:</label>
+            <label for="working-notes" data-i18n="notesAndCalculations">Notes & Calculations:</label>
             <textarea
               id="working-notes"
               data-i18n-placeholder="notesPlaceholder"
@@ -96,7 +96,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         </div>
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
-          <h3>WGS84</h3>
+          <h3 data-i18n="wgs84">WGS84</h3>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="latitude-input">Latitude:</label>
@@ -122,13 +122,13 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         </div>
 
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section">
-          <h3>Conversion History (<span id="history-count">0</span>)</h3>
+          <h3><span data-i18n="conversionHistory">Conversion History</span> (<span id="history-count">0</span>)</h3>
           <div class="history-controls">
-            <button id="clear-history" class="clear-button">Clear History</button>
-            <button id="export-history" class="export-button">Export History</button>
+            <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
+            <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
           <div id="history-list" class="history-list">
-            <div class="history-empty">No conversions yet</div>
+            <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
           </div>
         </div>
       </div>
@@ -142,7 +142,7 @@ const notyf = new Notyf({
   duration: 4000,
   position: {
     x: "right",
-    y: "top",
+    y: "bottom",
   },
   types: [
     {
@@ -239,8 +239,7 @@ function updateHistoryDisplay(): void {
   historyCount.textContent = conversionHistory.length.toString();
 
   if (conversionHistory.length === 0) {
-    historyList.innerHTML =
-      '<div class="history-empty">No conversions yet</div>';
+    historyList.innerHTML = `<div class="history-empty" data-i18n="noConversionsYet">${t("noConversionsYet")}</div>`;
     return;
   }
 
@@ -382,7 +381,7 @@ function loadFromHistory(id: string): void {
     conversionTitleInput.value = record.title;
   }
 
-  notyf.success("✓ Loaded from history");
+  notyf.success(`✓ ${t("loadedFromHistory")}`);
 }
 
 // Edit history title
@@ -398,7 +397,7 @@ function editHistoryTitle(id: string): void {
     record.title = newTitle.trim() || undefined;
     saveHistory();
     updateHistoryDisplay();
-    notyf.success("✓ Title updated");
+    notyf.success(`✓ ${t("titleUpdated")}`);
   }
 }
 
@@ -415,7 +414,7 @@ function deleteHistoryItem(id: string): void {
     conversionHistory = conversionHistory.filter((r) => r.id !== id);
     saveHistory();
     updateHistoryDisplay();
-    notyf.success("✓ Conversion deleted");
+    notyf.success(`✓ ${t("conversionDeleted")}`);
   }
 }
 
@@ -425,14 +424,14 @@ function clearHistory(): void {
     conversionHistory = [];
     saveHistory();
     updateHistoryDisplay();
-    notyf.success("✓ History cleared");
+    notyf.success(`✓ ${t("historyCleared")}`);
   }
 }
 
 // Export history
 function exportHistory(): void {
   if (conversionHistory.length === 0) {
-    notyf.error("No history to export");
+    notyf.error(t("noHistoryToExport"));
     return;
   }
 
@@ -457,7 +456,7 @@ function exportHistory(): void {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  notyf.success("✓ History exported");
+  notyf.success(`✓ ${t("historyExported")}`);
 }
 // Set up event listeners
 const conversionTitleInput =
@@ -492,7 +491,7 @@ function convertUTMToWGS84() {
   const hemisphereValue = hemisphereSelect.value;
 
   if (!eastingValue || !northingValue || !zoneValue || !hemisphereValue) {
-    notyf.error("Please fill in all UTM fields");
+    notyf.error(t("invalidInput"));
     return;
   }
 
@@ -504,7 +503,7 @@ function convertUTMToWGS84() {
   );
 
   if (!utm) {
-    notyf.error("Invalid UTM input values. Please check your coordinates.");
+    notyf.error(t("invalidInput"));
     return;
   }
 
@@ -512,7 +511,7 @@ function convertUTMToWGS84() {
     const wgs84 = convertUTMtoWGS84(utm);
     latitudeInput.value = wgs84.latitude.toFixed(8);
     longitudeInput.value = wgs84.longitude.toFixed(8);
-    notyf.success("✓ Converted UTM to WGS84");
+    notyf.success(`✓ ${t("convertedUTMToWGS84")}`);
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -521,7 +520,7 @@ function convertUTMToWGS84() {
     // Clear title input after successful conversion
     conversionTitleInput.value = "";
   } catch (error) {
-    notyf.error("Error during UTM to WGS84 conversion");
+    notyf.error(t("conversionError"));
   }
 }
 
@@ -530,7 +529,7 @@ function convertWGS84ToUTM() {
   const longitudeValue = longitudeInput.value.trim();
 
   if (!latitudeValue || !longitudeValue) {
-    notyf.error("Please fill in both latitude and longitude fields");
+    notyf.error(t("invalidInput"));
     return;
   }
 
@@ -545,9 +544,7 @@ function convertWGS84ToUTM() {
     longitude < -180 ||
     longitude > 180
   ) {
-    notyf.error(
-      "Invalid WGS84 coordinates. Latitude: -90 to 90, Longitude: -180 to 180"
-    );
+    notyf.error(t("invalidInput"));
     return;
   }
 
@@ -557,7 +554,7 @@ function convertWGS84ToUTM() {
     northingInput.value = utm.northing.toFixed(2);
     zoneInput.value = utm.zone.toString();
     hemisphereSelect.value = utm.hemisphere;
-    notyf.success("✓ Converted WGS84 to UTM");
+    notyf.success(`✓ ${t("convertedWGS84ToUTM")}`);
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -566,7 +563,7 @@ function convertWGS84ToUTM() {
     // Clear title input after successful conversion
     conversionTitleInput.value = "";
   } catch (error) {
-    notyf.error("Error during WGS84 to UTM conversion");
+    notyf.error(t("conversionError"));
   }
 }
 
