@@ -14,8 +14,8 @@ import type {
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
     <h1>UTM ⇄ WGS84 Converter</h1>      <div class="bg-white/5 rounded-xl p-8 my-8 border border-white/10 w-full max-w-full box-border">
-      <div class="coordinates-grid">
-        <div class="working-branch-section">
+      <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-8 w-full">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-branch-section">
           <h3>Working Branch</h3>
           <div class="flex flex-col w-full mb-4">
             <label for="conversion-title">Conversion Title (optional):</label>
@@ -36,7 +36,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           </div>
         </div>
         
-        <div class="utm-section">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section">
           <h3>UTM Coordinates</h3>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
@@ -79,7 +79,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <button id="convert-to-wgs84">Convert to WGS84 →</button>
         </div>
         
-        <div class="wgs84-section">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
           <h3>WGS84 Coordinates</h3>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
@@ -104,7 +104,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <button id="convert-to-utm">← Convert to UTM</button>
         </div>
 
-        <div class="history-section">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section">
           <h3>Conversion History (<span id="history-count">0</span>)</h3>
           <div class="history-controls">
             <button id="clear-history" class="clear-button">Clear History</button>

@@ -46,26 +46,9 @@ h3 {
   box-sizing: border-box;
 }
 
-.coordinates-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
-  width: 100%;
-}
+/* .coordinates-grid converted to Tailwind classes */
 
-.utm-section,
-.wgs84-section,
-.working-branch-section,
-.history-section {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  min-width: 0; /* Allow sections to shrink below their content width */
-  width: 100%;
-  box-sizing: border-box;
-}
+/* .utm-section, .wgs84-section, .working-branch-section, .history-section converted to Tailwind classes */
 
 .utm-section h3,
 .wgs84-section h3,
@@ -417,13 +400,8 @@ button:active {
 
 /* Large screen optimizations */
 @media (min-width: 1400px) {
-  .coordinates-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem;
-  }
-
   #app {
-    padding: 3rem;
+    padding: 1rem;
   }
 
   .converter {
@@ -432,22 +410,12 @@ button:active {
 }
 
 @media (max-width: 1200px) {
-  .coordinates-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
   #app {
     padding: 1.5rem;
   }
 }
 
 @media (max-width: 900px) {
-  .coordinates-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
   #app {
     padding: 1rem;
   }
@@ -474,21 +442,9 @@ button:active {
     margin-bottom: 1.5rem;
   }
 
-  .coordinates-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
   .input-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
-  }
-
-  .utm-section,
-  .wgs84-section,
-  .working-branch-section,
-  .history-section {
-    padding: 1rem;
   }
 }
 .logo:hover {
