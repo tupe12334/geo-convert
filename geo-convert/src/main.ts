@@ -203,8 +203,9 @@ function updateHistoryDisplay(): void {
     .map((record) => {
       const time = record.timestamp.toLocaleTimeString();
       const date = record.timestamp.toLocaleDateString();
-      const titleDisplay = record.title ? 
-        `<div class="history-title">${record.title}</div>` : '';
+      const titleDisplay = record.title
+        ? `<div class="history-title">${record.title}</div>`
+        : "";
 
       if (record.type === "UTM_TO_WGS84") {
         const input = record.input as UTMCoordinate;
@@ -215,8 +216,12 @@ function updateHistoryDisplay(): void {
               <span class="history-type">UTM → WGS84</span>
               <span class="history-time">${date} ${time}</span>
               <div class="history-actions">
-                <button class="history-edit-title" data-id="${record.id}" title="Edit title">📝</button>
-                <button class="history-load" data-id="${record.id}">Load</button>
+                <button class="history-edit-title" data-id="${
+                  record.id
+                }" title="Edit title">📝</button>
+                <button class="history-load" data-id="${
+                  record.id
+                }">Load</button>
               </div>
             </div>
             ${titleDisplay}
@@ -244,8 +249,12 @@ function updateHistoryDisplay(): void {
               <span class="history-type">WGS84 → UTM</span>
               <span class="history-time">${date} ${time}</span>
               <div class="history-actions">
-                <button class="history-edit-title" data-id="${record.id}" title="Edit title">📝</button>
-                <button class="history-load" data-id="${record.id}">Load</button>
+                <button class="history-edit-title" data-id="${
+                  record.id
+                }" title="Edit title">📝</button>
+                <button class="history-load" data-id="${
+                  record.id
+                }">Load</button>
               </div>
             </div>
             ${titleDisplay}
@@ -325,10 +334,11 @@ function editHistoryTitle(id: string): void {
   const record = conversionHistory.find((r) => r.id === id);
   if (!record) return;
 
-  const currentTitle = record.title || '';
-  const newTitle = prompt('Enter title for this conversion:', currentTitle);
-  
-  if (newTitle !== null) { // User didn't cancel
+  const currentTitle = record.title || "";
+  const newTitle = prompt("Enter title for this conversion:", currentTitle);
+
+  if (newTitle !== null) {
+    // User didn't cancel
     record.title = newTitle.trim() || undefined;
     saveHistory();
     updateHistoryDisplay();
@@ -437,9 +447,9 @@ function convertUTMToWGS84() {
     // Add to history
     const title = conversionTitleInput.value.trim();
     addToHistory("UTM_TO_WGS84", utm, wgs84, title);
-    
+
     // Clear title input after successful conversion
-    conversionTitleInput.value = '';
+    conversionTitleInput.value = "";
   } catch (error) {
     status.innerHTML =
       '<span class="error">Error during UTM to WGS84 conversion</span>';
@@ -483,9 +493,9 @@ function convertWGS84ToUTM() {
     // Add to history
     const title = conversionTitleInput.value.trim();
     addToHistory("WGS84_TO_UTM", { latitude, longitude }, utm, title);
-    
+
     // Clear title input after successful conversion
-    conversionTitleInput.value = '';
+    conversionTitleInput.value = "";
   } catch (error) {
     status.innerHTML =
       '<span class="error">Error during WGS84 to UTM conversion</span>';
