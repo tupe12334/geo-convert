@@ -1,3 +1,3 @@
 # Instructions for Copilot
 
-- Before running read the AGENTS.md file.
+- Before running read the full AGENTS.md file.
