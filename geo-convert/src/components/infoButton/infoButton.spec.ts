@@ -13,8 +13,9 @@ vi.mock("../../utils/getPhone", () => ({
 vi.mock("../../i18n", () => ({
   t: vi.fn((key: string, params?: any) => {
     const translations: Record<string, string> = {
-      infoDialogMessage: "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{phone}} המערכת היא הלבנה של מערכת אזרחית",
-      close: "סגור"
+      infoDialogMessage:
+        "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{phone}} המערכת היא הלבנה של מערכת אזרחית",
+      close: "סגור",
     };
     let text = translations[key] || key;
     if (params?.phone) {
@@ -84,7 +85,9 @@ describe("createInfoButton", () => {
     expect(dialog).toBeTruthy();
 
     const paragraph = dialog?.querySelector("p");
-    expect(paragraph?.textContent).toContain("מוזמנים לפנות אלי לכל בעיה - אופק גבאי");
+    expect(paragraph?.textContent).toContain(
+      "מוזמנים לפנות אלי לכל בעיה - אופק גבאי"
+    );
   });
 
   it("should close dialog when close button is clicked", () => {
