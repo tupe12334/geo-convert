@@ -4,6 +4,7 @@ import {
   convertWGS84toUTM,
   parseUTMInputs,
 } from "./converters";
+import { createIcons, Pencil, Trash2 } from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t } from "./i18n";
 import type {
@@ -137,6 +138,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     </div>
   </div>
 `;
+createIcons({ icons: { Pencil, Trash2 } });
 
 // Initialize i18n
 initI18n().then(() => {
@@ -239,10 +241,10 @@ function updateHistoryDisplay(): void {
             <div class="history-actions">
               <button class="history-edit-title" data-id="${
                 record.id
-              }" title="Edit title">📝</button>
+              }" title="Edit title"><i data-lucide="pencil"></i></button>
               <button class="history-delete" data-id="${
                 record.id
-              }" title="Delete this conversion">🗑️</button>
+              }" title="Delete this conversion"><i data-lucide="trash-2"></i></button>
               <button class="history-load" data-id="${record.id}">Load</button>
             </div>
             <div class="history-content">
@@ -273,10 +275,10 @@ function updateHistoryDisplay(): void {
             <div class="history-actions">
               <button class="history-edit-title" data-id="${
                 record.id
-              }" title="Edit title">📝</button>
+              }" title="Edit title"><i data-lucide="pencil"></i></button>
               <button class="history-delete" data-id="${
                 record.id
-              }" title="Delete this conversion">🗑️</button>
+              }" title="Delete this conversion"><i data-lucide="trash-2"></i></button>
               <button class="history-load" data-id="${record.id}">Load</button>
             </div>
             <div class="history-content">
@@ -321,6 +323,7 @@ function updateHistoryDisplay(): void {
       if (id) deleteHistoryItem(id);
     });
   });
+  createIcons({ icons: { Pencil, Trash2 } });
 }
 
 // Load conversion from history

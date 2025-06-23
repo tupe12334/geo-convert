@@ -1,3 +1,3 @@
 # TODO
 
-- [ ] convert emojis to lucid icons
+- [x] convert emojis to lucid icons
