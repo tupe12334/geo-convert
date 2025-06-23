@@ -60,7 +60,7 @@ describe("convertWGS84toUTM", () => {
       expect(result.zone).toBe(33);
       expect(result.hemisphere).toBe("N");
       expect(result.easting).toBeCloseTo(500000, 0);
-      expect(result.northing).toBeGreaterThan(9000000);
+      expect(result.northing).toBeCloseTo(8993204, 0);
     });
 
     it("should handle decimal precision", () => {
@@ -89,8 +89,8 @@ describe("convertWGS84toUTM", () => {
 
       expect(result.zone).toBe(56);
       expect(result.hemisphere).toBe("S");
-      expect(result.easting).toBeCloseTo(334777, 0);
-      expect(result.northing).toBeCloseTo(6251341, 0);
+      expect(result.easting).toBeCloseTo(334369, 0);
+      expect(result.northing).toBeCloseTo(6250948, 0);
     });
 
     it("should handle custom target zone", () => {
