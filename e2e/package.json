@@ -8,7 +8,7 @@
     "e2e:ui": "playwright test --ui"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ofek Gabay <ofek.gabay.he@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.53.1",
