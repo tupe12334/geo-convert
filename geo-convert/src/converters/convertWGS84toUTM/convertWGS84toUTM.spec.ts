@@ -117,7 +117,6 @@ describe("convertWGS84toUTM", () => {
       const result = convertWGS84toUTM(wgs84);
 
       console.log("Conversion result:", result);
-      // The coordinates are in Israel, which should be zone 36, northern hemisphere
       expect(result.zone).toBe(36);
       expect(result.hemisphere).toBe("S");
       expect(result.easting).toBeCloseTo(667274.762, 2);
