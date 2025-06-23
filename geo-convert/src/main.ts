@@ -31,7 +31,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             <textarea 
               id="working-notes" 
               placeholder="Use this area for notes, calculations, or temporary data storage. This field doesn't affect coordinate conversions."
-              rows="10"
+              rows="6"
             ></textarea>
           </div>
         </div>
