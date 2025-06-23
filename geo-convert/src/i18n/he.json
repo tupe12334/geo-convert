@@ -2,8 +2,8 @@
   "title": "ממיר קואורדינטות גיאוגרפיות",
   "utm": "UTM",
   "wgs84": "WGS84",
-  "utmInputPlaceholder": "הכנס קואורדינטות UTM (דוגמה: 32T 0377299 5255068)",
-  "wgs84InputPlaceholder": "הכנס קואורדינטות WGS84 (דוגמה: 47.123456, 8.654321)",
+  "utmInputPlaceholder": "הכנס קואורדינטות UTM",
+  "wgs84InputPlaceholder": "הכנס קואורדינטות WGS84",
   "convert": "המר",
   "conversionTitle": "כותרת המרה (אופציונלי)",
   "result": "שפה שונתה",
@@ -23,5 +23,6 @@
   "noConversionsYet": "אין המרות עדיין",
   "conversionHistory": "היסטוריית המרות",
   "workingBench": "שולחן עבודה",
-  "notesAndCalculations": "הערות וחישובים"
+  "notesAndCalculations": "הערות וחישובים",
+  "load": "טען"
 }

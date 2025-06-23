@@ -2,8 +2,8 @@
   "title": "Geographic Coordinate Converter",
   "utm": "UTM",
   "wgs84": "WGS84",
-  "utmInputPlaceholder": "Enter UTM coordinates (e.g., 32T 0377299 5255068)",
-  "wgs84InputPlaceholder": "Enter WGS84 coordinates (e.g., 47.123456, 8.654321)",
+  "utmInputPlaceholder": "Enter UTM coordinates",
+  "wgs84InputPlaceholder": "Enter WGS84 coordinates",
   "convert": "Convert",
   "conversionTitle": "Conversion Title (optional)",
   "result": "Language changed",
@@ -23,5 +23,6 @@
   "noConversionsYet": "No conversions yet",
   "conversionHistory": "Conversion History",
   "workingBench": "Working Bench",
-  "notesAndCalculations": "Notes & Calculations"
+  "notesAndCalculations": "Notes & Calculations",
+  "load": "Load"
 }
