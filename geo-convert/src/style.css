@@ -400,11 +400,11 @@ button:active {
     grid-template-columns: repeat(4, 1fr);
     gap: 2.5rem;
   }
-  
+
   #app {
     padding: 3rem;
   }
-  
+
   .converter {
     padding: 2.5rem;
   }
