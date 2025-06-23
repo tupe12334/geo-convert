@@ -636,6 +636,7 @@ function processCSVData(
 ): void {
   let convertedCount = 0;
   const errors: string[] = [];
+  const convertedData: any[] = [];
 
   for (const [index, row] of parseResult.data.entries()) {
     try {
@@ -645,6 +646,13 @@ function processCSVData(
         if (utm) {
           const wgs84 = convertUTMtoWGS84(utm);
           addToHistory("UTM_TO_WGS84", utm, wgs84, `CSV Row ${index + 1}`);
+
+          // Collect converted data for download
+          convertedData.push({
+            ...row,
+            converted_latitude: wgs84.latitude.toFixed(8),
+            converted_longitude: wgs84.longitude.toFixed(8),
+          });
           convertedCount++;
         }
       } else {
@@ -653,6 +661,15 @@ function processCSVData(
         if (wgs84) {
           const utm = convertWGS84toUTM(wgs84);
           addToHistory("WGS84_TO_UTM", wgs84, utm, `CSV Row ${index + 1}`);
+
+          // Collect converted data for download
+          convertedData.push({
+            ...row,
+            converted_easting: utm.easting.toFixed(2),
+            converted_northing: utm.northing.toFixed(2),
+            converted_zone: utm.zone.toString(),
+            converted_hemisphere: utm.hemisphere,
+          });
           convertedCount++;
         }
       }
@@ -667,6 +684,9 @@ function processCSVData(
       convertedCount.toString()
     );
     notyf.success(`✓ ${message}`);
+
+    // Offer to download converted data
+    offerCSVDownload(convertedData, coordinateType, parseResult.headers);
   }
 
   if (errors.length > 0) {
@@ -675,6 +695,146 @@ function processCSVData(
       notyf.error(t("noValidData"));
     }
   }
+}
+
+/**
+ * Offers to download the converted CSV data
+ * @param convertedData - Array of converted data rows
+ * @param coordinateType - The original coordinate type that was converted
+ * @param originalHeaders - The original CSV headers
+ */
+function offerCSVDownload(
+  convertedData: any[],
+  coordinateType: CoordinateType,
+  originalHeaders: string[]
+): void {
+  const modal = document.createElement("div");
+  modal.className = "csv-download-modal";
+
+  const targetType = coordinateType === "UTM" ? "WGS84" : "UTM";
+
+  modal.innerHTML = `
+    <div class="csv-download-dialog">
+      <h3>${t("downloadConvertedCSV")}</h3>
+      <p>Your CSV has been converted from ${coordinateType} to ${targetType}. Would you like to download the results?</p>
+      
+      <div class="dialog-actions">
+        <button id="cancel-csv-download" class="cancel-button">Cancel</button>
+        <button id="confirm-csv-download" class="confirm-button">${t(
+          "downloadConvertedCSV"
+        )}</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Add event listeners
+  const cancelBtn = modal.querySelector("#cancel-csv-download")!;
+  const confirmBtn = modal.querySelector("#confirm-csv-download")!;
+
+  cancelBtn.addEventListener("click", () => {
+    document.body.removeChild(modal);
+  });
+
+  confirmBtn.addEventListener("click", () => {
+    document.body.removeChild(modal);
+    downloadConvertedCSV(convertedData, coordinateType, originalHeaders);
+  });
+
+  // Close on outside click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+    }
+  });
+}
+
+/**
+ * Downloads the converted CSV data as a file
+ * @param convertedData - Array of converted data rows
+ * @param coordinateType - The original coordinate type that was converted
+ * @param originalHeaders - The original CSV headers
+ */
+function downloadConvertedCSV(
+  convertedData: any[],
+  coordinateType: CoordinateType,
+  originalHeaders: string[]
+): void {
+  const targetType = coordinateType === "UTM" ? "WGS84" : "UTM";
+
+  // Determine new headers based on conversion type
+  const newHeaders =
+    coordinateType === "UTM"
+      ? [...originalHeaders, "converted_latitude", "converted_longitude"]
+      : [
+          ...originalHeaders,
+          "converted_easting",
+          "converted_northing",
+          "converted_zone",
+          "converted_hemisphere",
+        ];
+
+  // Generate CSV content
+  const csvContent = generateCSVContent(convertedData, newHeaders);
+
+  // Create and download file
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `converted_${coordinateType}_to_${targetType}_${
+    new Date().toISOString().split("T")[0]
+  }.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  notyf.success(`✓ ${t("csvDownloaded")}`);
+}
+
+/**
+ * Generates CSV content from data array and headers
+ * @param data - Array of data objects
+ * @param headers - Array of header names
+ * @returns CSV content as string
+ */
+function generateCSVContent(data: any[], headers: string[]): string {
+  const csvRows: string[] = [];
+
+  // Add headers
+  csvRows.push(headers.map(escapeCSVValue).join(","));
+
+  // Add data rows
+  for (const row of data) {
+    const csvRow = headers
+      .map((header) => escapeCSVValue(row[header] || ""))
+      .join(",");
+    csvRows.push(csvRow);
+  }
+
+  return csvRows.join("\n");
+}
+
+/**
+ * Escapes a value for CSV format
+ * @param value - The value to escape
+ * @returns Escaped CSV value
+ */
+function escapeCSVValue(value: string): string {
+  const stringValue = String(value);
+
+  // If the value contains comma, newline, or quote, wrap it in quotes and escape internal quotes
+  if (
+    stringValue.includes(",") ||
+    stringValue.includes("\n") ||
+    stringValue.includes('"')
+  ) {
+    return `"${stringValue.replace(/"/g, '""')}"`;
+  }
+
+  return stringValue;
 }
 
 function extractUTMFromRow(

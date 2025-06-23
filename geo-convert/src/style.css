@@ -621,6 +621,46 @@ button:active {
   box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
 }
 
+/* CSV Download Modal */
+.csv-download-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.csv-download-dialog {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.csv-download-dialog h3 {
+  margin: 0 0 1rem 0;
+  color: #fff;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.csv-download-dialog p {
+  margin: 0 0 1.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  line-height: 1.5;
+}
+
 /* Responsive CSV Modal */
 @media (max-width: 600px) {
   .csv-import-modal {
