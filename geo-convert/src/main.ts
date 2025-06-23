@@ -35,6 +35,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             <input 
               type="text" 
               id="conversion-title" 
+              data-i18n-placeholder="conversionTitlePlaceholder"
               placeholder="הבית של פיסטוק"
               maxlength="100"
             />
