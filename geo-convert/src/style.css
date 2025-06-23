@@ -332,7 +332,7 @@ button:active {
   flex-wrap: nowrap;
   min-width: 0;
   margin-bottom: 0.75rem;
-  justify-content: flex-start;
+  width: 100%;
 }
 
 .history-edit-title {
@@ -345,7 +345,8 @@ button:active {
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  flex-shrink: 0;
+  flex: 1;
+  text-align: center;
 }
 
 .history-edit-title:hover {
@@ -363,7 +364,8 @@ button:active {
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  flex-shrink: 0;
+  flex: 1;
+  text-align: center;
 }
 
 .history-delete:hover {
@@ -402,7 +404,8 @@ button:active {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  flex-shrink: 0;
+  flex: 1;
+  text-align: center;
 }
 
 .history-load:hover {
