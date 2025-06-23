@@ -260,15 +260,15 @@ button:active {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .working-branch-section {
     order: 3; /* Place working branch at the bottom on mobile */
   }
-  
+
   .utm-section {
     order: 1;
   }
-  
+
   .wgs84-section {
     order: 2;
   }
