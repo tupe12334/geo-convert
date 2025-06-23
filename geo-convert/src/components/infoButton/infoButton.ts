@@ -26,7 +26,6 @@ const showInfoDialog = (): void => {
   modal.className = "info-modal";
   modal.innerHTML = `
     <div class="info-dialog">
-      <h3>${t("infoDialogTitle")}</h3>
       <p>${t("infoDialogMessage", { phone: getPhone() })}</p>
       <div class="dialog-actions">
         <button id="close-info" class="confirm-button">${t("close")}</button>
