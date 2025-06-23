@@ -4,7 +4,11 @@ import {
   convertWGS84toUTM,
   parseUTMInputs,
 } from "./converters";
-import type { ConversionRecord, UTMCoordinate, WGS84Coordinate } from "./converters/types";
+import type {
+  ConversionRecord,
+  UTMCoordinate,
+  WGS84Coordinate,
+} from "./converters/types";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -117,16 +121,16 @@ let conversionHistory: ConversionRecord[] = [];
 // Load history from localStorage
 function loadHistory(): void {
   try {
-    const saved = localStorage.getItem('geo-convert-history');
+    const saved = localStorage.getItem("geo-convert-history");
     if (saved) {
       const parsed = JSON.parse(saved);
       conversionHistory = parsed.map((record: any) => ({
         ...record,
-        timestamp: new Date(record.timestamp)
+        timestamp: new Date(record.timestamp),
       }));
     }
   } catch (error) {
-    console.warn('Failed to load history from localStorage:', error);
+    console.warn("Failed to load history from localStorage:", error);
     conversionHistory = [];
   }
   updateHistoryDisplay();
@@ -135,29 +139,36 @@ function loadHistory(): void {
 // Save history to localStorage
 function saveHistory(): void {
   try {
-    localStorage.setItem('geo-convert-history', JSON.stringify(conversionHistory));
+    localStorage.setItem(
+      "geo-convert-history",
+      JSON.stringify(conversionHistory)
+    );
   } catch (error) {
-    console.warn('Failed to save history to localStorage:', error);
+    console.warn("Failed to save history to localStorage:", error);
   }
 }
 
 // Add new conversion to history
-function addToHistory(type: "UTM_TO_WGS84" | "WGS84_TO_UTM", input: UTMCoordinate | WGS84Coordinate, output: WGS84Coordinate | UTMCoordinate): void {
+function addToHistory(
+  type: "UTM_TO_WGS84" | "WGS84_TO_UTM",
+  input: UTMCoordinate | WGS84Coordinate,
+  output: WGS84Coordinate | UTMCoordinate
+): void {
   const record: ConversionRecord = {
     id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
     timestamp: new Date(),
     type,
     input,
-    output
+    output,
   };
-  
+
   conversionHistory.unshift(record); // Add to beginning of array
-  
+
   // Keep only last 50 conversions
   if (conversionHistory.length > 50) {
     conversionHistory = conversionHistory.slice(0, 50);
   }
-  
+
   saveHistory();
   updateHistoryDisplay();
 }
@@ -165,20 +176,22 @@ function addToHistory(type: "UTM_TO_WGS84" | "WGS84_TO_UTM", input: UTMCoordinat
 // Update history display
 function updateHistoryDisplay(): void {
   const historyList = document.querySelector<HTMLDivElement>("#history-list")!;
-  const historyCount = document.querySelector<HTMLSpanElement>("#history-count")!;
-  
+  const historyCount =
+    document.querySelector<HTMLSpanElement>("#history-count")!;
+
   historyCount.textContent = conversionHistory.length.toString();
-  
+
   if (conversionHistory.length === 0) {
-    historyList.innerHTML = '<div class="history-empty">No conversions yet</div>';
+    historyList.innerHTML =
+      '<div class="history-empty">No conversions yet</div>';
     return;
   }
-  
+
   historyList.innerHTML = conversionHistory
     .map((record) => {
       const time = record.timestamp.toLocaleTimeString();
       const date = record.timestamp.toLocaleDateString();
-      
+
       if (record.type === "UTM_TO_WGS84") {
         const input = record.input as UTMCoordinate;
         const output = record.output as WGS84Coordinate;
@@ -191,11 +204,15 @@ function updateHistoryDisplay(): void {
             </div>
             <div class="history-content">
               <div class="history-input">
-                <strong>UTM:</strong> ${input.easting.toFixed(2)}, ${input.northing.toFixed(2)} 
+                <strong>UTM:</strong> ${input.easting.toFixed(
+                  2
+                )}, ${input.northing.toFixed(2)} 
                 (Zone ${input.zone}${input.hemisphere})
               </div>
               <div class="history-output">
-                <strong>WGS84:</strong> ${output.latitude.toFixed(8)}, ${output.longitude.toFixed(8)}
+                <strong>WGS84:</strong> ${output.latitude.toFixed(
+                  8
+                )}, ${output.longitude.toFixed(8)}
               </div>
             </div>
           </div>
@@ -212,10 +229,14 @@ function updateHistoryDisplay(): void {
             </div>
             <div class="history-content">
               <div class="history-input">
-                <strong>WGS84:</strong> ${input.latitude.toFixed(8)}, ${input.longitude.toFixed(8)}
+                <strong>WGS84:</strong> ${input.latitude.toFixed(
+                  8
+                )}, ${input.longitude.toFixed(8)}
               </div>
               <div class="history-output">
-                <strong>UTM:</strong> ${output.easting.toFixed(2)}, ${output.northing.toFixed(2)} 
+                <strong>UTM:</strong> ${output.easting.toFixed(
+                  2
+                )}, ${output.northing.toFixed(2)} 
                 (Zone ${output.zone}${output.hemisphere})
               </div>
             </div>
@@ -223,11 +244,11 @@ function updateHistoryDisplay(): void {
         `;
       }
     })
-    .join('');
-  
+    .join("");
+
   // Add event listeners for load buttons
-  historyList.querySelectorAll('.history-load').forEach(button => {
-    button.addEventListener('click', (e) => {
+  historyList.querySelectorAll(".history-load").forEach((button) => {
+    button.addEventListener("click", (e) => {
       const id = (e.target as HTMLButtonElement).dataset.id;
       if (id) loadFromHistory(id);
     });
@@ -236,13 +257,13 @@ function updateHistoryDisplay(): void {
 
 // Load conversion from history
 function loadFromHistory(id: string): void {
-  const record = conversionHistory.find(r => r.id === id);
+  const record = conversionHistory.find((r) => r.id === id);
   if (!record) return;
-  
+
   if (record.type === "UTM_TO_WGS84") {
     const input = record.input as UTMCoordinate;
     const output = record.output as WGS84Coordinate;
-    
+
     eastingInput.value = input.easting.toString();
     northingInput.value = input.northing.toString();
     zoneInput.value = input.zone.toString();
@@ -252,7 +273,7 @@ function loadFromHistory(id: string): void {
   } else {
     const input = record.input as WGS84Coordinate;
     const output = record.output as UTMCoordinate;
-    
+
     latitudeInput.value = input.latitude.toFixed(8);
     longitudeInput.value = input.longitude.toFixed(8);
     eastingInput.value = output.easting.toString();
@@ -260,13 +281,13 @@ function loadFromHistory(id: string): void {
     zoneInput.value = output.zone.toString();
     hemisphereSelect.value = output.hemisphere;
   }
-  
+
   status.innerHTML = '<span class="success">✓ Loaded from history</span>';
 }
 
 // Clear history
 function clearHistory(): void {
-  if (confirm('Are you sure you want to clear all conversion history?')) {
+  if (confirm("Are you sure you want to clear all conversion history?")) {
     conversionHistory = [];
     saveHistory();
     updateHistoryDisplay();
@@ -280,24 +301,28 @@ function exportHistory(): void {
     status.innerHTML = '<span class="error">No history to export</span>';
     return;
   }
-  
-  const data = conversionHistory.map(record => ({
+
+  const data = conversionHistory.map((record) => ({
     timestamp: record.timestamp.toISOString(),
     type: record.type,
     input: record.input,
-    output: record.output
+    output: record.output,
   }));
-  
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json",
+  });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
-  a.download = `geo-convert-history-${new Date().toISOString().split('T')[0]}.json`;
+  a.download = `geo-convert-history-${
+    new Date().toISOString().split("T")[0]
+  }.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  
+
   status.innerHTML = '<span class="success">✓ History exported</span>';
 }
 // Set up event listeners
@@ -323,7 +348,7 @@ const exportHistoryBtn =
 const status = document.querySelector<HTMLDivElement>("#status")!;
 
 // Initialize history on page load
-loadHistory();;
+loadHistory();
 
 function convertUTMToWGS84() {
   const eastingValue = eastingInput.value.trim();
@@ -355,7 +380,7 @@ function convertUTMToWGS84() {
     latitudeInput.value = wgs84.latitude.toFixed(8);
     longitudeInput.value = wgs84.longitude.toFixed(8);
     status.innerHTML = '<span class="success">✓ Converted UTM to WGS84</span>';
-    
+
     // Add to history
     addToHistory("UTM_TO_WGS84", utm, wgs84);
   } catch (error) {
@@ -397,7 +422,7 @@ function convertWGS84ToUTM() {
     zoneInput.value = utm.zone.toString();
     hemisphereSelect.value = utm.hemisphere;
     status.innerHTML = '<span class="success">✓ Converted WGS84 to UTM</span>';
-    
+
     // Add to history
     addToHistory("WGS84_TO_UTM", { latitude, longitude }, utm);
   } catch (error) {
