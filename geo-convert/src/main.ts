@@ -141,7 +141,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
             <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
-          <div id="history-list" class="history-list">
+          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/30">
             <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
           </div>
         </div>
