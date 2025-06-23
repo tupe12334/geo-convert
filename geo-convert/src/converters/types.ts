@@ -21,3 +21,6 @@ export interface ConversionRecord {
 
 // Re-export CSV types
 export type { CoordinateType, CSVParseResult, CSVRow } from "./parseCSV/types";
+
+// Re-export Excel types
+export type { ExcelParseResult, ExcelParseOptions } from "./parseExcel/types";

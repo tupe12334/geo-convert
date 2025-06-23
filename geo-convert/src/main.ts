@@ -4,8 +4,9 @@ import {
   convertWGS84toUTM,
   parseUTMInputs,
   parseCSV,
+  parseExcel,
 } from "./converters";
-import { createIcons, Pencil, Trash2, Upload, Info } from "lucide";
+import { createIcons, Pencil, Trash2, Upload, Info, Sheet } from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
@@ -54,12 +55,17 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               rows="6"
             ></textarea>
           </div>
-          <div class="mt-4">
+          <div class="mt-4 space-y-2">
             <button id="import-csv-btn" class="import-csv-button w-full" data-i18n="importCSV">
               <i data-lucide="upload"></i>
               Import CSV File
             </button>
             <input type="file" id="csv-file-input" accept=".csv" style="display: none;" />
+            <button id="import-excel-btn" class="import-excel-button w-full" data-i18n="importExcel">
+              <i data-lucide="sheet"></i>
+              Import Excel File
+            </button>
+            <input type="file" id="excel-file-input" accept=".xlsx,.xls" style="display: none;" />
           </div>
         </div>
         
@@ -155,7 +161,7 @@ const infoButtonContainer = document.querySelector<HTMLDivElement>(
 const infoButton = createInfoButton();
 infoButtonContainer.appendChild(infoButton);
 
-createIcons({ icons: { Pencil, Trash2, Upload, Info } });
+createIcons({ icons: { Pencil, Trash2, Upload, Info, Sheet } });
 
 // Initialize Notyf for toast notifications
 const notyf = new Notyf({
@@ -919,6 +925,10 @@ const importCSVBtn =
   document.querySelector<HTMLButtonElement>("#import-csv-btn")!;
 const csvFileInput =
   document.querySelector<HTMLInputElement>("#csv-file-input")!;
+const importExcelBtn =
+  document.querySelector<HTMLButtonElement>("#import-excel-btn")!;
+const excelFileInput =
+  document.querySelector<HTMLInputElement>("#excel-file-input")!;
 
 // Initialize history on page load
 loadHistory();
@@ -1012,6 +1022,8 @@ clearHistoryBtn.addEventListener("click", clearHistory);
 exportHistoryBtn.addEventListener("click", exportHistory);
 importCSVBtn.addEventListener("click", importCSVFile);
 csvFileInput.addEventListener("change", handleCSVFileSelect);
+importExcelBtn.addEventListener("click", importExcelFile);
+excelFileInput.addEventListener("change", handleExcelFileSelect);
 
 // Add Enter key support for UTM inputs
 const utmInputs = [eastingInput, northingInput, zoneInput];
@@ -1088,3 +1100,44 @@ languageSelect.addEventListener("change", (e: Event) => {
   const languageName = target.options[target.selectedIndex].text;
   notyf.success(`✓ ${t("result")}: ${languageName}`);
 });
+
+// Excel Import functionality
+function importExcelFile(): void {
+  const excelFileInput =
+    document.querySelector<HTMLInputElement>("#excel-file-input")!;
+  excelFileInput.click();
+}
+
+function handleExcelFileSelect(event: Event): void {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+
+  if (!file) return;
+
+  const fileName = file.name.toLowerCase();
+  if (!fileName.endsWith(".xlsx") && !fileName.endsWith(".xls")) {
+    notyf.error("Please select an Excel file (.xlsx or .xls)");
+    return;
+  }
+
+  // Show loading notification
+  notyf.success("Processing Excel file...");
+
+  parseExcel(file)
+    .then((parseResult) => {
+      if (parseResult.data.length === 0) {
+        notyf.error(t("noValidData"));
+        return;
+      }
+
+      // Use the same dialog as CSV since the result structure is compatible
+      showCSVImportDialog(parseResult);
+    })
+    .catch((error) => {
+      console.error("Excel parsing error:", error);
+      notyf.error(t("excelError"));
+    });
+
+  // Reset the input value to allow selecting the same file again
+  target.value = "";
+}
