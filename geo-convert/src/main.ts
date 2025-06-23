@@ -564,7 +564,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       </div>
       
       <div class="csv-preview">
-        <h4>Preview (first 3 rows):</h4>
+        <h4>${t("csvPreview")}</h4>
         <table>
           <thead>
             <tr>

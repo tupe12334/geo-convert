@@ -37,6 +37,7 @@
   "cancelImport": "ביטול",
   "noValidData": "לא נמצאו נתוני קואורדינטות תקינים ב-CSV",
   "csvProcessed": "CSV עובד: {count} קואורדינטות הומרו",
+  "csvPreview": "תצוגה מקדימה (3 שורות ראשונות):",
   "downloadConvertedCSV": "הורד CSV מומר",
   "csvDownloaded": "קואורדינטות מומרות הורדו כ-CSV"
 }
