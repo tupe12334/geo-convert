@@ -31,16 +31,16 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section">
           <h3 data-i18n="workingBench">Working Bench</h3>
           <div class="flex flex-col w-full mb-4">
-            <label for="conversion-title" data-i18n="conversionTitle">Conversion Title (optional):</label>
+            <label for="conversion-title" data-i18n="conversionTitle" class="block mb-2 text-white font-medium text-base break-words">Conversion Title (optional):</label>
             <input 
               type="text" 
               id="conversion-title" 
-              placeholder="e.g., Survey Point A, Building Corner, etc."
+              placeholder="הבית של פיסטוק"
               maxlength="100"
             />
           </div>
           <div class="flex flex-col w-full">
-            <label for="working-notes" data-i18n="notesAndCalculations">Notes & Calculations:</label>
+            <label for="working-notes" data-i18n="notesAndCalculations" class="block mb-2 text-white font-medium text-base break-words">Notes & Calculations:</label>
             <textarea
               id="working-notes"
               data-i18n-placeholder="notesPlaceholder"

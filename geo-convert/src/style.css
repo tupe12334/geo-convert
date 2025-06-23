@@ -140,15 +140,6 @@ h3 {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.working-bench-section label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #fff;
-  font-weight: 500;
-  font-size: 1rem;
-  word-wrap: break-word;
-}
-
 .utm-section select,
 .wgs84-section select {
   cursor: pointer;
