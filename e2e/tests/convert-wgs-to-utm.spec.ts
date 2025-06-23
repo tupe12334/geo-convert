@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { GeoConvertPage } from "./pageObjects/GeoConvertPage";
 
 test.describe("WGS to UTM conversion", () => {
-  test("should convert 32.062289, 34.772015 to 35s e:667272.250 n:3548711.126", async ({
+  test("should convert 32.062289, 34.772015 to 35s e:667274.762 n:3548713.386", async ({
     page,
   }) => {
     const geoPage = new GeoConvertPage(page);
