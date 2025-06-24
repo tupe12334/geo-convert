@@ -70,7 +70,7 @@
   "pleaseSelectCSVFile": "Please select a CSV file",
   "pleaseSelectCoordinateType": "Please select a coordinate type",
   "pleaseSelectExcelFile": "Please select an Excel file (.xlsx or .xls)",
-  "infoDialogMessage": "Feel free to contact me for any issue - Ofek Gabay {{phone}} This system is a civilian system",
+  "infoDialogMessage": "Feel free to contact me for any issue - Ofek Gabay {{email}} This system is a civilian system",
   "close": "Close",
   "switchToDarkMode": "Switch to dark mode",
   "switchToLightMode": "Switch to light mode",

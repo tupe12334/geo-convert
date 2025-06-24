@@ -1,4 +1,4 @@
-import { getPhone } from "../../utils/getPhone";
+import { getEmail } from "../../utils/getEmail";
 import { t } from "../../i18n";
 
 /**
@@ -27,7 +27,7 @@ const showInfoDialog = (): void => {
     "info-modal fixed inset-0 bg-black/70 flex items-center justify-center z-[1000] p-4 box-border";
   modal.innerHTML = `
     <div class="info-dialog">
-      <p>${t("infoDialogMessage", { phone: getPhone() })}</p>
+      <p>${t("infoDialogMessage", { email: getEmail() })}</p>
       <div class="dialog-actions">
         <button id="close-info" class="confirm-button">${t("close")}</button>
       </div>
