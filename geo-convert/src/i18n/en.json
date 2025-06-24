@@ -4,6 +4,7 @@
   "wgs84": "WGS84",
   "north": "North (N)",
   "south": "South (S)",
+  "select": "Select",
   "utmDescription": "Enter UTM coordinates",
   "wgs84Description": "Enter WGS84 coordinates",
   "eastingPlaceholder": "e.g., 667274.762",
