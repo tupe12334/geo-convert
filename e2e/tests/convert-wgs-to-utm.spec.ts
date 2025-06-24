@@ -9,12 +9,16 @@ test.describe("WGS to UTM conversion", () => {
     await geoPage.goto();
 
     // Screenshot: Initial state of the application
-    await expect(page).toHaveScreenshot("wgs-to-utm-initial-state.png");
+    await expect(page).toHaveScreenshot("wgs-to-utm-initial-state.png", {
+      mask: [page.locator(".history-time")],
+    });
 
     await geoPage.enterWGS("32.062289", "34.772015");
 
     // Screenshot: After entering WGS coordinates
-    await expect(page).toHaveScreenshot("wgs-to-utm-coordinates-entered.png");
+    await expect(page).toHaveScreenshot("wgs-to-utm-coordinates-entered.png", {
+      mask: [page.locator(".history-time")],
+    });
 
     await geoPage.convertToUTM();
 
