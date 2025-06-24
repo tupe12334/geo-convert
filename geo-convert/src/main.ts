@@ -1031,9 +1031,8 @@ function downloadConvertedCSV(
     // Sanitize the title for filename use (remove/replace invalid characters)
     const sanitizedTitle = conversionTitle
       .replace(/[<>:"/\\|?*]/g, "_") // Replace invalid filename characters
-      .replace(/\s+/g, "_") // Replace spaces with underscores
       .trim();
-    filename = `${sanitizedTitle}_${coordinateType}_to_${targetType}.csv`;
+    filename = `${sanitizedTitle}.csv`;
   } else {
     filename = `converted_${coordinateType}_to_${targetType}_${
       new Date().toISOString().split("T")[0]
