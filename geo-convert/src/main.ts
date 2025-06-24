@@ -28,6 +28,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full">
           <option value="he">עברית</option>
           <option value="en">English</option>
+          <option value="it">Italiano</option>
         </select>
         <div id="info-button-container"></div>
       </div>
@@ -279,7 +280,12 @@ function updateHistoryDisplay(): void {
   historyList.innerHTML = conversionHistory
     .map((record) => {
       const currentLang = getCurrentLanguage();
-      const locale = currentLang === "he" ? "he-IL" : "en-US";
+      const locale =
+        currentLang === "he"
+          ? "he-IL"
+          : currentLang === "it"
+            ? "it-IT"
+            : "en-US";
       const time = record.timestamp.toLocaleTimeString(locale);
       const date = record.timestamp.toLocaleDateString(locale);
       const titleDisplay = record.title
@@ -1072,7 +1078,10 @@ const languageSelect =
 function loadLanguagePreference(): void {
   try {
     const savedLanguage = localStorage.getItem("geo-convert-language");
-    if (savedLanguage && (savedLanguage === "he" || savedLanguage === "en")) {
+    if (
+      savedLanguage &&
+      (savedLanguage === "he" || savedLanguage === "en" || savedLanguage === "it")
+    ) {
       languageSelect.value = savedLanguage;
       changeLanguage(savedLanguage);
     } else {

@@ -1,6 +1,7 @@
 import i18next from "i18next";
 import en from "./en.json";
 import he from "./he.json";
+import it from "./it.json";
 
 export const initI18n = async () => {
   await i18next.init({
@@ -9,6 +10,7 @@ export const initI18n = async () => {
     resources: {
       en: { translation: en },
       he: { translation: he },
+      it: { translation: it },
     },
     interpolation: {
       escapeValue: false,
@@ -33,7 +35,11 @@ const updateDirection = (lng: string) => {
     html.setAttribute("lang", "he");
   } else {
     html.setAttribute("dir", "ltr");
-    html.setAttribute("lang", "en");
+    if (lng === "it") {
+      html.setAttribute("lang", "it");
+    } else {
+      html.setAttribute("lang", "en");
+    }
   }
 
   // Add or remove RTL class for CSS styling
