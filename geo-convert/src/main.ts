@@ -330,7 +330,7 @@ function updateHistoryDisplay(): void {
           <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
-            <div class="flex justify-between items-start mb-2">
+            <div class="history-header flex justify-between items-start mb-2">
               <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">UTM → WGS84</span>
               <div class="history-time text-xs text-white/70 w-20 text-right flex-shrink-0">
                 <div>${date}</div>
@@ -371,7 +371,7 @@ function updateHistoryDisplay(): void {
           <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
-            <div class="flex justify-between items-start mb-2">
+            <div class="history-header flex justify-between items-start mb-2">
               <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">WGS84 → UTM</span>
               <div class="history-time text-xs text-white/70 w-20 text-right flex-shrink-0">
                 <div >${date}</div>

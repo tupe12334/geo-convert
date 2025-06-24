@@ -321,6 +321,13 @@ button:active {
   margin-bottom: 0.5rem;
 }
 
+#history-list .history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
 .history-actions {
   display: flex;
   gap: 0.25rem;
