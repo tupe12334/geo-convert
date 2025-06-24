@@ -155,7 +155,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
             <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
-          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400 dark:scrollbar-thumb-white/30">
+          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
             <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
           </div>
         </div>
@@ -566,7 +566,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
     : "";
 
   modal.innerHTML = `
-    <div class="csv-import-dialog max-h-[95vh] overflow-y-auto">
+    <div class="csv-import-dialog max-h-[95vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
       <h3>${t("selectCoordinateType")}</h3>
       ${
         detectedTypeText
@@ -599,7 +599,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
         <h4>${t("csvPreview", {
           count: Math.min(parseResult.data.length, 100),
         })}</h4>
-        <div class="rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 max-h-64 overflow-auto">
+        <div class="rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 max-h-64 overflow-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
           <table class="w-full border-collapse text-sm table-fixed">
             <thead class="sticky top-0 z-10">
               <tr>
@@ -939,7 +939,7 @@ function offerCSVDownload(
   const targetType = coordinateType === "UTM" ? "WGS84" : "UTM";
 
   modal.innerHTML = `
-    <div class="csv-download-dialog max-h-[80vh] overflow-y-auto">
+    <div class="csv-download-dialog max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
       <h3>${t("downloadConvertedCSV")}</h3>
       <p>${t("csvConvertedMessage", {
         from: coordinateType,
