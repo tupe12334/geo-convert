@@ -1,18 +1,30 @@
 import { test, expect } from "@playwright/test";
 import { GeoConvertPage } from "./pageObjects/GeoConvertPage";
-import path from "path";
+import { readFile } from "fs/promises";
 
 test.describe("CSV import", () => {
   test("should process sample csv and add rows to history", async ({
     page,
   }) => {
     const geoPage = new GeoConvertPage(page);
-    const csvPath = path.resolve(__dirname, "../examples/sample.csv");
+    // Use a relative path that should work with the test setup
+    const csvPath = "./examples/sample.csv";
 
     await geoPage.goto();
     await geoPage.uploadCSV(csvPath);
     await geoPage.confirmCSVImport();
-    await geoPage.cancelCSVDownload();
+
+    // Download the converted file and validate as snapshot
+    const downloadPath = await geoPage.downloadCSV();
+
+    // Read the downloaded file content using Playwright's file utilities
+    const convertedContent = await page.evaluate(async (filePath) => {
+      const response = await fetch(`file://${filePath}`);
+      return await response.text();
+    }, downloadPath);
+
+    // Validate the converted CSV content as snapshot
+    await expect(convertedContent).toMatchSnapshot("converted-sample.csv");
 
     await expect(await geoPage.historyCount()).toBe(5);
     await expect(page.locator("#history-list .history-header")).toHaveCount(5);
