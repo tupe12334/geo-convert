@@ -1,53 +1,71 @@
 <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-  <!-- Compass ring -->
-  <circle cx="24" cy="24" r="22" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.3"/>
-  <circle cx="24" cy="24" r="18" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.5"/>
-  
-  <!-- Coordinate grid -->
-  <g opacity="0.4">
-    <!-- Vertical lines -->
-    <line x1="12" y1="6" x2="12" y2="42" stroke="#60a5fa" stroke-width="0.5"/>
-    <line x1="24" y1="6" x2="24" y2="42" stroke="#60a5fa" stroke-width="1"/>
-    <line x1="36" y1="6" x2="36" y2="42" stroke="#60a5fa" stroke-width="0.5"/>
-    <!-- Horizontal lines -->
-    <line x1="6" y1="12" x2="42" y2="12" stroke="#60a5fa" stroke-width="0.5"/>
-    <line x1="6" y1="24" x2="42" y2="24" stroke="#60a5fa" stroke-width="1"/>
-    <line x1="6" y1="36" x2="42" y2="36" stroke="#60a5fa" stroke-width="0.5"/>
-  </g>
-  
-  <!-- Compass needle/arrow pointing directions -->
-  <g transform="translate(24,24)">
-    <!-- North arrow -->
-    <path d="M0,-12 L3,-6 L0,-8 L-3,-6 Z" fill="#60a5fa" opacity="0.9"/>
-    <!-- South arrow -->
-    <path d="M0,12 L3,6 L0,8 L-3,6 Z" fill="#60a5fa" opacity="0.6"/>
-    <!-- East arrow -->
-    <path d="M12,0 L6,-3 L8,0 L6,3 Z" fill="#60a5fa" opacity="0.6"/>
-    <!-- West arrow -->
-    <path d="M-12,0 L-6,-3 L-8,0 L-6,3 Z" fill="#60a5fa" opacity="0.6"/>
-  </g>
-  
-  <!-- Center conversion symbol -->
-  <circle cx="24" cy="24" r="4" fill="#60a5fa" opacity="0.8"/>
-  <circle cx="24" cy="24" r="2" fill="none" stroke="white" stroke-width="1"/>
-  
-  <!-- Conversion arrows -->
-  <g opacity="0.7">
-    <!-- Curved arrows indicating conversion -->
-    <path d="M32,16 Q28,12 24,16" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-    <path d="M16,32 Q20,36 24,32" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-  </g>
-  
-  <!-- Arrow marker definition -->
-  <defs>
-    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
-      <polygon points="0 0, 6 2, 0 4" fill="#60a5fa"/>
-    </marker>
-  </defs>
-  
-  <!-- Cardinal direction indicators -->
-  <text x="24" y="8" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.8">N</text>
-  <text x="40" y="26" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.6">E</text>
-  <text x="24" y="44" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.6">S</text>
-  <text x="8" y="26" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.6">W</text>
+    <defs>
+        <!-- Gradient definitions for modern look -->
+        <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#646cff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#535bf2;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="secondaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.6" />
+        </linearGradient>
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+            <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Outer ring with subtle gradient -->
+    <circle cx="24" cy="24" r="20" fill="none" stroke="url(#secondaryGradient)" stroke-width="1.5" opacity="0.4" />
+    
+    <!-- Modern grid pattern -->
+    <g opacity="0.3" stroke="url(#secondaryGradient)" stroke-width="0.5">
+        <!-- Simplified crosshair grid -->
+        <line x1="24" y1="8" x2="24" y2="40" />
+        <line x1="8" y1="24" x2="40" y2="24" />
+        <!-- Diagonal guides -->
+        <line x1="17" y1="17" x2="31" y2="31" opacity="0.5" />
+        <line x1="31" y1="17" x2="17" y2="31" opacity="0.5" />
+    </g>
+
+    <!-- Main conversion symbol - modern geometric design -->
+    <g transform="translate(24,24)" filter="url(#glow)">
+        <!-- Central hub -->
+        <circle r="6" fill="url(#primaryGradient)" opacity="0.9" />
+        <circle r="3" fill="none" stroke="white" stroke-width="1.5" opacity="0.8" />
+        
+        <!-- Directional indicators - simplified arrows -->
+        <g stroke="url(#primaryGradient)" stroke-width="2" fill="none" opacity="0.8">
+            <!-- North -->
+            <path d="M0,-10 L-2,-6 M0,-10 L2,-6" stroke-linecap="round" />
+            <!-- South -->
+            <path d="M0,10 L-2,6 M0,10 L2,6" stroke-linecap="round" />
+            <!-- East -->
+            <path d="M10,0 L6,-2 M10,0 L6,2" stroke-linecap="round" />
+            <!-- West -->
+            <path d="M-10,0 L-6,-2 M-10,0 L-6,2" stroke-linecap="round" />
+        </g>
+    </g>
+
+    <!-- Conversion flow indicators -->
+    <g opacity="0.6" fill="none" stroke="url(#primaryGradient)" stroke-width="1.5">
+        <!-- Curved flow arrows showing transformation -->
+        <path d="M14,10 Q18,6 22,10" stroke-linecap="round" />
+        <path d="M34,38 Q30,42 26,38" stroke-linecap="round" />
+        
+        <!-- Small dots indicating coordinate points -->
+        <circle cx="16" cy="12" r="1.5" fill="url(#secondaryGradient)" />
+        <circle cx="32" cy="36" r="1.5" fill="url(#secondaryGradient)" />
+    </g>
+
+    <!-- Subtle coordinate markers -->
+    <g opacity="0.5" fill="url(#secondaryGradient)" font-family="system-ui" font-size="6" font-weight="500" text-anchor="middle">
+        <text x="24" y="6" dominant-baseline="middle">N</text>
+        <text x="42" y="26" dominant-baseline="middle">E</text>
+        <text x="24" y="46" dominant-baseline="middle">S</text>
+        <text x="6" y="26" dominant-baseline="middle">W</text>
+    </g>
 </svg>
