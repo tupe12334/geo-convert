@@ -1348,7 +1348,7 @@ function handleExcelFileSelect(event: Event): void {
 
   const fileName = file.name.toLowerCase();
   if (!fileName.endsWith(".xlsx") && !fileName.endsWith(".xls")) {
-    notyf.error("Please select an Excel file (.xlsx or .xls)");
+    notyf.error(t("pleaseSelectExcelFile"));
     return;
   }
 
