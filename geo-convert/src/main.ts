@@ -24,7 +24,10 @@ import type {
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div class="w-full h-full mx-auto p-8 text-center box-border overflow-y-auto">
     <div class="flex flex-wrap sm:flex-nowrap justify-between items-center mb-8 gap-4">
-      <h1 class="mb-0 flex-shrink-0 leading-none text-4xl text-white" data-i18n="title">Geographic Coordinate Converter</h1>
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <img src="/assets/geo-convert-logo.svg" alt="Geo Convert Logo" width="48" height="48" class="flex-shrink-0">
+        <h1 class="mb-0 flex-shrink-0 leading-none text-4xl text-white" data-i18n="title">Geographic Coordinate Converter</h1>
+      </div>
       <div class="flex items-center gap-2 flex-shrink-0 h-[2.5rem]">
         <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full">
           <option value="he">עברית</option>

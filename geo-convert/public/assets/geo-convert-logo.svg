@@ -1,0 +1,53 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <!-- Compass ring -->
+  <circle cx="24" cy="24" r="22" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.3"/>
+  <circle cx="24" cy="24" r="18" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Coordinate grid -->
+  <g opacity="0.4">
+    <!-- Vertical lines -->
+    <line x1="12" y1="6" x2="12" y2="42" stroke="#60a5fa" stroke-width="0.5"/>
+    <line x1="24" y1="6" x2="24" y2="42" stroke="#60a5fa" stroke-width="1"/>
+    <line x1="36" y1="6" x2="36" y2="42" stroke="#60a5fa" stroke-width="0.5"/>
+    <!-- Horizontal lines -->
+    <line x1="6" y1="12" x2="42" y2="12" stroke="#60a5fa" stroke-width="0.5"/>
+    <line x1="6" y1="24" x2="42" y2="24" stroke="#60a5fa" stroke-width="1"/>
+    <line x1="6" y1="36" x2="42" y2="36" stroke="#60a5fa" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Compass needle/arrow pointing directions -->
+  <g transform="translate(24,24)">
+    <!-- North arrow -->
+    <path d="M0,-12 L3,-6 L0,-8 L-3,-6 Z" fill="#60a5fa" opacity="0.9"/>
+    <!-- South arrow -->
+    <path d="M0,12 L3,6 L0,8 L-3,6 Z" fill="#60a5fa" opacity="0.6"/>
+    <!-- East arrow -->
+    <path d="M12,0 L6,-3 L8,0 L6,3 Z" fill="#60a5fa" opacity="0.6"/>
+    <!-- West arrow -->
+    <path d="M-12,0 L-6,-3 L-8,0 L-6,3 Z" fill="#60a5fa" opacity="0.6"/>
+  </g>
+  
+  <!-- Center conversion symbol -->
+  <circle cx="24" cy="24" r="4" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="24" cy="24" r="2" fill="none" stroke="white" stroke-width="1"/>
+  
+  <!-- Conversion arrows -->
+  <g opacity="0.7">
+    <!-- Curved arrows indicating conversion -->
+    <path d="M32,16 Q28,12 24,16" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+    <path d="M16,32 Q20,36 24,32" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="#60a5fa"/>
+    </marker>
+  </defs>
+  
+  <!-- Cardinal direction indicators -->
+  <text x="24" y="8" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.8">N</text>
+  <text x="40" y="26" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.6">E</text>
+  <text x="24" y="44" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.6">S</text>
+  <text x="8" y="26" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="bold" opacity="0.6">W</text>
+</svg>
