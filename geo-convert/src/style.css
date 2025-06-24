@@ -23,13 +23,53 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark mode (default) */
+:root {
+  --color-text: rgba(255, 255, 255, 0.87);
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-background: #242424;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-surface-hover: rgba(255, 255, 255, 0.1);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.2);
+  --color-input-bg: rgba(255, 255, 255, 0.1);
+  --color-input-border: rgba(255, 255, 255, 0.2);
+  --color-button-bg: linear-gradient(135deg, #646cff, #535bf2);
+  --color-button-hover: linear-gradient(135deg, #535bf2, #646cff);
+  --color-accent: #646cff;
+  --color-success: #4ade80;
+  --color-error: #f87171;
+  --color-warning: #fbbf24;
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-text: #213547;
+    --color-text-secondary: #4a5568;
+    --color-text-muted: #718096;
+    --color-background: #ffffff;
+    --color-surface: rgba(0, 0, 0, 0.03);
+    --color-surface-hover: rgba(0, 0, 0, 0.06);
+    --color-border: rgba(0, 0, 0, 0.1);
+    --color-border-hover: rgba(0, 0, 0, 0.2);
+    --color-input-bg: rgba(0, 0, 0, 0.05);
+    --color-input-border: rgba(0, 0, 0, 0.15);
+    --color-button-bg: linear-gradient(135deg, #646cff, #535bf2);
+    --color-button-hover: linear-gradient(135deg, #535bf2, #646cff);
+    --color-accent: #646cff;
+    --color-success: #22c55e;
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+  }
 }
 
 body {
@@ -42,6 +82,8 @@ body {
   width: 100vw;
   overflow: hidden;
   box-sizing: border-box;
+  color: var(--color-text);
+  background-color: var(--color-background);
 }
 
 /* RTL/LTR Support */
@@ -60,34 +102,34 @@ body.ltr {
 
 /* Language select styling */
 #language-select {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
   border-radius: 6px;
   padding: 6px 12px;
-  color: white;
+  color: var(--color-text);
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 #language-select:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
 }
 
 #language-select:focus {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.1);
 }
 
 #language-select option {
-  background-color: #2a2a2a;
-  color: white;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 h3 {
-  color: #fff;
+  color: var(--color-text);
   margin-bottom: 1rem;
 }
 
@@ -101,9 +143,9 @@ h3 {
 .history-section h3 {
   margin-top: 0;
   margin-bottom: 1.5rem;
-  color: #fff;
+  color: var(--color-text);
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: 0.5rem;
 }
 
@@ -117,10 +159,10 @@ h3 {
 .wgs84-section select,
 .working-bench-section textarea {
   padding: 0.75rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--color-input-border);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: var(--color-input-bg);
+  color: var(--color-text);
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
@@ -131,12 +173,12 @@ h3 {
 .wgs84-section select:focus,
 .working-bench-section textarea:focus {
   outline: none;
-  border-color: #646cff;
+  border-color: var(--color-accent);
 }
 
 .utm-section input::placeholder,
 .wgs84-section input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
 }
 
 .working-bench-section textarea {
@@ -150,7 +192,7 @@ h3 {
 }
 
 .working-bench-section textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
 }
 
 .utm-section select,
@@ -160,12 +202,12 @@ h3 {
 
 .utm-section select option,
 .wgs84-section select option {
-  background: #242424;
-  color: #fff;
+  background: var(--color-background);
+  color: var(--color-text);
 }
 
 button {
-  background: linear-gradient(135deg, #646cff, #535bf2);
+  background: var(--color-button-bg);
   border: none;
   border-radius: 8px;
   padding: 0.75rem 2rem;
@@ -177,7 +219,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(135deg, #535bf2, #646cff);
+  background: var(--color-button-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
 }
@@ -187,20 +229,20 @@ button:active {
 }
 
 .output-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border);
   padding-top: 2rem;
 }
 
 .result-display {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--color-surface);
   border-radius: 8px;
   padding: 1.5rem;
   min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
 }
 
 /* .success converted to Tailwind classes: text-green-400 text-start w-full */
@@ -213,24 +255,24 @@ button:active {
 .decimal-degrees {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--color-border);
   font-size: 1.05em;
 }
 
 .error {
-  color: #f87171;
+  color: var(--color-error);
   font-weight: 500;
 }
 
 /* .status-section converted to Tailwind classes: border-t border-white/10 pt-6 */
 
 .status-display .success {
-  color: #4ade80;
+  color: var(--color-success);
   font-weight: 500;
 }
 
 .status-display .error {
-  color: #f87171;
+  color: var(--color-error);
   font-weight: 500;
 }
 
@@ -269,9 +311,9 @@ button:active {
 .export-button {
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  color: var(--color-text);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -289,7 +331,7 @@ button:active {
 
 .history-empty {
   text-align: center;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   padding: 2rem;
   font-style: italic;
 }
@@ -314,9 +356,9 @@ button:active {
 .history-edit-title {
   padding: 0.25rem 0.5rem;
   font-size: 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  color: var(--color-text);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -326,7 +368,7 @@ button:active {
 }
 
 .history-edit-title:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-surface-hover);
   transform: scale(1.05);
 }
 
@@ -356,25 +398,25 @@ button:active {
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #fff;
+  color: var(--color-text);
   font-size: 0.9rem;
 }
 
 .history-type {
   font-weight: 600;
-  color: #646cff;
+  color: var(--color-accent);
   font-size: 0.9rem;
 }
 
 .history-time {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
 }
 
 .history-load {
   padding: 0.25rem 0.75rem;
   font-size: 0.8rem;
-  background: linear-gradient(135deg, #646cff, #535bf2);
+  background: var(--color-button-bg);
   border: none;
   color: white;
   border-radius: 4px;
@@ -385,7 +427,7 @@ button:active {
 }
 
 .history-load:hover {
-  background: linear-gradient(135deg, #535bf2, #646cff);
+  background: var(--color-button-hover);
   transform: scale(1.05);
 }
 
@@ -397,12 +439,12 @@ button:active {
 .history-input,
 .history-output {
   margin-bottom: 0.25rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-secondary);
 }
 
 .history-input strong,
 .history-output strong {
-  color: #fff;
+  color: var(--color-text);
 }
 
 /* CSV Import Styles */
@@ -480,8 +522,8 @@ button:active {
 }
 
 .csv-import-dialog {
-  background: linear-gradient(135deg, #1e293b, #334155);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 2rem;
   max-width: 600px;
@@ -491,7 +533,7 @@ button:active {
 
 .csv-import-dialog h3 {
   margin: 0 0 1.5rem 0;
-  color: #fff;
+  color: var(--color-text);
   text-align: center;
   font-size: 1.3rem;
 }
@@ -502,14 +544,14 @@ button:active {
   border-radius: 6px;
   padding: 0.75rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--color-text);
   text-align: center;
   font-weight: 500;
 }
 
 .column-mapping {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 1rem;
   margin-bottom: 1.5rem;
@@ -517,13 +559,13 @@ button:active {
 
 .column-mapping h4 {
   margin: 0 0 0.75rem 0;
-  color: #fff;
+  color: var(--color-text);
   font-size: 1rem;
 }
 
 .column-mapping div {
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
 
@@ -542,22 +584,22 @@ button:active {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #fff;
+  color: var(--color-text);
   cursor: pointer;
   padding: 0.5rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   transition: all 0.2s ease;
 }
 
 .coordinate-type-selection label:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--color-surface);
+  border-color: var(--color-border-hover);
 }
 
 .coordinate-type-selection input[type="radio"] {
   margin: 0;
-  accent-color: #646cff;
+  accent-color: var(--color-accent);
 }
 
 .csv-preview {
@@ -566,14 +608,14 @@ button:active {
 
 .csv-preview h4 {
   margin: 0 0 0.75rem 0;
-  color: #fff;
+  color: var(--color-text);
   font-size: 1rem;
 }
 
 .csv-preview table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
   border-radius: 6px;
   overflow: hidden;
   font-size: 0.8rem;
@@ -583,8 +625,8 @@ button:active {
 .csv-preview td {
   padding: 0.5rem;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
   word-break: break-word;
   max-width: 120px;
   overflow: hidden;
@@ -593,9 +635,9 @@ button:active {
 }
 
 .csv-preview th {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-surface-hover);
   font-weight: 600;
-  color: #646cff;
+  color: var(--color-accent);
 }
 
 .csv-preview tr:last-child td {
@@ -620,23 +662,23 @@ button:active {
 }
 
 .cancel-button {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  color: var(--color-text);
 }
 
 .cancel-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
 }
 
 .confirm-button {
-  background: linear-gradient(135deg, #646cff, #535bf2);
+  background: var(--color-button-bg);
   color: white;
 }
 
 .confirm-button:hover {
-  background: linear-gradient(135deg, #535bf2, #646cff);
+  background: var(--color-button-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
 }
@@ -658,8 +700,8 @@ button:active {
 }
 
 .csv-download-dialog {
-  background: linear-gradient(135deg, #1e293b, #334155);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 2rem;
   max-width: 500px;
@@ -669,14 +711,14 @@ button:active {
 
 .csv-download-dialog h3 {
   margin: 0 0 1rem 0;
-  color: #fff;
+  color: var(--color-text);
   text-align: center;
   font-size: 1.3rem;
 }
 
 .csv-download-dialog p {
   margin: 0 0 1.5rem 0;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   text-align: center;
   line-height: 1.5;
 }
@@ -686,9 +728,9 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  color: var(--color-text);
   padding: 0 0.5rem;
   border-radius: 6px;
   cursor: pointer;
@@ -696,8 +738,8 @@ button:active {
 }
 
 .info-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
 }
 
 .info-button [data-lucide] {
@@ -708,14 +750,14 @@ button:active {
 /* Info Modal */
 
 .info-dialog {
-  background: linear-gradient(135deg, #1e293b, #334155);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 2rem;
   max-width: 400px;
   width: 100%;
   text-align: center;
-  color: #fff;
+  color: var(--color-text);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -832,15 +874,4 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+/* Light mode styles are handled via CSS variables at the top of this file */

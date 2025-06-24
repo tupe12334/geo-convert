@@ -26,10 +26,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <div class="flex flex-wrap sm:flex-nowrap justify-between items-center mb-8 gap-4">
       <div class="flex items-center gap-3 flex-shrink-0">
         <img src="/assets/geo-convert-logo.svg" alt="Geo Convert Logo" width="48" height="48" class="flex-shrink-0">
-        <h1 class="mb-0 flex-shrink-0 leading-none text-4xl text-white" data-i18n="title">Geographic Coordinate Converter</h1>
+        <h1 class="mb-0 flex-shrink-0 leading-none text-4xl text-gray-900 dark:text-white" data-i18n="title">Geographic Coordinate Converter</h1>
       </div>
       <div class="flex items-center gap-2 flex-shrink-0 h-[2.5rem]">
-        <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full">
+        <select id="language-select" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm h-full">
           <option value="he">עברית</option>
           <option value="en">English</option>
           <option value="it">Italiano</option>
@@ -37,12 +37,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <div id="info-button-container"></div>
       </div>
     </div>
-    <div class="bg-white/5 rounded-xl p-8 border border-white/10 w-full max-w-full box-border">
+    <div class="bg-black/5 dark:bg-white/5 rounded-xl p-8 border border-black/10 dark:border-white/10 w-full max-w-full box-border">
       <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-2 w-full">
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section">
+        <div class="bg-black/[0.03] dark:bg-white/[0.03] rounded-lg p-4 md:p-6 border border-black/10 dark:border-white/10 min-w-0 w-full box-border working-bench-section">
           <h3 data-i18n="workingBench">Working Bench</h3>
           <div class="flex flex-col w-full mb-4">
-            <label for="conversion-title" data-i18n="conversionTitle" class="block mb-2 text-white font-medium text-base break-words">Conversion Title (optional):</label>
+            <label for="conversion-title" data-i18n="conversionTitle" class="block mb-2 text-gray-900 dark:text-white font-medium text-base break-words">Conversion Title (optional):</label>
             <input 
               type="text" 
               id="conversion-title" 
@@ -52,7 +52,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             />
           </div>
           <div class="flex flex-col w-full">
-            <label for="working-notes" data-i18n="notesAndCalculations" class="block mb-2 text-white font-medium text-base break-words">Notes & Calculations:</label>
+            <label for="working-notes" data-i18n="notesAndCalculations" class="block mb-2 text-gray-900 dark:text-white font-medium text-base break-words">Notes & Calculations:</label>
             <textarea
               id="working-notes"
               data-i18n-placeholder="notesPlaceholder"
@@ -74,9 +74,9 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           </div>
         </div>
         
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section">
+        <div class="bg-black/[0.03] dark:bg-white/[0.03] rounded-lg p-4 md:p-6 border border-black/10 dark:border-white/10 min-w-0 w-full box-border utm-section">
           <h3 data-i18n="utm">UTM Coordinates</h3>
-          <p class="text-white/70 text-sm mb-4" data-i18n="utmDescription">Enter UTM coordinates</p>
+          <p class="text-gray-700 dark:text-white/70 text-sm mb-4" data-i18n="utmDescription">Enter UTM coordinates</p>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="easting-input">Easting (X):</label>
@@ -121,9 +121,9 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <button id="convert-to-wgs84" data-i18n="convert">Convert to WGS84 →</button>
         </div>
         
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
+        <div class="bg-black/[0.03] dark:bg-white/[0.03] rounded-lg p-4 md:p-6 border border-black/10 dark:border-white/10 min-w-0 w-full box-border wgs84-section">
           <h3 data-i18n="wgs84">WGS84</h3>
-          <p class="text-white/70 text-sm mb-4" data-i18n="wgs84Description">Enter WGS84 coordinates</p>
+          <p class="text-gray-700 dark:text-white/70 text-sm mb-4" data-i18n="wgs84Description">Enter WGS84 coordinates</p>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="latitude-input">Latitude:</label>
@@ -149,13 +149,13 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <button id="convert-to-utm" data-i18n="convert">← Convert to UTM</button>
         </div>
 
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section">
+        <div class="bg-black/[0.03] dark:bg-white/[0.03] rounded-lg p-4 md:p-6 border border-black/10 dark:border-white/10 min-w-0 w-full box-border history-section">
           <h3><span data-i18n="conversionHistory">Conversion History</span> (<span id="history-count">0</span>)</h3>
           <div class="flex gap-2 mb-4 justify-center">
             <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
             <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
-          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/30">
+          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400 dark:scrollbar-thumb-white/30">
             <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
           </div>
         </div>
@@ -300,7 +300,7 @@ function updateHistoryDisplay(): void {
         const input = record.input as UTMCoordinate;
         const output = record.output as WGS84Coordinate;
         return `
-          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
+          <div class="bg-black/[0.05] dark:bg-white/[0.05] border border-black/10 dark:border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.08]" data-id="${
             record.id
           }">
             <div class="history-header">
@@ -338,7 +338,7 @@ function updateHistoryDisplay(): void {
         const input = record.input as WGS84Coordinate;
         const output = record.output as UTMCoordinate;
         return `
-          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
+          <div class="bg-black/[0.05] dark:bg-white/[0.05] border border-black/10 dark:border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.08]" data-id="${
             record.id
           }">
             <div class="history-header">
@@ -590,7 +590,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
         </label>
       </div>
 
-      <div id="manual-column-mapping" style="display: none;" class="mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
+      <div id="manual-column-mapping" style="display: none;" class="mt-4 p-4 bg-black/5 dark:bg-white/5 rounded-lg border border-black/10 dark:border-white/10">
         <h4>${t("manualColumnMapping")}</h4>
         <div id="column-mapping-fields"></div>
       </div>
@@ -599,14 +599,14 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
         <h4>${t("csvPreview", {
           count: Math.min(parseResult.data.length, 100),
         })}</h4>
-        <div class="rounded-md border border-white/10 bg-white/5">
+        <div class="rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5">
           <table class="w-full border-collapse text-sm">
             <thead>
               <tr>
                 ${parseResult.headers
                   .map(
                     (header) =>
-                      `<th class="bg-white/10 px-2 py-2 text-left font-semibold text-blue-400 border-b border-white/10 sticky top-0 z-10">${header}</th>`
+                      `<th class="bg-black/10 dark:bg-white/10 px-2 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 border-b border-black/10 dark:border-white/10 sticky top-0 z-10">${header}</th>`
                   )
                   .join("")}
               </tr>
@@ -622,7 +622,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
                       `<tr class="border-b border-white/10 last:border-b-0">${parseResult.headers
                         .map(
                           (header) =>
-                            `<td class="px-2 py-2 text-white max-w-32 truncate">${
+                            `<td class="px-2 py-2 text-gray-900 dark:text-white max-w-32 truncate">${
                               row[header] || ""
                             }</td>`
                         )
@@ -669,34 +669,34 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       fieldsContainer.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col">
-            <label for="easting-column" class="mb-2 text-white font-medium">${t(
+            <label for="easting-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
               "selectEastingColumn"
             )}</label>
-            <select id="easting-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+            <select id="easting-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="northing-column" class="mb-2 text-white font-medium">${t(
+            <label for="northing-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
               "selectNorthingColumn"
             )}</label>
-            <select id="northing-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+            <select id="northing-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="zone-column" class="mb-2 text-white font-medium">${t(
+            <label for="zone-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
               "selectZoneColumn"
             )}</label>
-            <select id="zone-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+            <select id="zone-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="hemisphere-column" class="mb-2 text-white font-medium">${t(
+            <label for="hemisphere-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
               "selectHemisphereColumn"
             )}</label>
-            <select id="hemisphere-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+            <select id="hemisphere-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
@@ -706,18 +706,18 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       fieldsContainer.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col">
-            <label for="latitude-column" class="mb-2 text-white font-medium">${t(
+            <label for="latitude-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
               "selectLatitudeColumn"
             )}</label>
-            <select id="latitude-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+            <select id="latitude-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="longitude-column" class="mb-2 text-white font-medium">${t(
+            <label for="longitude-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
               "selectLongitudeColumn"
             )}</label>
-            <select id="longitude-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+            <select id="longitude-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
