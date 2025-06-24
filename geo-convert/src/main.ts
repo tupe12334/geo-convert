@@ -155,8 +155,11 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
             <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
-          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
-            <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
+          <div class="relative">
+            <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
+              <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
+            </div>
+            <div id="history-shadow" class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent pointer-events-none rounded-b-lg opacity-0 transition-opacity duration-300"></div>
           </div>
         </div>
       </div>
@@ -269,20 +272,23 @@ function addToHistory(
 // Update history display
 function updateHistoryDisplay(): void {
   const historyList = document.querySelector<HTMLDivElement>("#history-list")!;
+  const historyShadow = document.querySelector<HTMLDivElement>("#history-shadow")!;
   const historyCount =
     document.querySelector<HTMLSpanElement>("#history-count")!;
 
   historyCount.textContent = conversionHistory.length.toString();
 
-  // Add or remove shadow classes based on the number of history items
+  // Always use the same classes for the scrollable container
+  historyList.className =
+    "max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300";
+
+  // Show/hide shadow based on content amount
   if (conversionHistory.length >= 3) {
-    // Add classes to indicate scrollable content
-    historyList.className =
-      "max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300 history-list-scrollable";
+    historyShadow.classList.remove("opacity-0");
+    historyShadow.classList.add("opacity-100");
   } else {
-    // Remove shadow classes when there are few items
-    historyList.className =
-      "max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300";
+    historyShadow.classList.remove("opacity-100");
+    historyShadow.classList.add("opacity-0");
   }
 
   if (conversionHistory.length === 0) {
