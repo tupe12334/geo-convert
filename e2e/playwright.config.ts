@@ -11,6 +11,23 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+const browsers = [
+  {
+    name: "chromium",
+    device: devices["Desktop Chrome"],
+  },
+  {
+    name: "firefox",
+    device: devices["Desktop Firefox"],
+  },
+  {
+    name: "webkit",
+    device: devices["Desktop Safari"],
+  },
+] as const;
+
+const colorSchemes: Array<"light" | "dark"> = ["light", "dark"];
+
 export default defineConfig({
   testDir: "./tests",
   /* Run tests in files in parallel */
@@ -43,43 +60,33 @@ export default defineConfig({
     },
   },
 
-  /* Configure projects for major browsers */
-  projects: [
-    {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
+  /* Configure projects for major browsers in both color schemes */
+  projects: browsers.flatMap(({ name, device }) =>
+    colorSchemes.map((colorScheme) => ({
+      name: `${name}-${colorScheme}`,
+      use: { ...device, colorScheme },
+    })),
+  ),
 
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
+  // Test against mobile viewports.
+  // {
+  //   name: 'Mobile Chrome',
+  //   use: { ...devices['Pixel 5'] },
+  // },
+  // {
+  //   name: 'Mobile Safari',
+  //   use: { ...devices['iPhone 12'] },
+  // },
 
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-    },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-  ],
+  // Test against branded browsers.
+  // {
+  //   name: 'Microsoft Edge',
+  //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+  // },
+  // {
+  //   name: 'Google Chrome',
+  //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+  // },
 
   /* Run your local dev server before starting the tests */
   webServer: {
