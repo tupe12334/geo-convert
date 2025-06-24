@@ -20,7 +20,7 @@ export interface ConversionRecord {
 }
 
 // Re-export CSV types
-export type { CoordinateType, CSVParseResult, CSVRow } from "./parseCSV/types";
+export type { CoordinateType, CSVParseResult, CSVRow, ManualColumnMapping } from "./parseCSV/types";
 
 // Re-export Excel types
 export type { ExcelParseResult, ExcelParseOptions } from "./parseExcel/types";

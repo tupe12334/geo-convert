@@ -18,6 +18,7 @@ import type {
   WGS84Coordinate,
   CoordinateType,
   CSVParseResult,
+  ManualColumnMapping,
 } from "./converters/types";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -585,6 +586,11 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
           WGS84
         </label>
       </div>
+
+      <div id="manual-column-mapping" style="display: none;" class="mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
+        <h4>${t("manualColumnMapping")}</h4>
+        <div id="column-mapping-fields"></div>
+      </div>
       
       <div class="csv-preview">
         <h4>${t("csvPreview", {
@@ -639,7 +645,104 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
 
   document.body.appendChild(modal);
 
-  // Add event listeners
+  // Helper function to create column select options
+  const createColumnSelectOptions = (): string => {
+    return `<option value="">${t("selectColumn")}</option>` +
+      parseResult.headers
+        .map(header => `<option value="${header}">${header}</option>`)
+        .join("");
+  };
+
+  // Helper function to show manual column mapping
+  const showManualColumnMapping = (coordinateType: CoordinateType): void => {
+    const manualMappingDiv = modal.querySelector("#manual-column-mapping") as HTMLDivElement;
+    const fieldsContainer = modal.querySelector("#column-mapping-fields")!;
+    
+    if (coordinateType === "UTM") {
+      fieldsContainer.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex flex-col">
+            <label for="easting-column" class="mb-2 text-white font-medium">${t("selectEastingColumn")}</label>
+            <select id="easting-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+              ${createColumnSelectOptions()}
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label for="northing-column" class="mb-2 text-white font-medium">${t("selectNorthingColumn")}</label>
+            <select id="northing-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+              ${createColumnSelectOptions()}
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label for="zone-column" class="mb-2 text-white font-medium">${t("selectZoneColumn")}</label>
+            <select id="zone-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+              ${createColumnSelectOptions()}
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label for="hemisphere-column" class="mb-2 text-white font-medium">${t("selectHemisphereColumn")}</label>
+            <select id="hemisphere-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+              ${createColumnSelectOptions()}
+            </select>
+          </div>
+        </div>
+      `;
+    } else {
+      fieldsContainer.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex flex-col">
+            <label for="latitude-column" class="mb-2 text-white font-medium">${t("selectLatitudeColumn")}</label>
+            <select id="latitude-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+              ${createColumnSelectOptions()}
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label for="longitude-column" class="mb-2 text-white font-medium">${t("selectLongitudeColumn")}</label>
+            <select id="longitude-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+              ${createColumnSelectOptions()}
+            </select>
+          </div>
+        </div>
+      `;
+    }
+    
+    manualMappingDiv.style.display = "block";
+  };
+
+  // Helper function to hide manual column mapping
+  const hideManualColumnMapping = (): void => {
+    const manualMappingDiv = modal.querySelector("#manual-column-mapping") as HTMLDivElement;
+    manualMappingDiv.style.display = "none";
+  };
+
+  // Helper function to check if manual mapping is needed
+  const isManualMappingNeeded = (selectedType: CoordinateType): boolean => {
+    return selectedType !== parseResult.coordinateType || !parseResult.detectedColumns;
+  };
+
+  // Add event listeners for radio buttons
+  const radioButtons = modal.querySelectorAll<HTMLInputElement>('input[name="coordinate-type"]');
+  radioButtons.forEach(radio => {
+    radio.addEventListener("change", () => {
+      const selectedType = radio.value as CoordinateType;
+      if (isManualMappingNeeded(selectedType)) {
+        showManualColumnMapping(selectedType);
+      } else {
+        hideManualColumnMapping();
+      }
+    });
+  });
+
+  // Show manual mapping if needed on initial load
+  const initialSelectedType = modal.querySelector<HTMLInputElement>(
+    'input[name="coordinate-type"]:checked'
+  )?.value as CoordinateType;
+  
+  if (initialSelectedType && isManualMappingNeeded(initialSelectedType)) {
+    showManualColumnMapping(initialSelectedType);
+  }
+
+  // Add event listeners for action buttons
   const cancelBtn = modal.querySelector("#cancel-csv-import")!;
   const confirmBtn = modal.querySelector("#confirm-csv-import")!;
 
@@ -657,8 +760,46 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       return;
     }
 
+    let columnMapping: ManualColumnMapping | undefined;
+
+    // If manual mapping is shown, collect the column mappings
+    if (isManualMappingNeeded(selectedType)) {
+      const manualMappingDiv = modal.querySelector("#manual-column-mapping") as HTMLDivElement;
+      if (manualMappingDiv.style.display !== "none") {
+        columnMapping = {};
+        
+        if (selectedType === "UTM") {
+          const eastingSelect = modal.querySelector<HTMLSelectElement>("#easting-column");
+          const northingSelect = modal.querySelector<HTMLSelectElement>("#northing-column");
+          const zoneSelect = modal.querySelector<HTMLSelectElement>("#zone-column");
+          const hemisphereSelect = modal.querySelector<HTMLSelectElement>("#hemisphere-column");
+          
+          if (!eastingSelect?.value || !northingSelect?.value || !zoneSelect?.value || !hemisphereSelect?.value) {
+            notyf.error(t("columnMappingRequired"));
+            return;
+          }
+          
+          columnMapping.easting = eastingSelect.value;
+          columnMapping.northing = northingSelect.value;
+          columnMapping.zone = zoneSelect.value;
+          columnMapping.hemisphere = hemisphereSelect.value;
+        } else {
+          const latitudeSelect = modal.querySelector<HTMLSelectElement>("#latitude-column");
+          const longitudeSelect = modal.querySelector<HTMLSelectElement>("#longitude-column");
+          
+          if (!latitudeSelect?.value || !longitudeSelect?.value) {
+            notyf.error(t("columnMappingRequired"));
+            return;
+          }
+          
+          columnMapping.latitude = latitudeSelect.value;
+          columnMapping.longitude = longitudeSelect.value;
+        }
+      }
+    }
+
     document.body.removeChild(modal);
-    processCSVData(parseResult, selectedType);
+    processCSVData(parseResult, selectedType, columnMapping);
   });
 
   // Close on outside click

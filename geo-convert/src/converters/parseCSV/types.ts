@@ -19,3 +19,14 @@ export interface CSVParseResult {
     longitude?: string;
   };
 }
+
+export interface ManualColumnMapping {
+  // For UTM
+  easting?: string;
+  northing?: string;
+  zone?: string;
+  hemisphere?: string;
+  // For WGS84
+  latitude?: string;
+  longitude?: string;
+}
