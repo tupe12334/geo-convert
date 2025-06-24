@@ -155,7 +155,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
             <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
-          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
+          <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
             <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
           </div>
         </div>
@@ -300,7 +300,7 @@ function updateHistoryDisplay(): void {
         const input = record.input as UTMCoordinate;
         const output = record.output as WGS84Coordinate;
         return `
-          <div class="bg-black/[0.05] dark:bg-white/[0.05] border border-black/10 dark:border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.08]" data-id="${
+          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
             <div class="history-header">
@@ -338,7 +338,7 @@ function updateHistoryDisplay(): void {
         const input = record.input as WGS84Coordinate;
         const output = record.output as UTMCoordinate;
         return `
-          <div class="bg-black/[0.05] dark:bg-white/[0.05] border border-black/10 dark:border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.08]" data-id="${
+          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
             <div class="history-header">
@@ -566,7 +566,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
     : "";
 
   modal.innerHTML = `
-    <div class="csv-import-dialog max-h-[95vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
+    <div class="csv-import-dialog max-h-[95vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
       <h3>${t("selectCoordinateType")}</h3>
       ${
         detectedTypeText
@@ -590,7 +590,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
         </label>
       </div>
 
-      <div id="manual-column-mapping" style="display: none;" class="mt-4 p-4 bg-black/5 dark:bg-white/5 rounded-lg border border-black/10 dark:border-white/10">
+      <div id="manual-column-mapping" style="display: none;" class="mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
         <h4>${t("manualColumnMapping")}</h4>
         <div id="column-mapping-fields"></div>
       </div>
@@ -599,14 +599,14 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
         <h4>${t("csvPreview", {
           count: Math.min(parseResult.data.length, 100),
         })}</h4>
-        <div class="rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 max-h-64 overflow-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
+        <div class="rounded-md border border-white/10 bg-white/5 max-h-64 overflow-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
           <table class="w-full border-collapse text-sm table-fixed">
             <thead class="sticky top-0 z-10">
               <tr>
                 ${parseResult.headers
                   .map(
                     (header) =>
-                      `<th class="bg-black/10 dark:bg-white/10 px-2 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 border-b border-black/10 dark:border-white/10 w-32 min-w-0">${header}</th>`
+                      `<th class="bg-white/10 px-2 py-2 text-left font-semibold text-blue-400 border-b border-white/10 w-32 min-w-0">${header}</th>`
                   )
                   .join("")}
               </tr>
@@ -619,7 +619,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
                     `<tr class="border-b border-white/10 last:border-b-0">${parseResult.headers
                       .map(
                         (header) =>
-                          `<td class="px-2 py-2 text-gray-900 dark:text-white w-32 min-w-0 truncate">${
+                          `<td class="px-2 py-2 text-white w-32 min-w-0 truncate">${
                             row[header] || ""
                           }</td>`
                       )
@@ -665,34 +665,34 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       fieldsContainer.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col">
-            <label for="easting-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
+            <label for="easting-column" class="mb-2 text-white font-medium">${t(
               "selectEastingColumn"
             )}</label>
-            <select id="easting-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
+            <select id="easting-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="northing-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
+            <label for="northing-column" class="mb-2 text-white font-medium">${t(
               "selectNorthingColumn"
             )}</label>
-            <select id="northing-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
+            <select id="northing-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="zone-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
+            <label for="zone-column" class="mb-2 text-white font-medium">${t(
               "selectZoneColumn"
             )}</label>
-            <select id="zone-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
+            <select id="zone-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="hemisphere-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
+            <label for="hemisphere-column" class="mb-2 text-white font-medium">${t(
               "selectHemisphereColumn"
             )}</label>
-            <select id="hemisphere-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
+            <select id="hemisphere-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
@@ -702,18 +702,18 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
       fieldsContainer.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col">
-            <label for="latitude-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
+            <label for="latitude-column" class="mb-2 text-white font-medium">${t(
               "selectLatitudeColumn"
             )}</label>
-            <select id="latitude-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
+            <select id="latitude-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
           <div class="flex flex-col">
-            <label for="longitude-column" class="mb-2 text-gray-900 dark:text-white font-medium">${t(
+            <label for="longitude-column" class="mb-2 text-white font-medium">${t(
               "selectLongitudeColumn"
             )}</label>
-            <select id="longitude-column" class="bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded px-3 py-2 text-gray-900 dark:text-white text-sm">
+            <select id="longitude-column" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
               ${createColumnSelectOptions()}
             </select>
           </div>
