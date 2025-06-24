@@ -2,6 +2,8 @@
   "title": "ממיר קואורדינטות גיאוגרפיות",
   "utm": "UTM",
   "wgs84": "WGS84",
+  "north": "צפון",
+  "south": "דרום",
   "utmInputPlaceholder": "הכנס קואורדינטות UTM",
   "wgs84InputPlaceholder": "הכנס קואורדינטות WGS84",
   "convert": "המר",

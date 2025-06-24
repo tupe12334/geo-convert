@@ -2,6 +2,8 @@
   "title": "Geographic Coordinate Converter",
   "utm": "UTM",
   "wgs84": "WGS84",
+  "north": "North",
+  "south": "South",
   "utmInputPlaceholder": "Enter UTM coordinates",
   "wgs84InputPlaceholder": "Enter WGS84 coordinates",
   "convert": "Convert",
@@ -45,6 +47,6 @@
   "csvPreview": "Preview (first {{count}} rows):",
   "downloadConvertedCSV": "Download Converted CSV",
   "csvDownloaded": "Converted coordinates downloaded as CSV",
-  "infoDialogMessage": "Feel free to contact me for any issue - Ofek Gabay {{phone}} This system is a pilot for a civilian system",
+  "infoDialogMessage": "Feel free to contact me for any issue - Ofek Gabay {{phone}} This system is a civilian system",
   "close": "Close"
 }
