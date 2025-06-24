@@ -986,8 +986,7 @@ const importExcelBtn =
   document.querySelector<HTMLButtonElement>("#import-excel-btn")!;
 const excelFileInput =
   document.querySelector<HTMLInputElement>("#excel-file-input")!;
-const copyUTMBtn =
-  document.querySelector<HTMLButtonElement>("#copy-utm-btn")!;
+const copyUTMBtn = document.querySelector<HTMLButtonElement>("#copy-utm-btn")!;
 const copyWGS84Btn =
   document.querySelector<HTMLButtonElement>("#copy-wgs84-btn")!;
 
@@ -1101,9 +1100,12 @@ function copyUTMCoordinates(): void {
     return;
   }
 
-  const coordinateString = `${utm.easting.toFixed(2)}, ${utm.northing.toFixed(2)} (Zone ${utm.zone}${utm.hemisphere})`;
-  
-  navigator.clipboard.writeText(coordinateString)
+  const coordinateString = `${utm.easting.toFixed(2)}, ${utm.northing.toFixed(
+    2
+  )} (Zone ${utm.zone}${utm.hemisphere})`;
+
+  navigator.clipboard
+    .writeText(coordinateString)
     .then(() => {
       notyf.success(t("utmCoordinatesCopied"));
     })
@@ -1144,8 +1146,9 @@ function copyWGS84Coordinates(): void {
   }
 
   const coordinateString = `${latitude.toFixed(8)}, ${longitude.toFixed(8)}`;
-  
-  navigator.clipboard.writeText(coordinateString)
+
+  navigator.clipboard
+    .writeText(coordinateString)
     .then(() => {
       notyf.success(t("wgs84CoordinatesCopied"));
     })
