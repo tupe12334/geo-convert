@@ -8,7 +8,7 @@ import {
 } from "./converters";
 import { createIcons, Pencil, Trash2, Upload, Info, Sheet } from "lucide";
 import { generateId } from "./utils/generateId";
-import { initI18n, changeLanguage, t } from "./i18n";
+import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
@@ -273,8 +273,10 @@ function updateHistoryDisplay(): void {
 
   historyList.innerHTML = conversionHistory
     .map((record) => {
-      const time = record.timestamp.toLocaleTimeString();
-      const date = record.timestamp.toLocaleDateString();
+      const currentLang = getCurrentLanguage();
+      const locale = currentLang === "he" ? "he-IL" : "en-US";
+      const time = record.timestamp.toLocaleTimeString(locale);
+      const date = record.timestamp.toLocaleDateString(locale);
       const titleDisplay = record.title
         ? `<div class="history-title">${record.title}</div>`
         : "";
@@ -1073,10 +1075,13 @@ function loadLanguagePreference(): void {
       languageSelect.value = "he";
       changeLanguage("he");
     }
+    // Update history display with the correct locale
+    updateHistoryDisplay();
   } catch (error) {
     console.warn("Failed to load language preference:", error);
     languageSelect.value = "he";
     changeLanguage("he");
+    updateHistoryDisplay();
   }
 }
 
@@ -1096,6 +1101,7 @@ languageSelect.addEventListener("change", (e: Event) => {
 
   saveLanguagePreference(selectedLanguage);
   changeLanguage(selectedLanguage);
+  updateHistoryDisplay(); // Update history with new locale
 
   const languageName = target.options[target.selectedIndex].text;
   notyf.success(`✓ ${t("result")}: ${languageName}`);
