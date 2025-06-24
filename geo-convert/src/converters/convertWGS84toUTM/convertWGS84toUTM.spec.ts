@@ -108,7 +108,7 @@ describe("convertWGS84toUTM", () => {
       expect(typeof result.northing).toBe("number");
     });
 
-    it("should convert coordinates 32.062289, 34.772015 correctly", () => {
+    it("should convert WGS84 coordinates to UTM (Vitrina, Tel Aviv)", () => {
       const wgs84: WGS84Coordinate = {
         latitude: 32.062289,
         longitude: 34.772015,
@@ -118,7 +118,7 @@ describe("convertWGS84toUTM", () => {
 
       console.log("Conversion result:", result);
       expect(result.zone).toBe(36);
-      expect(result.hemisphere).toBe("S");
+      expect(result.hemisphere).toBe("N");
       expect(result.easting).toBeCloseTo(667274.762, 2);
       expect(result.northing).toBeCloseTo(3548713.386, 3);
     });
