@@ -1,7 +1,7 @@
 # Multi-stage build for geo-convert client
 
 # ----------- Base dependencies -----------
-FROM node:20-alpine AS deps
+FROM node:lts-alpine AS deps
 WORKDIR /app
 # Copy package.json and lockfile separately for better caching
 COPY package.json pnpm-lock.yaml ./
@@ -9,14 +9,14 @@ COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && pnpm install --frozen-lockfile
 
 # ----------- Build stage -----------
-FROM node:20-alpine AS build
+FROM node:lts-alpine AS build
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN pnpm run build
 
 # ----------- Production stage -----------
-FROM nginx:1.25-alpine AS final
+FROM nginx:lts-alpine AS final
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
