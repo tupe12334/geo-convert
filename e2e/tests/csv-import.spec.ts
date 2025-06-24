@@ -15,18 +15,13 @@ test.describe("CSV import", () => {
     await geoPage.confirmCSVImport();
 
     // Download the converted file and validate as snapshot
-    const downloadPath = await geoPage.downloadCSV();
+    const downloadResult = await geoPage.downloadCSV();
 
-    // Read the downloaded file content using Playwright's file utilities
-    const convertedContent = await page.evaluate(async (filePath) => {
-      const response = await fetch(`file://${filePath}`);
-      return await response.text();
-    }, downloadPath);
+    const fileContent = await readFile(downloadResult.path, "utf-8");
 
-    // Validate the converted CSV content as snapshot
-    await expect(convertedContent).toMatchSnapshot("converted-sample.csv");
+    await expect(fileContent).toMatchSnapshot();
 
-    await expect(await geoPage.historyCount()).toBe(5);
-    await expect(page.locator("#history-list .history-header")).toHaveCount(5);
+    await expect(await geoPage.historyCount()).toBe(15);
+    await expect(page.locator("#history-list .history-header")).toHaveCount(15);
   });
 });

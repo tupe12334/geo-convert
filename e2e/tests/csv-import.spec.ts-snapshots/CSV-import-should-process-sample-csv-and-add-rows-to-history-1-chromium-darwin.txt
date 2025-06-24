@@ -1,0 +1,16 @@
+name,city,country,latitude,longitude,converted_easting,converted_northing,converted_zone,converted_hemisphere
+Western Wall,Jerusalem,Israel,31.7767,35.2345,711594.45,3517858.50,36,N
+Masada,Dead Sea Region,Israel,31.3156,35.3537,723984.22,3466971.21,36,N
+Bahá'í Gardens,Haifa,Israel,32.8167,34.9876,686071.81,3632716.13,36,N
+Yad Vashem,Jerusalem,Israel,31.7753,35.1753,705990.43,3517589.58,36,N
+Dead Sea,Ein Bokek,Israel,31.5590,35.4732,734751.36,3494208.61,36,N
+Empire State Building,New York City,USA,40.7484,-73.9857,585628.41,4511322.45,18,N
+Statue of Liberty,New York City,USA,40.6892,-74.0445,580735.87,4504695.17,18,N
+Golden Gate Bridge,San Francisco,USA,37.8199,-122.4783,545915.82,4185961.04,10,N
+Mount Rushmore,Keystone,USA,43.8791,-103.4591,623791.48,4859598.84,13,N
+Grand Canyon,Grand Canyon Village,USA,36.1069,-112.1129,399830.57,3996378.66,12,N
+Brandenburg Gate,Berlin,Germany,52.5163,13.3777,389917.83,5819701.92,33,N
+Neuschwanstein Castle,Schwangau,Germany,47.5576,10.7498,631637.44,5268614.78,32,N
+Cologne Cathedral,Cologne,Germany,50.9413,6.9583,356560.26,5645282.14,32,N
+Berlin Wall Memorial,Berlin,Germany,52.5351,13.3904,390826.17,5821773.59,33,N
+Heidelberg Castle,Heidelberg,Germany,49.4106,8.7156,479369.81,5473140.75,32,N
