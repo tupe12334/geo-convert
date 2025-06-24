@@ -274,6 +274,15 @@ function updateHistoryDisplay(): void {
 
   historyCount.textContent = conversionHistory.length.toString();
 
+  // Add or remove shadow classes based on the number of history items
+  if (conversionHistory.length >= 3) {
+    // Add classes to indicate scrollable content
+    historyList.className = "max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300 history-list-scrollable";
+  } else {
+    // Remove shadow classes when there are few items
+    historyList.className = "max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300";
+  }
+
   if (conversionHistory.length === 0) {
     historyList.innerHTML = `<div class="history-empty" data-i18n="noConversionsYet">${t(
       "noConversionsYet"
