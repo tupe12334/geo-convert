@@ -17,7 +17,7 @@ test.describe("WGS to UTM conversion", () => {
     expect(parseFloat(easting)).toBeCloseTo(667274.762, 2);
     expect(parseFloat(northing)).toBeCloseTo(3548713.386, 2);
 
-    const historyCount = await geoPage.getHistoryCount();
+    const historyCount = await geoPage.historyCount();
     expect(historyCount).toBeGreaterThan(0);
   });
 });
