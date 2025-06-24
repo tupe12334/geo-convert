@@ -71,5 +71,7 @@
   "pleaseSelectCoordinateType": "Seleziona un tipo di coordinate",
   "pleaseSelectExcelFile": "Seleziona un file Excel (.xlsx o .xls)",
   "infoDialogMessage": "Contattami per qualsiasi problema - Ofek Gabay {{phone}} Questo sistema è civile",
-  "close": "Chiudi"
+  "close": "Chiudi",
+  "switchToDarkMode": "Passa alla modalità scura",
+  "switchToLightMode": "Passa alla modalità chiara"
 }

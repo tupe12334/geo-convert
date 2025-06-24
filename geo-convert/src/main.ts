@@ -16,10 +16,13 @@ import {
   Sheet,
   CheckCircle,
   XCircle,
+  Sun,
+  Moon,
 } from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
+import { createDarkModeToggle, loadDarkModePreference } from "./components/darkModeToggle";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import type {
@@ -44,7 +47,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           <option value="en">English</option>
           <option value="it">Italiano</option>
         </select>
-        <div id="info-button-container"></div>
+        <div id="info-button-container" class="flex items-center gap-2"></div>
       </div>
     </div>
     <div class="bg-white/5 rounded-xl p-8 border border-white/10 w-full max-w-full box-border">
@@ -177,16 +180,21 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 `;
 
+// Load dark mode preference before creating UI
+loadDarkModePreference();
+
 // Create and insert the info button
 const infoButtonContainer = document.querySelector<HTMLDivElement>(
   "#info-button-container"
 )!;
 const infoButton = createInfoButton();
+const darkModeToggle = createDarkModeToggle();
+infoButtonContainer.appendChild(darkModeToggle);
 infoButtonContainer.appendChild(infoButton);
 
 // Initialize icons after DOM is ready
 createIcons({
-  icons: { Pencil, Trash2, Upload, Info, Sheet, CheckCircle, XCircle },
+  icons: { Pencil, Trash2, Upload, Info, Sheet, CheckCircle, XCircle, Sun, Moon },
 });
 
 // Initialize Notyf for toast notifications

@@ -45,22 +45,27 @@ describe("createInfoButton", () => {
 
   it("should have correct CSS classes", () => {
     const expectedClasses = [
-      "bg-white/10",
       "border",
-      "border-white/20",
       "rounded",
       "px-3",
       "py-2",
-      "text-white",
       "text-sm",
       "h-full",
       "flex",
       "items-center",
       "justify-center",
-      "hover:bg-white/15",
-      "hover:border-white/30",
       "transition-all",
       "duration-200",
+      "bg-black/10",
+      "border-black/20",
+      "text-black",
+      "hover:bg-black/15",
+      "hover:border-black/30",
+      "dark:bg-white/10",
+      "dark:border-white/20",
+      "dark:text-white",
+      "dark:hover:bg-white/15",
+      "dark:hover:border-white/30",
     ];
 
     expectedClasses.forEach((className) => {
