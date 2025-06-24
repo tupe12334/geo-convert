@@ -92,5 +92,11 @@
   "bulkConversionComplete": "המרה כמותית הושלמה: {{count}} קואורדינטות הומרו",
   "allConversionsFailed": "כל ההמרות נכשלו. אנא בדוק את נתוני הקלט.",
   "bulkConvertCoordinates": "המרת קואורדינטות כמותית",
-  "bulkConversionsAddedToHistory": "{{count}} המרות כמותיות נוספו להיסטוריה"
+  "bulkConversionsAddedToHistory": "{{count}} המרות כמותיות נוספו להיסטוריה",
+  "copyUTM": "העתק קואורדינטות UTM",
+  "copyWGS84": "העתק קואורדינטות WGS84",
+  "noCoordinatesToCopy": "אין קואורדינטות להעתקה",
+  "invalidCoordinatesToCopy": "קואורדינטות לא תקינות להעתקה",
+  "utmCoordinatesCopied": "קואורדינטות UTM הועתקו ללוח",
+  "wgs84CoordinatesCopied": "קואורדינטות WGS84 הועתקו ללוח"
 }

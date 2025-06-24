@@ -18,6 +18,7 @@ import {
   XCircle,
   Sun,
   Moon,
+  Copy,
 } from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
@@ -146,6 +147,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             </div>
           </div>
           <button id="convert-to-wgs84" data-i18n="convert" class="mt-auto text-sm sm:text-base py-3">Convert to WGS84 →</button>
+          <div class="mt-4">
+            <button id="copy-utm-btn" class="copy-button w-full text-sm sm:text-base py-2" data-i18n="copyUTM">
+              <i data-lucide="copy"></i>
+              Copy UTM Coordinates
+            </button>
+          </div>
         </div>
         
         <div class="bg-white/[0.03] rounded-lg p-4 sm:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section flex flex-col h-full order-3 xl:order-none">
@@ -176,6 +183,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             </div>
           </div>
           <button id="convert-to-utm" data-i18n="convert" class="text-sm sm:text-base py-3">← Convert to UTM</button>
+          <div class="mt-4">
+            <button id="copy-wgs84-btn" class="copy-button w-full text-sm sm:text-base py-2" data-i18n="copyWGS84">
+              <i data-lucide="copy"></i>
+              Copy WGS84 Coordinates
+            </button>
+          </div>
         </div>
 
         <div class="bg-white/[0.03] rounded-lg p-4 sm:p-6 border border-white/10 min-w-0 w-full box-border history-section flex flex-col h-full order-4 xl:order-none lg:col-span-2 xl:col-span-1">
@@ -220,6 +233,7 @@ createIcons({
     XCircle,
     Sun,
     Moon,
+    Copy,
   },
 });
 
@@ -972,6 +986,10 @@ const importExcelBtn =
   document.querySelector<HTMLButtonElement>("#import-excel-btn")!;
 const excelFileInput =
   document.querySelector<HTMLInputElement>("#excel-file-input")!;
+const copyUTMBtn =
+  document.querySelector<HTMLButtonElement>("#copy-utm-btn")!;
+const copyWGS84Btn =
+  document.querySelector<HTMLButtonElement>("#copy-wgs84-btn")!;
 
 // Initialize history on page load
 loadHistory();
@@ -1059,8 +1077,95 @@ function convertWGS84ToUTM() {
   }
 }
 
+// Copy coordinate functions
+function copyUTMCoordinates(): void {
+  const eastingValue = eastingInput.value.trim();
+  const northingValue = northingInput.value.trim();
+  const zoneValue = zoneInput.value.trim();
+  const hemisphereValue = hemisphereSelect.value;
+
+  if (!eastingValue || !northingValue || !zoneValue || !hemisphereValue) {
+    notyf.error(t("noCoordinatesToCopy"));
+    return;
+  }
+
+  const utm = parseUTMInputs(
+    eastingValue,
+    northingValue,
+    zoneValue,
+    hemisphereValue
+  );
+
+  if (!utm) {
+    notyf.error(t("invalidCoordinatesToCopy"));
+    return;
+  }
+
+  const coordinateString = `${utm.easting.toFixed(2)}, ${utm.northing.toFixed(2)} (Zone ${utm.zone}${utm.hemisphere})`;
+  
+  navigator.clipboard.writeText(coordinateString)
+    .then(() => {
+      notyf.success(t("utmCoordinatesCopied"));
+    })
+    .catch(() => {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = coordinateString;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      notyf.success(t("utmCoordinatesCopied"));
+    });
+}
+
+function copyWGS84Coordinates(): void {
+  const latitudeValue = latitudeInput.value.trim();
+  const longitudeValue = longitudeInput.value.trim();
+
+  if (!latitudeValue || !longitudeValue) {
+    notyf.error(t("noCoordinatesToCopy"));
+    return;
+  }
+
+  const latitude = parseFloat(latitudeValue);
+  const longitude = parseFloat(longitudeValue);
+
+  if (
+    isNaN(latitude) ||
+    isNaN(longitude) ||
+    latitude < -90 ||
+    latitude > 90 ||
+    longitude < -180 ||
+    longitude > 180
+  ) {
+    notyf.error(t("invalidCoordinatesToCopy"));
+    return;
+  }
+
+  const coordinateString = `${latitude.toFixed(8)}, ${longitude.toFixed(8)}`;
+  
+  navigator.clipboard.writeText(coordinateString)
+    .then(() => {
+      notyf.success(t("wgs84CoordinatesCopied"));
+    })
+    .catch(() => {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = coordinateString;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      notyf.success(t("wgs84CoordinatesCopied"));
+    });
+}
+
+// Event listeners
 convertToWGS84Btn.addEventListener("click", convertUTMToWGS84);
 convertToUTMBtn.addEventListener("click", convertWGS84ToUTM);
+copyUTMBtn.addEventListener("click", copyUTMCoordinates);
+copyWGS84Btn.addEventListener("click", copyWGS84Coordinates);
 clearHistoryBtn.addEventListener("click", clearHistory);
 exportHistoryBtn.addEventListener("click", exportHistory);
 bulkConvertBtn.addEventListener("click", showBulkConversionDialogHandler);
@@ -1068,6 +1173,8 @@ importCSVBtn.addEventListener("click", importCSVFile);
 csvFileInput.addEventListener("change", handleCSVFileSelect);
 importExcelBtn.addEventListener("click", importExcelFile);
 excelFileInput.addEventListener("change", handleExcelFileSelect);
+copyUTMBtn.addEventListener("click", copyUTMCoordinates);
+copyWGS84Btn.addEventListener("click", copyWGS84Coordinates);
 
 // Add Enter key support for UTM inputs
 const utmInputs = [eastingInput, northingInput, zoneInput];

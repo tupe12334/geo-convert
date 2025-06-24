@@ -92,5 +92,11 @@
   "bulkConversionComplete": "Conversione in blocco completata: {{count}} coordinate convertite",
   "allConversionsFailed": "Tutte le conversioni sono fallite. Controlla i dati di input.",
   "bulkConvertCoordinates": "Conversione Coordinate in Blocco",
-  "bulkConversionsAddedToHistory": "{{count}} conversioni in blocco aggiunte alla cronologia"
+  "bulkConversionsAddedToHistory": "{{count}} conversioni in blocco aggiunte alla cronologia",
+  "copyUTM": "Copia Coordinate UTM",
+  "copyWGS84": "Copia Coordinate WGS84",
+  "noCoordinatesToCopy": "Nessuna coordinata da copiare",
+  "invalidCoordinatesToCopy": "Coordinate non valide da copiare",
+  "utmCoordinatesCopied": "Coordinate UTM copiate negli appunti",
+  "wgs84CoordinatesCopied": "Coordinate WGS84 copiate negli appunti"
 }

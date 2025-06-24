@@ -92,5 +92,11 @@
   "bulkConversionComplete": "Bulk conversion completed: {{count}} coordinates converted",
   "allConversionsFailed": "All conversions failed. Please check your input data.",
   "bulkConvertCoordinates": "Bulk Convert Coordinates",
-  "bulkConversionsAddedToHistory": "{{count}} bulk conversions added to history"
+  "bulkConversionsAddedToHistory": "{{count}} bulk conversions added to history",
+  "copyUTM": "Copy UTM Coordinates",
+  "copyWGS84": "Copy WGS84 Coordinates",
+  "noCoordinatesToCopy": "No coordinates to copy",
+  "invalidCoordinatesToCopy": "Invalid coordinates to copy",
+  "utmCoordinatesCopied": "UTM coordinates copied to clipboard",
+  "wgs84CoordinatesCopied": "WGS84 coordinates copied to clipboard"
 }
