@@ -124,7 +124,7 @@ Neuschwanstein Castle,Schwangau,Germany,47.5576,10.7498
 Cologne Cathedral,Cologne,Germany,50.9413,6.9583
 Berlin Wall Memorial,Berlin,Germany,52.5351,13.3904
 Heidelberg Castle,Heidelberg,Germany,49.4106,8.7156
-`
+`;
     const result = parseCSV(csvText);
 
     expect(result.coordinateType).toBe("WGS84");
@@ -133,5 +133,5 @@ Heidelberg Castle,Heidelberg,Germany,49.4106,8.7156
       longitude: "longitude",
     });
     expect(result.data.length).toBe(15);
-  })
+  });
 });

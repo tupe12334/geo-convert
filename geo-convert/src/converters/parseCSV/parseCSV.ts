@@ -92,7 +92,7 @@ const detectCoordinateType = (headers: string[], data: CSVRow[]) => {
   // Try to detect UTM columns
   const utmMatches = Object.entries(utmPatterns).map(([key, patterns]) => {
     const match = lowerHeaders.find((header) =>
-      patterns.some((pattern) => header.includes(pattern))
+      patterns.some((pattern) => header === pattern)
     );
     if (match) {
       detectedColumns[key] = headers[lowerHeaders.indexOf(match)];
@@ -104,7 +104,7 @@ const detectCoordinateType = (headers: string[], data: CSVRow[]) => {
   // Try to detect WGS84 columns
   const wgs84Matches = Object.entries(wgs84Patterns).map(([key, patterns]) => {
     const match = lowerHeaders.find((header) =>
-      patterns.some((pattern) => header.includes(pattern))
+      patterns.some((pattern) => header === pattern)
     );
     if (match) {
       detectedColumns[key] = headers[lowerHeaders.indexOf(match)];
