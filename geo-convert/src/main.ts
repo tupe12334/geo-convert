@@ -812,17 +812,21 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
 
 function processCSVData(
   parseResult: CSVParseResult,
-  coordinateType: CoordinateType
+  coordinateType: CoordinateType,
+  manualColumnMapping?: ManualColumnMapping
 ): void {
   let convertedCount = 0;
   const errors: string[] = [];
   const convertedData: any[] = [];
 
+  // Use manual column mapping if provided, otherwise use detected columns
+  const columnMapping = manualColumnMapping || parseResult.detectedColumns;
+
   for (const [index, row] of parseResult.data.entries()) {
     try {
       if (coordinateType === "UTM") {
         // Convert UTM to WGS84
-        const utm = extractUTMFromRow(row, parseResult.detectedColumns);
+        const utm = extractUTMFromRow(row, columnMapping);
         if (utm) {
           const wgs84 = convertUTMtoWGS84(utm);
           addToHistory("UTM_TO_WGS84", utm, wgs84, `CSV Row ${index + 1}`);
@@ -837,7 +841,7 @@ function processCSVData(
         }
       } else {
         // Convert WGS84 to UTM
-        const wgs84 = extractWGS84FromRow(row, parseResult.detectedColumns);
+        const wgs84 = extractWGS84FromRow(row, columnMapping);
         if (wgs84) {
           const utm = convertWGS84toUTM(wgs84);
           addToHistory("WGS84_TO_UTM", wgs84, utm, `CSV Row ${index + 1}`);
