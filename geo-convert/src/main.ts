@@ -517,7 +517,7 @@ function handleCSVFileSelect(event: Event): void {
   if (!file) return;
 
   if (!file.name.toLowerCase().endsWith(".csv")) {
-    notyf.error("Please select a CSV file");
+    notyf.error(t("pleaseSelectCSVFile"));
     return;
   }
 

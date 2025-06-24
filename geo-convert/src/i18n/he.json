@@ -67,6 +67,9 @@
   "columnMappingRequired": "אנא מפה את כל העמודות הנדרשות",
   "csvConvertedMessage": "ה-CSV שלך הומר מ-{{from}} ל-{{to}}. האם תרצה להוריד את התוצאות?",
   "processingExcelFile": "מעבד קובץ Excel...",
+  "pleaseSelectCSVFile": "אנא בחר קובץ CSV",
+  "pleaseSelectCoordinateType": "אנא בחר סוג קואורדינטות",
+  "pleaseSelectExcelFile": "אנא בחר קובץ Excel (.xlsx או .xls)",
   "infoDialogMessage": "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{phone}} המערכת היא הלבנה של מערכת אזרחית",
   "close": "סגור"
 }

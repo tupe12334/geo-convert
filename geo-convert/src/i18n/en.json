@@ -67,6 +67,9 @@
   "columnMappingRequired": "Please map all required columns",
   "csvConvertedMessage": "Your CSV has been converted from {{from}} to {{to}}. Would you like to download the results?",
   "processingExcelFile": "Processing Excel file...",
+  "pleaseSelectCSVFile": "Please select a CSV file",
+  "pleaseSelectCoordinateType": "Please select a coordinate type",
+  "pleaseSelectExcelFile": "Please select an Excel file (.xlsx or .xls)",
   "infoDialogMessage": "Feel free to contact me for any issue - Ofek Gabay {{phone}} This system is a civilian system",
   "close": "Close"
 }
