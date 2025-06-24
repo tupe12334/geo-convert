@@ -905,7 +905,12 @@ function processCSVData(
     notyf.success(`✓ ${message}`);
 
     // Offer to download converted data
-    offerCSVDownload(convertedData, coordinateType, parseResult.headers, conversionTitle);
+    offerCSVDownload(
+      convertedData,
+      coordinateType,
+      parseResult.headers,
+      conversionTitle
+    );
   }
 
   if (errors.length > 0) {
@@ -937,7 +942,7 @@ function offerCSVDownload(
   modal.innerHTML = `
     <div class="csv-download-dialog max-h-[80vh] overflow-y-auto">
       <h3>${t("downloadConvertedCSV")}</h3>
-      <p>Your CSV has been converted from ${coordinateType} to ${targetType}. Would you like to download the results?</p>
+      <p>${t("csvConvertedMessage", { from: coordinateType, to: targetType })}</p>
       
       <div class="dialog-actions">
         <button id="cancel-csv-download" class="cancel-button">Cancel</button>
@@ -960,7 +965,12 @@ function offerCSVDownload(
 
   confirmBtn.addEventListener("click", () => {
     document.body.removeChild(modal);
-    downloadConvertedCSV(convertedData, coordinateType, originalHeaders, conversionTitle);
+    downloadConvertedCSV(
+      convertedData,
+      coordinateType,
+      originalHeaders,
+      conversionTitle
+    );
   });
 
   // Close on outside click
@@ -1006,14 +1016,14 @@ function downloadConvertedCSV(
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  
+
   // Use conversion title if provided, otherwise use default naming
   let filename: string;
   if (conversionTitle) {
     // Sanitize the title for filename use (remove/replace invalid characters)
     const sanitizedTitle = conversionTitle
-      .replace(/[<>:"/\\|?*]/g, '_') // Replace invalid filename characters
-      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .replace(/[<>:"/\\|?*]/g, "_") // Replace invalid filename characters
+      .replace(/\s+/g, "_") // Replace spaces with underscores
       .trim();
     filename = `${sanitizedTitle}_${coordinateType}_to_${targetType}.csv`;
   } else {
@@ -1021,7 +1031,7 @@ function downloadConvertedCSV(
       new Date().toISOString().split("T")[0]
     }.csv`;
   }
-  
+
   a.download = filename;
   document.body.appendChild(a);
   a.click();

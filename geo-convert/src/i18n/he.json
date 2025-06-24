@@ -64,6 +64,7 @@
   "selectHemisphereColumn": "בחר עמודת כדור:",
   "selectColumn": "בחר עמודה...",
   "columnMappingRequired": "אנא מפה את כל העמודות הנדרשות",
+  "csvConvertedMessage": "ה-CSV שלך הומר מ-{{from}} ל-{{to}}. האם תרצה להוריד את התוצאות?",
   "infoDialogMessage": "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{phone}} המערכת היא הלבנה של מערכת אזרחית",
   "close": "סגור"
 }

@@ -64,6 +64,7 @@
   "selectHemisphereColumn": "Select hemisphere column:",
   "selectColumn": "Select a column...",
   "columnMappingRequired": "Please map all required columns",
+  "csvConvertedMessage": "Your CSV has been converted from {{from}} to {{to}}. Would you like to download the results?",
   "infoDialogMessage": "Feel free to contact me for any issue - Ofek Gabay {{phone}} This system is a civilian system",
   "close": "Close"
 }
