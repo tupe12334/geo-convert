@@ -107,7 +107,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               />
             </div>
             <div class="flex flex-col w-full">
-              <label for="hemisphere-select">Hemisphere:</label>
+              <label for="hemisphere-select" data-i18n="hemisphere">Hemisphere:</label>
               <select id="hemisphere-select">
                 <option value="" data-i18n="select">Select</option>
                 <option value="N" data-i18n-value="north">North (N)</option>

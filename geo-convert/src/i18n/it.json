@@ -6,6 +6,7 @@
   "south": "Sud (S)",
   "select": "Seleziona",
   "zone": "Zona",
+  "hemisphere": "Emisfero",
   "utmDescription": "Inserisci coordinate UTM",
   "wgs84Description": "Inserisci coordinate WGS84",
   "eastingPlaceholder": "es., 667274.762",
