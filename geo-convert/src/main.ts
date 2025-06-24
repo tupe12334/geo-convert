@@ -835,7 +835,8 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
     }
 
     document.body.removeChild(modal);
-    processCSVData(parseResult, selectedType, columnMapping);
+    const conversionTitle = conversionTitleInput.value.trim();
+    processCSVData(parseResult, selectedType, columnMapping, conversionTitle);
   });
 
   // Close on outside click
@@ -849,7 +850,8 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
 function processCSVData(
   parseResult: CSVParseResult,
   coordinateType: CoordinateType,
-  manualColumnMapping?: ManualColumnMapping
+  manualColumnMapping?: ManualColumnMapping,
+  conversionTitle?: string
 ): void {
   let convertedCount = 0;
   const errors: string[] = [];
@@ -903,7 +905,7 @@ function processCSVData(
     notyf.success(`✓ ${message}`);
 
     // Offer to download converted data
-    offerCSVDownload(convertedData, coordinateType, parseResult.headers);
+    offerCSVDownload(convertedData, coordinateType, parseResult.headers, conversionTitle);
   }
 
   if (errors.length > 0) {
@@ -919,11 +921,13 @@ function processCSVData(
  * @param convertedData - Array of converted data rows
  * @param coordinateType - The original coordinate type that was converted
  * @param originalHeaders - The original CSV headers
+ * @param conversionTitle - Optional conversion title to use in filename
  */
 function offerCSVDownload(
   convertedData: any[],
   coordinateType: CoordinateType,
-  originalHeaders: string[]
+  originalHeaders: string[],
+  conversionTitle?: string
 ): void {
   const modal = document.createElement("div");
   modal.className = "csv-download-modal";
@@ -956,7 +960,7 @@ function offerCSVDownload(
 
   confirmBtn.addEventListener("click", () => {
     document.body.removeChild(modal);
-    downloadConvertedCSV(convertedData, coordinateType, originalHeaders);
+    downloadConvertedCSV(convertedData, coordinateType, originalHeaders, conversionTitle);
   });
 
   // Close on outside click
@@ -972,11 +976,13 @@ function offerCSVDownload(
  * @param convertedData - Array of converted data rows
  * @param coordinateType - The original coordinate type that was converted
  * @param originalHeaders - The original CSV headers
+ * @param conversionTitle - Optional conversion title to use in filename
  */
 function downloadConvertedCSV(
   convertedData: any[],
   coordinateType: CoordinateType,
-  originalHeaders: string[]
+  originalHeaders: string[],
+  conversionTitle?: string
 ): void {
   const targetType = coordinateType === "UTM" ? "WGS84" : "UTM";
 
@@ -1000,9 +1006,23 @@ function downloadConvertedCSV(
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `converted_${coordinateType}_to_${targetType}_${
-    new Date().toISOString().split("T")[0]
-  }.csv`;
+  
+  // Use conversion title if provided, otherwise use default naming
+  let filename: string;
+  if (conversionTitle) {
+    // Sanitize the title for filename use (remove/replace invalid characters)
+    const sanitizedTitle = conversionTitle
+      .replace(/[<>:"/\\|?*]/g, '_') // Replace invalid filename characters
+      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .trim();
+    filename = `${sanitizedTitle}_${coordinateType}_to_${targetType}.csv`;
+  } else {
+    filename = `converted_${coordinateType}_to_${targetType}_${
+      new Date().toISOString().split("T")[0]
+    }.csv`;
+  }
+  
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
