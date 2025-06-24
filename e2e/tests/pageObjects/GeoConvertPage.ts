@@ -28,4 +28,21 @@ export class GeoConvertPage {
     const hemisphere = await this.page.inputValue('#hemisphere-select');
     return { zone, hemisphere, easting, northing };
   }
+
+  async uploadCSV(filePath: string): Promise<void> {
+    await this.page.setInputFiles('#csv-file-input', filePath);
+  }
+
+  async confirmCSVImport(): Promise<void> {
+    await this.page.click('#confirm-csv-import');
+  }
+
+  async cancelCSVDownload(): Promise<void> {
+    await this.page.click('#cancel-csv-download');
+  }
+
+  async historyCount(): Promise<number> {
+    const count = await this.page.textContent('#history-count');
+    return parseInt(count || '0', 10);
+  }
 }
