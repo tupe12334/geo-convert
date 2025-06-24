@@ -301,8 +301,14 @@ function updateHistoryDisplay(): void {
           : currentLang === "it"
           ? "it-IT"
           : "en-US";
-      const time = record.timestamp.toLocaleTimeString(locale);
-      const date = record.timestamp.toLocaleDateString(locale);
+      const time = record.timestamp.toLocaleTimeString(locale, {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      const date = record.timestamp.toLocaleDateString(locale, {
+        month: "short",
+        day: "numeric",
+      });
       const titleDisplay = record.title
         ? `<div class="history-title">${record.title}</div>`
         : "";
@@ -314,9 +320,12 @@ function updateHistoryDisplay(): void {
           <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
-            <div class="history-header">
-              <span class="history-type">UTM → WGS84</span>
-              <span class="history-time">${date} ${time}</span>
+            <div class="flex justify-between items-start mb-2">
+              <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">UTM → WGS84</span>
+              <div class="text-xs text-white/70 w-20 text-right flex-shrink-0">
+                <div>${date}</div>
+                <div>${time}</div>
+              </div>
             </div>
             ${titleDisplay}
             <div class="history-actions">
@@ -352,9 +361,12 @@ function updateHistoryDisplay(): void {
           <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
-            <div class="history-header">
-              <span class="history-type">WGS84 → UTM</span>
-              <span class="history-time">${date} ${time}</span>
+            <div class="flex justify-between items-start mb-2">
+              <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">WGS84 → UTM</span>
+              <div class="text-xs text-white/70 w-20 text-right flex-shrink-0">
+                <div>${date}</div>
+                <div>${time}</div>
+              </div>
             </div>
             ${titleDisplay}
             <div class="history-actions">
