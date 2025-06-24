@@ -1,4 +1,5 @@
 import "./style.css";
+import "notyf/notyf.min.css";
 import {
   convertUTMtoWGS84,
   convertWGS84toUTM,
@@ -331,7 +332,7 @@ function updateHistoryDisplay(): void {
           }">
             <div class="flex justify-between items-start mb-2">
               <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">UTM → WGS84</span>
-              <div class="text-xs text-white/70 w-20 text-right flex-shrink-0">
+              <div class="history-time text-xs text-white/70 w-20 text-right flex-shrink-0">
                 <div>${date}</div>
                 <div>${time}</div>
               </div>
@@ -372,8 +373,8 @@ function updateHistoryDisplay(): void {
           }">
             <div class="flex justify-between items-start mb-2">
               <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">WGS84 → UTM</span>
-              <div class="text-xs text-white/70 w-20 text-right flex-shrink-0">
-                <div>${date}</div>
+              <div class="history-time text-xs text-white/70 w-20 text-right flex-shrink-0">
+                <div >${date}</div>
                 <div>${time}</div>
               </div>
             </div>
