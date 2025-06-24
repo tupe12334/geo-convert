@@ -1,4 +1,35 @@
+import { z } from "zod";
 import type { UTMCoordinate } from "..";
+
+const schema = z
+  .object({
+    easting: z.preprocess(
+      (v) => parseFloat(String(v).trim()),
+      z
+        .number()
+        .refine((val) => !Number.isNaN(val), { message: "Invalid easting" })
+    ),
+    northing: z.preprocess(
+      (v) => parseFloat(String(v).trim()),
+      z
+        .number()
+        .refine((val) => !Number.isNaN(val), { message: "Invalid northing" })
+    ),
+    zone: z.preprocess(
+      (v) => parseInt(String(v).trim(), 10),
+      z
+        .number()
+        .int()
+        .min(1)
+        .max(60)
+        .refine((val) => !Number.isNaN(val), { message: "Invalid zone" })
+    ),
+    hemisphere: z.preprocess(
+      (v) => String(v).trim().toUpperCase(),
+      z.enum(["N", "S"])
+    ),
+  })
+  .transform((val) => val as UTMCoordinate);
 
 export function parseUTMInputs(
   easting: string,
@@ -6,26 +37,9 @@ export function parseUTMInputs(
   zone: string,
   hemisphere: string
 ): UTMCoordinate | null {
-  const eastingNum = parseFloat(easting.trim());
-  const northingNum = parseFloat(northing.trim());
-  const zoneNum = parseInt(zone.trim());
-  const hemisphereStr = hemisphere.trim().toUpperCase();
-
-  if (
-    isNaN(eastingNum) ||
-    isNaN(northingNum) ||
-    isNaN(zoneNum) ||
-    (hemisphereStr !== "N" && hemisphereStr !== "S") ||
-    zoneNum < 1 ||
-    zoneNum > 60
-  ) {
+  const result = schema.safeParse({ easting, northing, zone, hemisphere });
+  if (!result.success) {
     return null;
   }
-
-  return {
-    easting: eastingNum,
-    northing: northingNum,
-    zone: zoneNum,
-    hemisphere: hemisphereStr as "N" | "S",
-  };
+  return result.data;
 }
