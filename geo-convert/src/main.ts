@@ -599,39 +599,35 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
         <h4>${t("csvPreview", {
           count: Math.min(parseResult.data.length, 100),
         })}</h4>
-        <div class="rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5">
-          <table class="w-full border-collapse text-sm">
-            <thead>
+        <div class="rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 max-h-64 overflow-auto">
+          <table class="w-full border-collapse text-sm table-fixed">
+            <thead class="sticky top-0 z-10">
               <tr>
                 ${parseResult.headers
                   .map(
                     (header) =>
-                      `<th class="bg-black/10 dark:bg-white/10 px-2 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 border-b border-black/10 dark:border-white/10 sticky top-0 z-10">${header}</th>`
+                      `<th class="bg-black/10 dark:bg-white/10 px-2 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 border-b border-black/10 dark:border-white/10 w-32 min-w-0">${header}</th>`
                   )
                   .join("")}
               </tr>
             </thead>
+            <tbody>
+              ${parseResult.data
+                .slice(0, 100)
+                .map(
+                  (row) =>
+                    `<tr class="border-b border-white/10 last:border-b-0">${parseResult.headers
+                      .map(
+                        (header) =>
+                          `<td class="px-2 py-2 text-gray-900 dark:text-white w-32 min-w-0 truncate">${
+                            row[header] || ""
+                          }</td>`
+                      )
+                      .join("")}</tr>`
+                )
+                .join("")}
+            </tbody>
           </table>
-          <div class="max-h-48 overflow-y-auto">
-            <table class="w-full border-collapse text-sm">
-              <tbody>
-                ${parseResult.data
-                  .slice(0, 100)
-                  .map(
-                    (row) =>
-                      `<tr class="border-b border-white/10 last:border-b-0">${parseResult.headers
-                        .map(
-                          (header) =>
-                            `<td class="px-2 py-2 text-gray-900 dark:text-white max-w-32 truncate">${
-                              row[header] || ""
-                            }</td>`
-                        )
-                        .join("")}</tr>`
-                  )
-                  .join("")}
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
       
