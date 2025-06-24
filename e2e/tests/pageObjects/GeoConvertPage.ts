@@ -82,18 +82,23 @@ export class GeoConvertPage {
   }
 
   async waitForNotificationToHide(): Promise<void> {
-    // Wait for any notification to appear first
+    // Wait for any notification toast to appear first
     try {
-      await this.page.waitForSelector(".notyf", { timeout: 2000 });
+      await this.page.waitForSelector(".notyf__toast", { timeout: 2000 });
     } catch {
       // If no notification appears, that's fine
       return;
     }
 
-    // Then wait for it to disappear
-    await this.page.waitForSelector(".notyf", {
-      state: "hidden",
-      timeout: 6000,
-    });
+    // Wait for all toasts to have the disappear class or be removed
+    await this.page.waitForFunction(
+      () => {
+        const toasts = document.querySelectorAll(
+          ".notyf__toast:not(.notyf__toast--disappear)"
+        );
+        return toasts.length === 0;
+      },
+      { timeout: 6000 }
+    );
   }
 }
