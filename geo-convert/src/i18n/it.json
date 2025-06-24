@@ -52,6 +52,15 @@
   "csvPreview": "Anteprima (prime {{count}} righe):",
   "downloadConvertedCSV": "Scarica CSV convertito",
   "csvDownloaded": "Coordinate convertite scaricate come CSV",
-  "infoDialogMessage": "Contattami per qualsiasi problema - Ofek Gabay {{phone}} Questo sistema \u00e8 civile",
+  "manualColumnMapping": "Mappatura manuale delle colonne",
+  "selectLatitudeColumn": "Seleziona colonna latitudine:",
+  "selectLongitudeColumn": "Seleziona colonna longitudine:",
+  "selectEastingColumn": "Seleziona colonna easting:",
+  "selectNorthingColumn": "Seleziona colonna northing:",
+  "selectZoneColumn": "Seleziona colonna zona:",
+  "selectHemisphereColumn": "Seleziona colonna emisfero:",
+  "selectColumn": "Seleziona una colonna...",
+  "columnMappingRequired": "Si prega di mappare tutte le colonne richieste",
+  "infoDialogMessage": "Contattami per qualsiasi problema - Ofek Gabay {{phone}} Questo sistema è civile",
   "close": "Chiudi"
 }
