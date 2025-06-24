@@ -46,14 +46,11 @@ export class GeoConvertPage {
     await this.page.waitForSelector("#confirm-csv-download", { timeout: 5000 });
 
     const downloadPromise = this.page.waitForEvent("download");
-    console.log({ downloadPromise });
 
     await this.page.click("#confirm-csv-download");
     const download = await downloadPromise;
 
     const path = await download.path();
-
-    console.log({ path });
 
     if (path) {
       return { path, filename: download.suggestedFilename() };
