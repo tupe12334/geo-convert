@@ -24,4 +24,15 @@ test.describe("CSV import", () => {
     await expect(await geoPage.historyCount()).toBe(15);
     await expect(page.locator("#history-list .history-header")).toHaveCount(15);
   });
+
+  test("should show manual column mapping for custom csv", async ({ page }) => {
+    const geoPage = new GeoConvertPage(page);
+    const csvPath = "./examples/custom_sample.csv";
+
+    await geoPage.goto();
+    await geoPage.uploadCSV(csvPath);
+    await geoPage.selectCoordinateType("WGS84");
+
+    await expect(await geoPage.isManualMappingVisible()).toBe(true);
+  });
 });

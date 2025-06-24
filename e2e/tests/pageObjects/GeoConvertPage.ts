@@ -41,6 +41,15 @@ export class GeoConvertPage {
     await this.page.click("#confirm-csv-import");
   }
 
+  async selectCoordinateType(type: "UTM" | "WGS84"): Promise<void> {
+    const selector = `input[name="coordinate-type"][value="${type}"]`;
+    await this.page.check(selector);
+  }
+
+  async isManualMappingVisible(): Promise<boolean> {
+    return this.page.isVisible("#manual-column-mapping");
+  }
+
   async downloadCSV(): Promise<{ path: string; filename: string }> {
     // Wait for the CSV download modal to appear
     await this.page.waitForSelector("#confirm-csv-download", { timeout: 5000 });
