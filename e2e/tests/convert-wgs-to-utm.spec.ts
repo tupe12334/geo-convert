@@ -28,8 +28,10 @@ test.describe("WGS to UTM conversion", () => {
     const historyCount = await geoPage.historyCount();
     expect(historyCount).toBeGreaterThan(0);
 
-    // Screenshot: After conversion with results displayed
-    await expect(page).toHaveScreenshot("wgs-to-utm-conversion-complete.png");
+    // Screenshot: After conversion with results displayed (mask timestamps to ignore date changes)
+    await expect(page).toHaveScreenshot("wgs-to-utm-conversion-complete.png", {
+      mask: [page.locator(".history-time")],
+    });
   });
 
   test("should display proper formatting in conversion history", async ({
@@ -48,9 +50,12 @@ test.describe("WGS to UTM conversion", () => {
     await geoPage.enterConversionTitle("Jerusalem - Western Wall");
     await geoPage.convertToUTM();
 
-    // Screenshot: History with multiple conversions
+    // Screenshot: History with multiple conversions (mask timestamps to ignore date changes)
     await expect(page).toHaveScreenshot(
-      "wgs-to-utm-history-with-proper-formatting.png"
+      "wgs-to-utm-history-with-proper-formatting.png",
+      {
+        mask: [page.locator(".history-time")],
+      }
     );
 
     const historyCount = await geoPage.historyCount();
