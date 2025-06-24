@@ -21,6 +21,7 @@ test.describe("WGS to UTM conversion", () => {
     });
 
     await geoPage.convertToUTM();
+    await geoPage.waitForNotificationToHide();
 
     const { zone, hemisphere, easting, northing } =
       await geoPage.getUTMValues();
@@ -48,11 +49,13 @@ test.describe("WGS to UTM conversion", () => {
     await geoPage.enterWGS("32.062289", "34.772015");
     await geoPage.enterConversionTitle("Tel Aviv Coordinates");
     await geoPage.convertToUTM();
+    await geoPage.waitForNotificationToHide();
 
     // Add second conversion
     await geoPage.enterWGS("31.7767", "35.2345");
     await geoPage.enterConversionTitle("Jerusalem - Western Wall");
     await geoPage.convertToUTM();
+    await geoPage.waitForNotificationToHide();
 
     // Screenshot: History with multiple conversions (mask timestamps to ignore date changes)
     await expect(page).toHaveScreenshot(

@@ -80,4 +80,17 @@ export class GeoConvertPage {
     const count = await this.page.textContent("#history-count");
     return parseInt(count || "0", 10);
   }
+
+  async waitForNotificationToHide(): Promise<void> {
+    // Wait for any notification to appear first
+    try {
+      await this.page.waitForSelector('.notyf', { timeout: 2000 });
+    } catch {
+      // If no notification appears, that's fine
+      return;
+    }
+    
+    // Then wait for it to disappear
+    await this.page.waitForSelector('.notyf', { state: 'hidden', timeout: 6000 });
+  }
 }
