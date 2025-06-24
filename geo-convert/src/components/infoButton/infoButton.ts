@@ -23,7 +23,8 @@ export const createInfoButton = (): HTMLButtonElement => {
  */
 const showInfoDialog = (): void => {
   const modal = document.createElement("div");
-  modal.className = "info-modal";
+  modal.className =
+    "info-modal fixed inset-0 bg-black/70 flex items-center justify-center z-[1000] p-4 box-border";
   modal.innerHTML = `
     <div class="info-dialog">
       <p>${t("infoDialogMessage", { phone: getPhone() })}</p>
