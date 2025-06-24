@@ -20,6 +20,10 @@ export class GeoConvertPage {
     await this.page.click("#convert-to-utm");
   }
 
+  async enterConversionTitle(title: string): Promise<void> {
+    await this.page.fill("#conversion-title", title);
+  }
+
   async getUTMValues(): Promise<{
     zone: string;
     hemisphere: string;

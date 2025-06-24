@@ -11,11 +11,15 @@ test.describe("CSV import", () => {
     const csvPath = "./examples/sample.csv";
 
     await geoPage.goto();
+    const conversionTitle = "My Custom Conversion";
+    await geoPage.enterConversionTitle(conversionTitle);
     await geoPage.uploadCSV(csvPath);
     await geoPage.confirmCSVImport();
 
     // Download the converted file and validate as snapshot
     const downloadResult = await geoPage.downloadCSV();
+
+    await expect(downloadResult.filename).toBe(`${conversionTitle}.csv`);
 
     const fileContent = await readFile(downloadResult.path, "utf-8");
 
