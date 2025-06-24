@@ -4,14 +4,14 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 # Copy package.json and lockfile separately for better caching
-COPY geo-convert/package.json geo-convert/pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml ./
 # Enable pnpm via corepack
 RUN corepack enable && pnpm install --frozen-lockfile
 
 # ----------- Build stage -----------
 FROM node:20-alpine AS build
 WORKDIR /app
-COPY geo-convert ./
+COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN pnpm run build
 
