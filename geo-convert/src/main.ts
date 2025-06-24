@@ -6,7 +6,16 @@ import {
   parseCSV,
   parseExcel,
 } from "./converters";
-import { createIcons, Pencil, Trash2, Upload, Info, Sheet } from "lucide";
+import {
+  createIcons,
+  Pencil,
+  Trash2,
+  Upload,
+  Info,
+  Sheet,
+  CheckCircle,
+  XCircle,
+} from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
@@ -175,7 +184,9 @@ const infoButton = createInfoButton();
 infoButtonContainer.appendChild(infoButton);
 
 // Initialize icons after DOM is ready
-createIcons({ icons: { Pencil, Trash2, Upload, Info, Sheet } });
+createIcons({
+  icons: { Pencil, Trash2, Upload, Info, Sheet, CheckCircle, XCircle },
+});
 
 // Initialize Notyf for toast notifications
 const notyf = new Notyf({
@@ -187,19 +198,9 @@ const notyf = new Notyf({
   types: [
     {
       type: "success",
-      background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-      icon: {
-        className: "notyf__icon--success",
-        tagName: "i",
-      },
     },
     {
       type: "error",
-      background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-      icon: {
-        className: "notyf__icon--error",
-        tagName: "i",
-      },
     },
   ],
 });
