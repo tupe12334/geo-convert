@@ -16,5 +16,8 @@ test.describe("WGS to UTM conversion", () => {
     expect(`${zone}${hemisphere.toLowerCase()}`).toBe("36n");
     expect(parseFloat(easting)).toBeCloseTo(667274.762, 2);
     expect(parseFloat(northing)).toBeCloseTo(3548713.386, 2);
+
+    const historyCount = await geoPage.getHistoryCount();
+    expect(historyCount).toBeGreaterThan(0);
   });
 });

@@ -28,4 +28,9 @@ export class GeoConvertPage {
     const hemisphere = await this.page.inputValue('#hemisphere-select');
     return { zone, hemisphere, easting, northing };
   }
+
+  async getHistoryCount(): Promise<number> {
+    const countText = await this.page.textContent('#history-count');
+    return parseInt(countText ?? '0', 10);
+  }
 }
