@@ -7,7 +7,15 @@ test.describe("WGS to UTM conversion", () => {
   }) => {
     const geoPage = new GeoConvertPage(page);
     await geoPage.goto();
+
+    // Screenshot: Initial state of the application
+    await expect(page).toHaveScreenshot("wgs-to-utm-initial-state.png");
+
     await geoPage.enterWGS("32.062289", "34.772015");
+
+    // Screenshot: After entering WGS coordinates
+    await expect(page).toHaveScreenshot("wgs-to-utm-coordinates-entered.png");
+
     await geoPage.convertToUTM();
 
     const { zone, hemisphere, easting, northing } =
@@ -19,5 +27,33 @@ test.describe("WGS to UTM conversion", () => {
 
     const historyCount = await geoPage.historyCount();
     expect(historyCount).toBeGreaterThan(0);
+
+    // Screenshot: After conversion with results displayed
+    await expect(page).toHaveScreenshot("wgs-to-utm-conversion-complete.png");
+  });
+
+  test("should display proper formatting in conversion history", async ({
+    page,
+  }) => {
+    const geoPage = new GeoConvertPage(page);
+    await geoPage.goto();
+
+    // Enter multiple conversions for history testing
+    await geoPage.enterWGS("32.062289", "34.772015");
+    await geoPage.enterConversionTitle("Tel Aviv Coordinates");
+    await geoPage.convertToUTM();
+
+    // Add second conversion
+    await geoPage.enterWGS("31.7767", "35.2345");
+    await geoPage.enterConversionTitle("Jerusalem - Western Wall");
+    await geoPage.convertToUTM();
+
+    // Screenshot: History with multiple conversions
+    await expect(page).toHaveScreenshot(
+      "wgs-to-utm-history-with-proper-formatting.png"
+    );
+
+    const historyCount = await geoPage.historyCount();
+    expect(historyCount).toBeGreaterThanOrEqual(2);
   });
 });
