@@ -70,7 +70,7 @@
   "pleaseSelectCSVFile": "אנא בחר קובץ CSV",
   "pleaseSelectCoordinateType": "אנא בחר סוג קואורדינטות",
   "pleaseSelectExcelFile": "אנא בחר קובץ Excel (.xlsx או .xls)",
-  "infoDialogMessage": "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{email}} המערכת היא הלבנה של מערכת אזרחית",
+  "infoDialogMessage": "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{email}}",
   "close": "סגור",
   "switchToDarkMode": "עבור למצב כהה",
   "switchToLightMode": "עבור למצב בהיר",
