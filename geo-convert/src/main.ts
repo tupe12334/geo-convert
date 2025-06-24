@@ -39,14 +39,14 @@ import type {
 } from "./converters/types";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div class="w-full h-full mx-auto p-8 text-center box-border overflow-y-auto text-white">
-    <div class="flex flex-wrap sm:flex-nowrap justify-between items-center mb-8 gap-4">
-      <div class="flex items-center gap-3 flex-shrink-0">
-        <img src="/assets/geo-convert-logo.svg" alt="Geo Convert Logo" width="48" height="48" class="flex-shrink-0">
-        <h1 class="mb-0 flex-shrink-0 leading-none text-4xl text-white" data-i18n="title">Geographic Coordinate Converter</h1>
+  <div class="w-full h-full mx-auto p-4 sm:p-6 lg:p-8 text-center box-border overflow-y-auto text-white">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0 w-full sm:w-auto justify-center sm:justify-start">
+        <img src="/assets/geo-convert-logo.svg" alt="Geo Convert Logo" width="40" height="40" class="sm:w-12 sm:h-12 flex-shrink-0">
+        <h1 class="mb-0 flex-shrink-0 leading-none text-2xl sm:text-3xl lg:text-4xl text-white break-words" data-i18n="title">Geographic Coordinate Converter</h1>
       </div>
-      <div class="flex items-center gap-2 flex-shrink-0 h-[2.5rem]">
-        <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full">
+      <div class="flex items-center gap-2 flex-shrink-0 h-[2.5rem] w-full sm:w-auto justify-center sm:justify-end">
+        <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full min-w-[100px]">
           <option value="he">עברית</option>
           <option value="en">English</option>
           <option value="it">Italiano</option>
@@ -54,37 +54,38 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <div id="info-button-container" class="flex items-center gap-2"></div>
       </div>
     </div>
-    <div class="bg-white/5 rounded-xl p-8 border border-white/10 w-full max-w-full box-border">
-      <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-2 w-full items-stretch">
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section flex flex-col h-full">
+    <div class="bg-white/5 rounded-xl p-4 sm:p-6 lg:p-8 border border-white/10 w-full max-w-full box-border">
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-10 mb-2 w-full items-stretch">
+        <div class="bg-white/[0.03] rounded-lg p-4 sm:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section flex flex-col h-full order-1 xl:order-none">
           <h3 data-i18n="workingBench">Working Bench</h3>
           <div class="flex flex-col w-full mb-4">
-            <label for="conversion-title" data-i18n="conversionTitle" class="block mb-2 text-white font-medium text-base break-words">Conversion Title (optional):</label>
+            <label for="conversion-title" data-i18n="conversionTitle" class="block mb-2 text-white font-medium text-sm sm:text-base break-words">Conversion Title (optional):</label>
             <input 
               type="text" 
               id="conversion-title" 
               data-i18n-placeholder="conversionTitlePlaceholder"
               placeholder="הבית של פיסטוק"
               maxlength="100"
+              class="text-sm sm:text-base"
             />
           </div>
           <div class="flex flex-col w-full flex-grow">
-            <label for="working-notes" data-i18n="notesAndCalculations" class="block mb-2 text-white font-medium text-base break-words">Notes & Calculations:</label>
+            <label for="working-notes" data-i18n="notesAndCalculations" class="block mb-2 text-white font-medium text-sm sm:text-base break-words">Notes & Calculations:</label>
             <textarea
               id="working-notes"
               data-i18n-placeholder="notesPlaceholder"
               placeholder="Use this area for notes, calculations, or temporary data storage. This field doesn't affect coordinate conversions."
-              rows="6"
-              class="flex-grow"
+              rows="4"
+              class="flex-grow text-sm sm:text-base"
             ></textarea>
           </div>
           <div class="mt-4 space-y-2">
-            <button id="import-csv-btn" class="import-csv-button w-full" data-i18n="importCSV">
+            <button id="import-csv-btn" class="import-csv-button w-full text-sm sm:text-base" data-i18n="importCSV">
               <i data-lucide="upload"></i>
               Import CSV File
             </button>
             <input type="file" id="csv-file-input" accept=".csv" style="display: none;" />
-            <button id="import-excel-btn" class="import-excel-button w-full" data-i18n="importExcel">
+            <button id="import-excel-btn" class="import-excel-button w-full text-sm sm:text-base" data-i18n="importExcel">
               <i data-lucide="sheet"></i>
               Import Excel File
             </button>
@@ -92,32 +93,34 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           </div>
         </div>
         
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section flex flex-col h-full">
+        <div class="bg-white/[0.03] rounded-lg p-4 sm:p-6 border border-white/10 min-w-0 w-full box-border utm-section flex flex-col h-full order-2 xl:order-none">
           <h3 data-i18n="utm">UTM Coordinates</h3>
-          <p class="text-white/70 text-sm mb-4" data-i18n="utmDescription">Enter UTM coordinates</p>
-          <div class="grid grid-cols-1 gap-4 mb-6 flex-grow">
+          <p class="text-white/70 text-xs sm:text-sm mb-4" data-i18n="utmDescription">Enter UTM coordinates</p>
+          <div class="grid grid-cols-1 gap-3 sm:gap-4 mb-6 flex-grow">
             <div class="flex flex-col w-full">
-              <label for="easting-input">Easting (X):</label>
+              <label for="easting-input" class="text-sm sm:text-base">Easting (X):</label>
               <input 
                 type="number" 
                 id="easting-input" 
                 data-i18n-placeholder="eastingPlaceholder"
                 placeholder="e.g., 500000"
                 step="0.01"
+                class="text-sm sm:text-base"
               />
             </div>
             <div class="flex flex-col w-full">
-              <label for="northing-input">Northing (Y):</label>
+              <label for="northing-input" class="text-sm sm:text-base">Northing (Y):</label>
               <input 
                 type="number" 
                 id="northing-input" 
                 data-i18n-placeholder="northingPlaceholder"
                 placeholder="e.g., 4649776"
                 step="0.01"
+                class="text-sm sm:text-base"
               />
             </div>
             <div class="flex flex-col w-full">
-              <label for="zone-input" data-i18n="zone">Zone:</label>
+              <label for="zone-input" data-i18n="zone" class="text-sm sm:text-base">Zone:</label>
               <input 
                 type="number" 
                 id="zone-input" 
@@ -125,56 +128,59 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
                 placeholder="1-60"
                 min="1"
                 max="60"
+                class="text-sm sm:text-base"
               />
             </div>
             <div class="flex flex-col w-full">
-              <label for="hemisphere-select" data-i18n="hemisphere">Hemisphere:</label>
-              <select id="hemisphere-select">
+              <label for="hemisphere-select" data-i18n="hemisphere" class="text-sm sm:text-base">Hemisphere:</label>
+              <select id="hemisphere-select" class="text-sm sm:text-base">
                 <option value="" data-i18n="select">Select</option>
                 <option value="N" data-i18n-value="north">North (N)</option>
                 <option value="S" data-i18n-value="south">South (S)</option>
               </select>
             </div>
           </div>
-          <button id="convert-to-wgs84" data-i18n="convert" class="mt-auto">Convert to WGS84 →</button>
+          <button id="convert-to-wgs84" data-i18n="convert" class="mt-auto text-sm sm:text-base py-3">Convert to WGS84 →</button>
         </div>
         
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section flex flex-col h-full">
+        <div class="bg-white/[0.03] rounded-lg p-4 sm:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section flex flex-col h-full order-3 xl:order-none">
           <h3 data-i18n="wgs84">WGS84</h3>
-          <p class="text-white/70 text-sm mb-4" data-i18n="wgs84Description">Enter WGS84 coordinates</p>
-          <div class="grid grid-cols-1 gap-4 mb-6">
+          <p class="text-white/70 text-xs sm:text-sm mb-4" data-i18n="wgs84Description">Enter WGS84 coordinates</p>
+          <div class="grid grid-cols-1 gap-3 sm:gap-4 mb-6">
             <div class="flex flex-col w-full">
-              <label for="latitude-input">Latitude:</label>
+              <label for="latitude-input" class="text-sm sm:text-base">Latitude:</label>
               <input 
                 type="number" 
                 id="latitude-input" 
                 data-i18n-placeholder="latitudePlaceholder"
                 placeholder="e.g., 41.123456"
                 step="0.00000001"
+                class="text-sm sm:text-base"
               />
             </div>
             <div class="flex flex-col w-full">
-              <label for="longitude-input">Longitude:</label>
+              <label for="longitude-input" class="text-sm sm:text-base">Longitude:</label>
               <input 
                 type="number" 
                 id="longitude-input" 
                 data-i18n-placeholder="longitudePlaceholder"
                 placeholder="e.g., 2.123456"
                 step="0.00000001"
+                class="text-sm sm:text-base"
               />
             </div>
           </div>
-          <button id="convert-to-utm" data-i18n="convert"">← Convert to UTM</button>
+          <button id="convert-to-utm" data-i18n="convert" class="text-sm sm:text-base py-3">← Convert to UTM</button>
         </div>
 
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section flex flex-col h-full">
+        <div class="bg-white/[0.03] rounded-lg p-4 sm:p-6 border border-white/10 min-w-0 w-full box-border history-section flex flex-col h-full order-4 xl:order-none lg:col-span-2 xl:col-span-1">
           <h3><span data-i18n="conversionHistory">Conversion History</span> (<span id="history-count">0</span>)</h3>
-          <div class="flex gap-2 mb-4 justify-center">
-            <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
-            <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
+          <div class="flex flex-col sm:flex-row gap-2 mb-4 justify-center">
+            <button id="clear-history" class="clear-button text-sm sm:text-base py-2" data-i18n="clearHistory">Clear History</button>
+            <button id="export-history" class="export-button text-sm sm:text-base py-2" data-i18n="exportHistory">Export History</button>
           </div>
           <div class="relative flex-grow flex flex-col">
-            <div id="history-list" class="flex-grow overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
+            <div id="history-list" class="flex-grow overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300 max-h-64 sm:max-h-96">
               <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
             </div>
             <div id="history-shadow" class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent pointer-events-none rounded-b-lg opacity-0 transition-opacity duration-300"></div>
@@ -350,36 +356,37 @@ function updateHistoryDisplay(): void {
         const input = record.input as UTMCoordinate;
         const output = record.output as WGS84Coordinate;
         return `
-          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
+          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-2 sm:p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
-            <div class="history-header flex justify-between items-start mb-2">
-              <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">UTM → WGS84</span>
-              <div class="history-time text-xs text-white/70 w-20 text-right flex-shrink-0">
-                <div>${date}</div>
-                <div>${time}</div>
+            <div class="history-header flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-1 sm:gap-0">
+              <span class="font-semibold text-blue-400 text-xs sm:text-sm flex-shrink-0">UTM → WGS84</span>
+              <div class="history-time text-xs text-white/70 text-left sm:text-right flex-shrink-0">
+                <div class="sm:hidden">${date} ${time}</div>
+                <div class="hidden sm:block">${date}</div>
+                <div class="hidden sm:block">${time}</div>
               </div>
             </div>
             ${titleDisplay}
-            <div class="history-actions">
-              <button class="history-edit-title" data-id="${
+            <div class="history-actions grid grid-cols-3 gap-1 sm:gap-2 mb-2 sm:mb-3">
+              <button class="history-edit-title text-xs sm:text-sm py-1 sm:py-2" data-id="${
                 record.id
               }" title="Edit title"><i data-lucide="pencil"></i></button>
-              <button class="history-delete" data-id="${
+              <button class="history-delete text-xs sm:text-sm py-1 sm:py-2" data-id="${
                 record.id
               }" title="Delete this conversion"><i data-lucide="trash-2"></i></button>
-              <button class="history-load" data-id="${record.id}">${t(
-          "load"
-        )}</button>
+              <button class="history-load text-xs sm:text-sm py-1 sm:py-2" data-id="${
+                record.id
+              }">${t("load")}</button>
             </div>
-            <div class="history-content">
-              <div class="history-input">
+            <div class="history-content text-xs sm:text-sm">
+              <div class="history-input mb-1 break-words">
                 <strong>UTM:</strong> ${input.easting.toFixed(
                   2
                 )}, ${input.northing.toFixed(2)} 
                 (Zone ${input.zone}${input.hemisphere})
               </div>
-              <div class="history-output">
+              <div class="history-output break-words">
                 <strong>WGS84:</strong> ${output.latitude.toFixed(
                   8
                 )}, ${output.longitude.toFixed(8)}
@@ -391,35 +398,36 @@ function updateHistoryDisplay(): void {
         const input = record.input as WGS84Coordinate;
         const output = record.output as UTMCoordinate;
         return `
-          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
+          <div class="bg-white/[0.05] border border-white/10 rounded-md mb-3 p-2 sm:p-3 transition-colors duration-200 hover:bg-white/[0.08]" data-id="${
             record.id
           }">
-            <div class="history-header flex justify-between items-start mb-2">
-              <span class="font-semibold text-blue-400 text-sm w-32 flex-shrink-0">WGS84 → UTM</span>
-              <div class="history-time text-xs text-white/70 w-20 text-right flex-shrink-0">
-                <div >${date}</div>
-                <div>${time}</div>
+            <div class="history-header flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-1 sm:gap-0">
+              <span class="font-semibold text-blue-400 text-xs sm:text-sm flex-shrink-0">WGS84 → UTM</span>
+              <div class="history-time text-xs text-white/70 text-left sm:text-right flex-shrink-0">
+                <div class="sm:hidden">${date} ${time}</div>
+                <div class="hidden sm:block">${date}</div>
+                <div class="hidden sm:block">${time}</div>
               </div>
             </div>
             ${titleDisplay}
-            <div class="history-actions">
-              <button class="history-edit-title" data-id="${
+            <div class="history-actions grid grid-cols-3 gap-1 sm:gap-2 mb-2 sm:mb-3">
+              <button class="history-edit-title text-xs sm:text-sm py-1 sm:py-2" data-id="${
                 record.id
               }" title="Edit title"><i data-lucide="pencil"></i></button>
-              <button class="history-delete" data-id="${
+              <button class="history-delete text-xs sm:text-sm py-1 sm:py-2" data-id="${
                 record.id
               }" title="Delete this conversion"><i data-lucide="trash-2"></i></button>
-              <button class="history-load" data-id="${record.id}">${t(
-          "load"
-        )}</button>
+              <button class="history-load text-xs sm:text-sm py-1 sm:py-2" data-id="${
+                record.id
+              }">${t("load")}</button>
             </div>
-            <div class="history-content">
-              <div class="history-input">
+            <div class="history-content text-xs sm:text-sm">
+              <div class="history-input mb-1 break-words">
                 <strong>WGS84:</strong> ${input.latitude.toFixed(
                   8
                 )}, ${input.longitude.toFixed(8)}
               </div>
-              <div class="history-output">
+              <div class="history-output break-words">
                 <strong>UTM:</strong> ${output.easting.toFixed(
                   2
                 )}, ${output.northing.toFixed(2)} 
@@ -716,18 +724,18 @@ function offerCSVDownload(
   const targetType = coordinateType === "UTM" ? "WGS84" : "UTM";
 
   modal.innerHTML = `
-    <div class="csv-download-dialog max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300">
-      <h3>${t("downloadConvertedCSV")}</h3>
-      <p>${t("csvConvertedMessage", {
+    <div class="csv-download-dialog max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 dark:scrollbar-track-gray-700 scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-gray-300 mx-4 sm:mx-0">
+      <h3 class="text-lg sm:text-xl">${t("downloadConvertedCSV")}</h3>
+      <p class="text-sm sm:text-base">${t("csvConvertedMessage", {
         from: coordinateType,
         to: targetType,
       })}</p>
       
-      <div class="dialog-actions">
-        <button id="cancel-csv-download" class="cancel-button">${t(
+      <div class="dialog-actions flex-col sm:flex-row gap-2 sm:gap-4">
+        <button id="cancel-csv-download" class="cancel-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3">${t(
           "cancel"
         )}</button>
-        <button id="confirm-csv-download" class="confirm-button">${t(
+        <button id="confirm-csv-download" class="confirm-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3">${t(
           "downloadConvertedCSV"
         )}</button>
       </div>
