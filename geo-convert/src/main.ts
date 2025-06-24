@@ -522,7 +522,7 @@ function deleteHistoryItem(id: string): void {
 
 // Clear history
 function clearHistory(): void {
-  if (confirm("Are you sure you want to clear all conversion history?")) {
+  if (confirm(t("clearHistoryConfirm"))) {
     conversionHistory = [];
     saveHistory();
     updateHistoryDisplay();

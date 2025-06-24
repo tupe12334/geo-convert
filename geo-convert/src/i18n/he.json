@@ -73,5 +73,6 @@
   "infoDialogMessage": "מוזמנים לפנות אלי לכל בעיה - אופק גבאי {{phone}} המערכת היא הלבנה של מערכת אזרחית",
   "close": "סגור",
   "switchToDarkMode": "עבור למצב כהה",
-  "switchToLightMode": "עבור למצב בהיר"
+  "switchToLightMode": "עבור למצב בהיר",
+  "clearHistoryConfirm": "האם אתה בטוח שאתה רוצה למחוק את כל היסטוריית ההמרות?"
 }
