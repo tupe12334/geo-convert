@@ -942,10 +942,15 @@ function offerCSVDownload(
   modal.innerHTML = `
     <div class="csv-download-dialog max-h-[80vh] overflow-y-auto">
       <h3>${t("downloadConvertedCSV")}</h3>
-      <p>${t("csvConvertedMessage", { from: coordinateType, to: targetType })}</p>
+      <p>${t("csvConvertedMessage", {
+        from: coordinateType,
+        to: targetType,
+      })}</p>
       
       <div class="dialog-actions">
-        <button id="cancel-csv-download" class="cancel-button">${t("cancel")}</button>
+        <button id="cancel-csv-download" class="cancel-button">${t(
+          "cancel"
+        )}</button>
         <button id="confirm-csv-download" class="confirm-button">${t(
           "downloadConvertedCSV"
         )}</button>
