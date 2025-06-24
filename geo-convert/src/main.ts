@@ -22,7 +22,10 @@ import {
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
-import { createDarkModeToggle, loadDarkModePreference } from "./components/darkModeToggle";
+import {
+  createDarkModeToggle,
+  loadDarkModePreference,
+} from "./components/darkModeToggle";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import type {
@@ -51,8 +54,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       </div>
     </div>
     <div class="bg-white/5 rounded-xl p-8 border border-white/10 w-full max-w-full box-border">
-      <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-2 w-full">
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section">
+      <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 mb-2 w-full items-stretch">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border working-bench-section flex flex-col h-full">
           <h3 data-i18n="workingBench">Working Bench</h3>
           <div class="flex flex-col w-full mb-4">
             <label for="conversion-title" data-i18n="conversionTitle" class="block mb-2 text-white font-medium text-base break-words">Conversion Title (optional):</label>
@@ -64,13 +67,14 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               maxlength="100"
             />
           </div>
-          <div class="flex flex-col w-full">
+          <div class="flex flex-col w-full flex-grow">
             <label for="working-notes" data-i18n="notesAndCalculations" class="block mb-2 text-white font-medium text-base break-words">Notes & Calculations:</label>
             <textarea
               id="working-notes"
               data-i18n-placeholder="notesPlaceholder"
               placeholder="Use this area for notes, calculations, or temporary data storage. This field doesn't affect coordinate conversions."
               rows="6"
+              class="flex-grow"
             ></textarea>
           </div>
           <div class="mt-4 space-y-2">
@@ -87,10 +91,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
           </div>
         </div>
         
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section flex flex-col h-full">
           <h3 data-i18n="utm">UTM Coordinates</h3>
           <p class="text-white/70 text-sm mb-4" data-i18n="utmDescription">Enter UTM coordinates</p>
-          <div class="grid grid-cols-1 gap-4 mb-6">
+          <div class="grid grid-cols-1 gap-4 mb-6 flex-grow">
             <div class="flex flex-col w-full">
               <label for="easting-input">Easting (X):</label>
               <input 
@@ -131,10 +135,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               </select>
             </div>
           </div>
-          <button id="convert-to-wgs84" data-i18n="convert">Convert to WGS84 →</button>
+          <button id="convert-to-wgs84" data-i18n="convert" class="mt-auto">Convert to WGS84 →</button>
         </div>
         
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section flex flex-col h-full">
           <h3 data-i18n="wgs84">WGS84</h3>
           <p class="text-white/70 text-sm mb-4" data-i18n="wgs84Description">Enter WGS84 coordinates</p>
           <div class="grid grid-cols-1 gap-4 mb-6">
@@ -159,17 +163,17 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               />
             </div>
           </div>
-          <button id="convert-to-utm" data-i18n="convert">← Convert to UTM</button>
+          <button id="convert-to-utm" data-i18n="convert"">← Convert to UTM</button>
         </div>
 
-        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section">
+        <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border history-section flex flex-col h-full">
           <h3><span data-i18n="conversionHistory">Conversion History</span> (<span id="history-count">0</span>)</h3>
           <div class="flex gap-2 mb-4 justify-center">
             <button id="clear-history" class="clear-button" data-i18n="clearHistory">Clear History</button>
             <button id="export-history" class="export-button" data-i18n="exportHistory">Export History</button>
           </div>
-          <div class="relative">
-            <div id="history-list" class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
+          <div class="relative flex-grow flex flex-col">
+            <div id="history-list" class="flex-grow overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-300">
               <div class="history-empty" data-i18n="noConversionsYet">No conversions yet</div>
             </div>
             <div id="history-shadow" class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent pointer-events-none rounded-b-lg opacity-0 transition-opacity duration-300"></div>
@@ -194,7 +198,17 @@ infoButtonContainer.appendChild(infoButton);
 
 // Initialize icons after DOM is ready
 createIcons({
-  icons: { Pencil, Trash2, Upload, Info, Sheet, CheckCircle, XCircle, Sun, Moon },
+  icons: {
+    Pencil,
+    Trash2,
+    Upload,
+    Info,
+    Sheet,
+    CheckCircle,
+    XCircle,
+    Sun,
+    Moon,
+  },
 });
 
 // Initialize Notyf for toast notifications
