@@ -174,6 +174,7 @@ const infoButtonContainer = document.querySelector<HTMLDivElement>(
 const infoButton = createInfoButton();
 infoButtonContainer.appendChild(infoButton);
 
+// Initialize icons after DOM is ready
 createIcons({ icons: { Pencil, Trash2, Upload, Info, Sheet } });
 
 // Initialize Notyf for toast notifications
@@ -272,7 +273,8 @@ function addToHistory(
 // Update history display
 function updateHistoryDisplay(): void {
   const historyList = document.querySelector<HTMLDivElement>("#history-list")!;
-  const historyShadow = document.querySelector<HTMLDivElement>("#history-shadow")!;
+  const historyShadow =
+    document.querySelector<HTMLDivElement>("#history-shadow")!;
   const historyCount =
     document.querySelector<HTMLSpanElement>("#history-count")!;
 
@@ -463,7 +465,7 @@ function loadFromHistory(id: string): void {
     conversionTitleInput.value = record.title;
   }
 
-  notyf.success(`✓ ${t("loadedFromHistory")}`);
+  notyf.success(`${t("loadedFromHistory")}`);
 }
 
 // Edit history title
@@ -479,7 +481,7 @@ function editHistoryTitle(id: string): void {
     record.title = newTitle.trim() || undefined;
     saveHistory();
     updateHistoryDisplay();
-    notyf.success(`✓ ${t("titleUpdated")}`);
+    notyf.success(`${t("titleUpdated")}`);
   }
 }
 
@@ -491,7 +493,7 @@ function deleteHistoryItem(id: string): void {
   conversionHistory = conversionHistory.filter((r) => r.id !== id);
   saveHistory();
   updateHistoryDisplay();
-  notyf.success(`✓ ${t("conversionDeleted")}`);
+  notyf.success(`${t("conversionDeleted")}`);
 }
 
 // Clear history
@@ -500,7 +502,7 @@ function clearHistory(): void {
     conversionHistory = [];
     saveHistory();
     updateHistoryDisplay();
-    notyf.success(`✓ ${t("historyCleared")}`);
+    notyf.success(`${t("historyCleared")}`);
   }
 }
 
@@ -532,7 +534,7 @@ function exportHistory(): void {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  notyf.success(`✓ ${t("historyExported")}`);
+  notyf.success(`${t("historyExported")}`);
 }
 
 // CSV Import functionality
@@ -930,7 +932,7 @@ function processCSVData(
 
   if (convertedCount > 0) {
     const message = t("csvProcessed", { count: convertedCount });
-    notyf.success(`✓ ${message}`);
+    notyf.success(`${message}`);
 
     // Offer to download converted data
     offerCSVDownload(
@@ -1070,7 +1072,7 @@ function downloadConvertedCSV(
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  notyf.success(`✓ ${t("csvDownloaded")}`);
+  notyf.success(`${t("csvDownloaded")}`);
 }
 
 /**
@@ -1210,7 +1212,7 @@ function convertUTMToWGS84() {
     const wgs84 = convertUTMtoWGS84(utm);
     latitudeInput.value = wgs84.latitude.toFixed(8);
     longitudeInput.value = wgs84.longitude.toFixed(8);
-    notyf.success(`✓ ${t("convertedUTMToWGS84")}`);
+    notyf.success(`${t("convertedUTMToWGS84")}`);
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -1253,7 +1255,7 @@ function convertWGS84ToUTM() {
     northingInput.value = utm.northing.toFixed(2);
     zoneInput.value = utm.zone.toString();
     hemisphereSelect.value = utm.hemisphere;
-    notyf.success(`✓ ${t("convertedWGS84ToUTM")}`);
+    notyf.success(`${t("convertedWGS84ToUTM")}`);
 
     // Add to history
     const title = conversionTitleInput.value.trim();
@@ -1357,7 +1359,7 @@ languageSelect.addEventListener("change", (e: Event) => {
   updateHistoryDisplay(); // Update history with new locale
 
   const languageName = target.options[target.selectedIndex].text;
-  notyf.success(`✓ ${t("result")}: ${languageName}`);
+  notyf.success(`${t("result")}: ${languageName}`);
 });
 
 // Excel Import functionality
