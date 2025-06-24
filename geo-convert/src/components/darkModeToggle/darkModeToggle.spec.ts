@@ -40,9 +40,9 @@ describe("createDarkModeToggle", () => {
   it("should show moon icon when in light mode", () => {
     // Ensure we're in light mode
     document.documentElement.classList.remove("dark");
-    
+
     const button = createDarkModeToggle();
-    
+
     expect(button.innerHTML).toContain('data-lucide="moon"');
     expect(button.title).toBe("switchToDarkMode");
   });
@@ -50,19 +50,19 @@ describe("createDarkModeToggle", () => {
   it("should show sun icon when in dark mode", () => {
     // Set dark mode
     document.documentElement.classList.add("dark");
-    
+
     const button = createDarkModeToggle();
-    
+
     expect(button.innerHTML).toContain('data-lucide="sun"');
     expect(button.title).toBe("switchToLightMode");
   });
 
   it("should toggle dark mode when clicked", () => {
     const button = createDarkModeToggle();
-    
+
     // Initially in light mode
     expect(document.documentElement.classList.contains("dark")).toBe(false);
-    
+
     // Click to toggle to dark mode
     button.click();
     expect(document.documentElement.classList.contains("dark")).toBe(true);
@@ -70,7 +70,7 @@ describe("createDarkModeToggle", () => {
       "geo-convert-dark-mode",
       "true"
     );
-    
+
     // Click to toggle back to light mode
     button.click();
     expect(document.documentElement.classList.contains("dark")).toBe(false);
@@ -82,14 +82,14 @@ describe("createDarkModeToggle", () => {
 
   it("should update button appearance when toggled", () => {
     const button = createDarkModeToggle();
-    
+
     // Initially should show moon (light mode)
     expect(button.innerHTML).toContain('data-lucide="moon"');
-    
+
     // Toggle to dark mode
     button.click();
     expect(button.innerHTML).toContain('data-lucide="sun"');
-    
+
     // Toggle back to light mode
     button.click();
     expect(button.innerHTML).toContain('data-lucide="moon"');
@@ -108,26 +108,28 @@ describe("loadDarkModePreference", () => {
 
   it("should load saved dark mode preference", () => {
     localStorageMock.getItem.mockReturnValue("true");
-    
+
     loadDarkModePreference();
-    
-    expect(localStorageMock.getItem).toHaveBeenCalledWith("geo-convert-dark-mode");
+
+    expect(localStorageMock.getItem).toHaveBeenCalledWith(
+      "geo-convert-dark-mode"
+    );
     expect(document.documentElement.classList.contains("dark")).toBe(true);
   });
 
   it("should load saved light mode preference", () => {
     localStorageMock.getItem.mockReturnValue("false");
-    
+
     loadDarkModePreference();
-    
+
     expect(document.documentElement.classList.contains("dark")).toBe(false);
   });
 
   it("should default to dark mode when no preference is saved", () => {
     localStorageMock.getItem.mockReturnValue(null);
-    
+
     loadDarkModePreference();
-    
+
     expect(document.documentElement.classList.contains("dark")).toBe(true);
   });
 
@@ -135,17 +137,17 @@ describe("loadDarkModePreference", () => {
     localStorageMock.getItem.mockImplementation(() => {
       throw new Error("localStorage error");
     });
-    
+
     const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-    
+
     loadDarkModePreference();
-    
+
     expect(document.documentElement.classList.contains("dark")).toBe(true);
     expect(consoleSpy).toHaveBeenCalledWith(
       "Failed to load dark mode preference:",
       expect.any(Error)
     );
-    
+
     consoleSpy.mockRestore();
   });
 });

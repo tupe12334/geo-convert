@@ -9,7 +9,7 @@ export const createDarkModeToggle = (): HTMLButtonElement => {
   button.id = "dark-mode-toggle";
   button.className =
     "border rounded px-3 py-2 text-sm h-full flex items-center justify-center transition-all duration-200 bg-black/10 border-black/20 text-black hover:bg-black/15 hover:border-black/30 dark:bg-white/10 dark:border-white/20 dark:text-white dark:hover:bg-white/15 dark:hover:border-white/30";
-  
+
   // Initialize based on current theme
   updateToggleButton(button);
 
@@ -27,7 +27,7 @@ export const createDarkModeToggle = (): HTMLButtonElement => {
  */
 const updateToggleButton = (button: HTMLButtonElement): void => {
   const isDark = isDarkMode();
-  
+
   if (isDark) {
     button.innerHTML = '<i data-lucide="sun" class="w-4 h-4"></i>';
     button.title = t("switchToLightMode");
@@ -43,7 +43,7 @@ const updateToggleButton = (button: HTMLButtonElement): void => {
 const toggleDarkMode = (): void => {
   const html = document.documentElement;
   const isDark = html.classList.contains("dark");
-  
+
   if (isDark) {
     html.classList.remove("dark");
     saveDarkModePreference(false);
@@ -68,7 +68,7 @@ export const loadDarkModePreference = (): void => {
   try {
     const saved = localStorage.getItem("geo-convert-dark-mode");
     const prefersDark = saved ? JSON.parse(saved) : true; // Default to dark mode
-    
+
     if (prefersDark) {
       document.documentElement.classList.add("dark");
     } else {
