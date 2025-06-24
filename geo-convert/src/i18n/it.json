@@ -49,6 +49,7 @@
   "csvColumnMapping": "Mappatura colonne:",
   "confirmImport": "Conferma importazione",
   "cancelImport": "Annulla",
+  "cancel": "Annulla",
   "noValidData": "Nessun dato di coordinate valido trovato nel CSV",
   "csvProcessed": "CSV processato: convertite {{count}} coordinate",
   "excelProcessed": "Excel processato: convertite {{count}} coordinate",

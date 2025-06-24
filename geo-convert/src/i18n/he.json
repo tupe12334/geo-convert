@@ -49,6 +49,7 @@
   "csvColumnMapping": "מיפוי עמודות:",
   "confirmImport": "אשר ייבוא",
   "cancelImport": "ביטול",
+  "cancel": "ביטול",
   "noValidData": "לא נמצאו נתוני קואורדינטות תקינים ב-CSV",
   "csvProcessed": "CSV עובד: {{count}} קואורדינטות הומרו",
   "excelProcessed": "Excel עובד: {{count}} קואורדינטות הומרו",

@@ -945,7 +945,7 @@ function offerCSVDownload(
       <p>${t("csvConvertedMessage", { from: coordinateType, to: targetType })}</p>
       
       <div class="dialog-actions">
-        <button id="cancel-csv-download" class="cancel-button">Cancel</button>
+        <button id="cancel-csv-download" class="cancel-button">${t("cancel")}</button>
         <button id="confirm-csv-download" class="confirm-button">${t(
           "downloadConvertedCSV"
         )}</button>
