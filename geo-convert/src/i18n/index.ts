@@ -49,6 +49,8 @@ const updateDirection = (lng: string) => {
 export const t = (key: string, options?: any): string =>
   i18next.t(key, options) as string;
 
+export const getCurrentLanguage = (): string => i18next.language;
+
 const updateUI = () => {
   // Update all elements with data-i18n attribute
   const elements = document.querySelectorAll("[data-i18n]");

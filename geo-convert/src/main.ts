@@ -8,7 +8,7 @@ import {
 } from "./converters";
 import { createIcons, Pencil, Trash2, Upload, Info, Sheet } from "lucide";
 import { generateId } from "./utils/generateId";
-import { initI18n, changeLanguage, t } from "./i18n";
+import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
@@ -21,7 +21,7 @@ import type {
 } from "./converters/types";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div>
+  <div class="w-full h-full mx-auto p-8 text-center box-border overflow-y-auto">
     <div class="flex flex-wrap sm:flex-nowrap justify-between items-center mb-8 gap-4">
       <h1 class="mb-0 flex-shrink-0 leading-none text-4xl text-white" data-i18n="title">Geographic Coordinate Converter</h1>
       <div class="flex items-center gap-2 flex-shrink-0 h-[2.5rem]">
@@ -71,14 +71,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section">
           <h3 data-i18n="utm">UTM Coordinates</h3>
+          <p class="text-white/70 text-sm mb-4" data-i18n="utmDescription">Enter UTM coordinates</p>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="easting-input">Easting (X):</label>
               <input 
                 type="number" 
                 id="easting-input" 
-                data-i18n-placeholder="utmInputPlaceholder"
-                placeholder="500000"
+                data-i18n-placeholder="eastingPlaceholder"
+                placeholder="e.g., 500000"
                 step="0.01"
               />
             </div>
@@ -87,7 +88,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               <input 
                 type="number" 
                 id="northing-input" 
-                placeholder="4649776"
+                data-i18n-placeholder="northingPlaceholder"
+                placeholder="e.g., 4649776"
                 step="0.01"
               />
             </div>
@@ -96,7 +98,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               <input 
                 type="number" 
                 id="zone-input" 
-                placeholder="33"
+                data-i18n-placeholder="zonePlaceholder"
+                placeholder="1-60"
                 min="1"
                 max="60"
               />
@@ -105,8 +108,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               <label for="hemisphere-select">Hemisphere:</label>
               <select id="hemisphere-select">
                 <option value="">Select</option>
-                <option value="N" data-i18n-text="north">North (N)</option>
-                <option value="S" data-i18n-text="south">South (S)</option>
+                <option value="N" data-i18n-value="north">North (N)</option>
+                <option value="S" data-i18n-value="south">South (S)</option>
               </select>
             </div>
           </div>
@@ -115,14 +118,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
           <h3 data-i18n="wgs84">WGS84</h3>
+          <p class="text-white/70 text-sm mb-4" data-i18n="wgs84Description">Enter WGS84 coordinates</p>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="latitude-input">Latitude:</label>
               <input 
                 type="number" 
                 id="latitude-input" 
-                data-i18n-placeholder="wgs84InputPlaceholder"
-                placeholder="41.123456"
+                data-i18n-placeholder="latitudePlaceholder"
+                placeholder="e.g., 41.123456"
                 step="0.00000001"
               />
             </div>
@@ -131,7 +135,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               <input 
                 type="number" 
                 id="longitude-input" 
-                placeholder="2.123456"
+                data-i18n-placeholder="longitudePlaceholder"
+                placeholder="e.g., 2.123456"
                 step="0.00000001"
               />
             </div>
@@ -273,8 +278,10 @@ function updateHistoryDisplay(): void {
 
   historyList.innerHTML = conversionHistory
     .map((record) => {
-      const time = record.timestamp.toLocaleTimeString();
-      const date = record.timestamp.toLocaleDateString();
+      const currentLang = getCurrentLanguage();
+      const locale = currentLang === "he" ? "he-IL" : "en-US";
+      const time = record.timestamp.toLocaleTimeString(locale);
+      const date = record.timestamp.toLocaleDateString(locale);
       const titleDisplay = record.title
         ? `<div class="history-title">${record.title}</div>`
         : "";
@@ -442,16 +449,10 @@ function deleteHistoryItem(id: string): void {
   const record = conversionHistory.find((r) => r.id === id);
   if (!record) return;
 
-  const confirmMessage = record.title
-    ? `Are you sure you want to delete "${record.title}"?`
-    : "Are you sure you want to delete this conversion?";
-
-  if (confirm(confirmMessage)) {
-    conversionHistory = conversionHistory.filter((r) => r.id !== id);
-    saveHistory();
-    updateHistoryDisplay();
-    notyf.success(`✓ ${t("conversionDeleted")}`);
-  }
+  conversionHistory = conversionHistory.filter((r) => r.id !== id);
+  saveHistory();
+  updateHistoryDisplay();
+  notyf.success(`✓ ${t("conversionDeleted")}`);
 }
 
 // Clear history
@@ -1073,10 +1074,13 @@ function loadLanguagePreference(): void {
       languageSelect.value = "he";
       changeLanguage("he");
     }
+    // Update history display with the correct locale
+    updateHistoryDisplay();
   } catch (error) {
     console.warn("Failed to load language preference:", error);
     languageSelect.value = "he";
     changeLanguage("he");
+    updateHistoryDisplay();
   }
 }
 
@@ -1096,6 +1100,7 @@ languageSelect.addEventListener("change", (e: Event) => {
 
   saveLanguagePreference(selectedLanguage);
   changeLanguage(selectedLanguage);
+  updateHistoryDisplay(); // Update history with new locale
 
   const languageName = target.options[target.selectedIndex].text;
   notyf.success(`✓ ${t("result")}: ${languageName}`);
