@@ -5,6 +5,7 @@
   "north": "Nord (N)",
   "south": "Sud (S)",
   "select": "Seleziona",
+  "zone": "Zona",
   "utmDescription": "Inserisci coordinate UTM",
   "wgs84Description": "Inserisci coordinate WGS84",
   "eastingPlaceholder": "es., 667274.762",

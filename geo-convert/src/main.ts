@@ -96,7 +96,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               />
             </div>
             <div class="flex flex-col w-full">
-              <label for="zone-input">Zone:</label>
+              <label for="zone-input" data-i18n="zone">Zone:</label>
               <input 
                 type="number" 
                 id="zone-input" 

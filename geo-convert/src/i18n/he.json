@@ -5,6 +5,7 @@
   "north": "צפון (N)",
   "south": "דרום (S)",
   "select": "בחר",
+  "zone": "אזור",
   "utmDescription": "הכנס קואורדינטות UTM",
   "wgs84Description": "הכנס קואורדינטות WGS84",
   "eastingPlaceholder": "לדוגמה: 667274.762",
