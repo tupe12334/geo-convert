@@ -779,7 +779,7 @@ function showCSVImportDialog(parseResult: CSVParseResult): void {
     )?.value as CoordinateType;
 
     if (!selectedType) {
-      notyf.error("Please select a coordinate type");
+      notyf.error(t("pleaseSelectCoordinateType"));
       return;
     }
 
