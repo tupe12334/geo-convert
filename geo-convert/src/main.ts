@@ -23,7 +23,7 @@ import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
 import {
-  createDarkModeToggle,
+  // createDarkModeToggle,
   loadDarkModePreference,
 } from "./components/darkModeToggle";
 import { Notyf } from "notyf";
@@ -192,8 +192,8 @@ const infoButtonContainer = document.querySelector<HTMLDivElement>(
   "#info-button-container"
 )!;
 const infoButton = createInfoButton();
-const darkModeToggle = createDarkModeToggle();
-infoButtonContainer.appendChild(darkModeToggle);
+// const darkModeToggle = createDarkModeToggle();
+// infoButtonContainer.appendChild(darkModeToggle);
 infoButtonContainer.appendChild(infoButton);
 
 // Initialize icons after DOM is ready
