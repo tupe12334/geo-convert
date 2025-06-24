@@ -442,16 +442,10 @@ function deleteHistoryItem(id: string): void {
   const record = conversionHistory.find((r) => r.id === id);
   if (!record) return;
 
-  const confirmMessage = record.title
-    ? `Are you sure you want to delete "${record.title}"?`
-    : "Are you sure you want to delete this conversion?";
-
-  if (confirm(confirmMessage)) {
-    conversionHistory = conversionHistory.filter((r) => r.id !== id);
-    saveHistory();
-    updateHistoryDisplay();
-    notyf.success(`✓ ${t("conversionDeleted")}`);
-  }
+  conversionHistory = conversionHistory.filter((r) => r.id !== id);
+  saveHistory();
+  updateHistoryDisplay();
+  notyf.success(`✓ ${t("conversionDeleted")}`);
 }
 
 // Clear history
