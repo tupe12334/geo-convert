@@ -71,14 +71,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border utm-section">
           <h3 data-i18n="utm">UTM Coordinates</h3>
+          <p class="text-white/70 text-sm mb-4" data-i18n="utmDescription">Enter UTM coordinates</p>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="easting-input">Easting (X):</label>
               <input 
                 type="number" 
                 id="easting-input" 
-                data-i18n-placeholder="utmInputPlaceholder"
-                placeholder="500000"
+                data-i18n-placeholder="eastingPlaceholder"
+                placeholder="e.g., 500000"
                 step="0.01"
               />
             </div>
@@ -87,7 +88,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               <input 
                 type="number" 
                 id="northing-input" 
-                placeholder="4649776"
+                data-i18n-placeholder="northingPlaceholder"
+                placeholder="e.g., 4649776"
                 step="0.01"
               />
             </div>
@@ -96,7 +98,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               <input 
                 type="number" 
                 id="zone-input" 
-                placeholder="33"
+                data-i18n-placeholder="zonePlaceholder"
+                placeholder="1-60"
                 min="1"
                 max="60"
               />
@@ -115,14 +118,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         
         <div class="bg-white/[0.03] rounded-lg p-4 md:p-6 border border-white/10 min-w-0 w-full box-border wgs84-section">
           <h3 data-i18n="wgs84">WGS84</h3>
+          <p class="text-white/70 text-sm mb-4" data-i18n="wgs84Description">Enter WGS84 coordinates</p>
           <div class="grid grid-cols-1 gap-4 mb-6">
             <div class="flex flex-col w-full">
               <label for="latitude-input">Latitude:</label>
               <input 
                 type="number" 
                 id="latitude-input" 
-                data-i18n-placeholder="wgs84InputPlaceholder"
-                placeholder="41.123456"
+                data-i18n-placeholder="latitudePlaceholder"
+                placeholder="e.g., 41.123456"
                 step="0.00000001"
               />
             </div>
@@ -131,7 +135,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
               <input 
                 type="number" 
                 id="longitude-input" 
-                placeholder="2.123456"
+                data-i18n-placeholder="longitudePlaceholder"
+                placeholder="e.g., 2.123456"
                 step="0.00000001"
               />
             </div>
