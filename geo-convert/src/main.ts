@@ -589,9 +589,11 @@ function showBulkConversionDialogHandler(): void {
           console.error("Failed to add conversion to history:", error);
         }
       }
-      
+
       if (addedCount > 0) {
-        notyf.success(t("bulkConversionsAddedToHistory", { count: addedCount }));
+        notyf.success(
+          t("bulkConversionsAddedToHistory", { count: addedCount })
+        );
       }
     },
     onCancel: () => {

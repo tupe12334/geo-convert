@@ -84,7 +84,9 @@ const createDialogHTML = (
       <h3 class="text-lg sm:text-xl font-bold mb-4">${t("bulkConversion")}</h3>
       
       <div class="coordinate-type-selection mb-6">
-        <h4 class="text-base font-semibold mb-2">${t("selectCoordinateTypeToConvert")}</h4>
+        <h4 class="text-base font-semibold mb-2">${t(
+          "selectCoordinateTypeToConvert"
+        )}</h4>
         <div class="flex gap-4">
           <label class="flex items-center gap-2">
             <input type="radio" name="bulk-coordinate-type" value="WGS84" checked>
@@ -117,9 +119,15 @@ const createDialogHTML = (
       </div>
       
       <div class="dialog-actions flex flex-col sm:flex-row gap-2 sm:gap-4">
-        <button id="cancel-bulk-conversion" class="cancel-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3">${t("cancel")}</button>
-        <button id="convert-bulk" class="confirm-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3">${t("convertAll")}</button>
-        <button id="confirm-bulk-conversion" class="confirm-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3" style="display: none;">${t("addToHistory")}</button>
+        <button id="cancel-bulk-conversion" class="cancel-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3">${t(
+          "cancel"
+        )}</button>
+        <button id="convert-bulk" class="confirm-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3">${t(
+          "convertAll"
+        )}</button>
+        <button id="confirm-bulk-conversion" class="confirm-button w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3" style="display: none;">${t(
+          "addToHistory"
+        )}</button>
       </div>
     </div>
   `;
@@ -202,7 +210,9 @@ const updateEntriesDisplay = (
   const container = modal.querySelector("#entries-container")!;
 
   container.innerHTML = state.entries
-    .map((entry: BulkCoordinateEntry, index: number) => createEntryHTML(entry, index, state.coordinateType, t))
+    .map((entry: BulkCoordinateEntry, index: number) =>
+      createEntryHTML(entry, index, state.coordinateType, t)
+    )
     .join("");
 
   // Add event listeners for entry controls
@@ -218,15 +228,20 @@ const createEntryHTML = (
   coordinateType: CoordinateType,
   t: (key: string, params?: Record<string, unknown>) => string
 ): string => {
-  const fieldsHTML = coordinateType === "WGS84" 
-    ? createWGS84FieldsHTML(entry, t)
-    : createUTMFieldsHTML(entry, t);
+  const fieldsHTML =
+    coordinateType === "WGS84"
+      ? createWGS84FieldsHTML(entry, t)
+      : createUTMFieldsHTML(entry, t);
 
   return `
-    <div class="entry-item bg-white/[0.03] rounded-lg p-4 border border-white/10" data-entry-id="${entry.id}">
+    <div class="entry-item bg-white/[0.03] rounded-lg p-4 border border-white/10" data-entry-id="${
+      entry.id
+    }">
       <div class="flex justify-between items-center mb-3">
         <h5 class="font-medium text-sm">${t("entry")} ${index + 1}</h5>
-        <button class="remove-entry-btn text-red-400 hover:text-red-300 text-sm" data-entry-id="${entry.id}">
+        <button class="remove-entry-btn text-red-400 hover:text-red-300 text-sm" data-entry-id="${
+          entry.id
+        }">
           ${t("remove")}
         </button>
       </div>
@@ -331,15 +346,21 @@ const createUTMFieldsHTML = (
         />
       </div>
       <div>
-        <label class="block text-sm font-medium mb-1">${t("hemisphere")}:</label>
+        <label class="block text-sm font-medium mb-1">${t(
+          "hemisphere"
+        )}:</label>
         <select 
           class="coordinate-input w-full text-sm" 
           data-entry-id="${entry.id}"
           data-field="hemisphere"
         >
           <option value="">${t("select")}</option>
-          <option value="N" ${entry.coordinates.hemisphere === "N" ? "selected" : ""}>${t("north")}</option>
-          <option value="S" ${entry.coordinates.hemisphere === "S" ? "selected" : ""}>${t("south")}</option>
+          <option value="N" ${
+            entry.coordinates.hemisphere === "N" ? "selected" : ""
+          }>${t("north")}</option>
+          <option value="S" ${
+            entry.coordinates.hemisphere === "S" ? "selected" : ""
+          }>${t("south")}</option>
         </select>
       </div>
     </div>
@@ -360,7 +381,9 @@ const setupEntryEventListeners = (
     input.addEventListener("input", (e) => {
       const target = e.target as HTMLInputElement;
       const entryId = target.dataset.entryId!;
-      const entry = state.entries.find((e: BulkCoordinateEntry) => e.id === entryId);
+      const entry = state.entries.find(
+        (e: BulkCoordinateEntry) => e.id === entryId
+      );
       if (entry) {
         entry.title = target.value;
       }
@@ -368,20 +391,31 @@ const setupEntryEventListeners = (
   });
 
   // Coordinate inputs
-  const coordinateInputs = modal.querySelectorAll<HTMLInputElement>(".coordinate-input");
+  const coordinateInputs =
+    modal.querySelectorAll<HTMLInputElement>(".coordinate-input");
   coordinateInputs.forEach((input) => {
     input.addEventListener("input", (e) => {
       const target = e.target as HTMLInputElement;
       const entryId = target.dataset.entryId!;
       const field = target.dataset.field!;
-      const entry = state.entries.find((e: BulkCoordinateEntry) => e.id === entryId);
+      const entry = state.entries.find(
+        (e: BulkCoordinateEntry) => e.id === entryId
+      );
       if (entry) {
         if (field === "hemisphere") {
           entry.coordinates[field] = target.value as "N" | "S";
         } else {
           const numValue = parseFloat(target.value);
-          if (field === "latitude" || field === "longitude" || field === "easting" || field === "northing" || field === "zone") {
-            (entry.coordinates as any)[field] = isNaN(numValue) ? undefined : numValue;
+          if (
+            field === "latitude" ||
+            field === "longitude" ||
+            field === "easting" ||
+            field === "northing" ||
+            field === "zone"
+          ) {
+            (entry.coordinates as any)[field] = isNaN(numValue)
+              ? undefined
+              : numValue;
           }
         }
       }
@@ -389,12 +423,15 @@ const setupEntryEventListeners = (
   });
 
   // Remove entry buttons
-  const removeButtons = modal.querySelectorAll<HTMLButtonElement>(".remove-entry-btn");
+  const removeButtons =
+    modal.querySelectorAll<HTMLButtonElement>(".remove-entry-btn");
   removeButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       const entryId = (e.target as HTMLButtonElement).dataset.entryId!;
       if (state.entries.length > 1) {
-        state.entries = state.entries.filter((entry: BulkCoordinateEntry) => entry.id !== entryId);
+        state.entries = state.entries.filter(
+          (entry: BulkCoordinateEntry) => entry.id !== entryId
+        );
         updateEntriesDisplay(modal, state, t);
       }
     });
@@ -413,18 +450,22 @@ const performBulkConversion = (
 ): void => {
   const validEntries = state.entries.filter((entry: BulkCoordinateEntry) => {
     if (state.coordinateType === "WGS84") {
-      return entry.coordinates.latitude !== undefined && 
-             entry.coordinates.longitude !== undefined &&
-             !isNaN(entry.coordinates.latitude) &&
-             !isNaN(entry.coordinates.longitude);
+      return (
+        entry.coordinates.latitude !== undefined &&
+        entry.coordinates.longitude !== undefined &&
+        !isNaN(entry.coordinates.latitude) &&
+        !isNaN(entry.coordinates.longitude)
+      );
     } else {
-      return entry.coordinates.easting !== undefined &&
-             entry.coordinates.northing !== undefined &&
-             entry.coordinates.zone !== undefined &&
-             entry.coordinates.hemisphere &&
-             !isNaN(entry.coordinates.easting) &&
-             !isNaN(entry.coordinates.northing) &&
-             !isNaN(entry.coordinates.zone);
+      return (
+        entry.coordinates.easting !== undefined &&
+        entry.coordinates.northing !== undefined &&
+        entry.coordinates.zone !== undefined &&
+        entry.coordinates.hemisphere &&
+        !isNaN(entry.coordinates.easting) &&
+        !isNaN(entry.coordinates.northing) &&
+        !isNaN(entry.coordinates.zone)
+      );
     }
   });
 
@@ -444,7 +485,7 @@ const performBulkConversion = (
           longitude: entry.coordinates.longitude!,
         };
         const utm = convertWGS84toUTM(wgs84);
-        
+
         results.push({
           title: entry.title || `Entry ${state.entries.indexOf(entry) + 1}`,
           input: wgs84,
@@ -459,7 +500,7 @@ const performBulkConversion = (
           hemisphere: entry.coordinates.hemisphere! as "N" | "S",
         };
         const wgs84 = convertUTMtoWGS84(utm);
-        
+
         results.push({
           title: entry.title || `Entry ${state.entries.indexOf(entry) + 1}`,
           input: utm,
@@ -468,7 +509,11 @@ const performBulkConversion = (
         });
       }
     } catch (error) {
-      errors.push(`${entry.title || `Entry ${state.entries.indexOf(entry) + 1}`}: ${error}`);
+      errors.push(
+        `${
+          entry.title || `Entry ${state.entries.indexOf(entry) + 1}`
+        }: ${error}`
+      );
     }
   }
 
@@ -476,10 +521,12 @@ const performBulkConversion = (
     state.results = results;
     displayResults(modal, state);
     showSuccess(t("bulkConversionComplete", { count: results.length }));
-    
+
     // Show the confirm button and hide convert button
     const convertBtn = modal.querySelector("#convert-bulk") as HTMLElement;
-    const confirmBtn = modal.querySelector("#confirm-bulk-conversion") as HTMLElement;
+    const confirmBtn = modal.querySelector(
+      "#confirm-bulk-conversion"
+    ) as HTMLElement;
     convertBtn.style.display = "none";
     confirmBtn.style.display = "block";
   }
@@ -504,13 +551,27 @@ const displayResults = (
 
   resultsContainer.innerHTML = state.results
     .map((result: any) => {
-      const inputStr = state.coordinateType === "WGS84" 
-        ? `Lat: ${result.input.latitude.toFixed(8)}, Lng: ${result.input.longitude.toFixed(8)}`
-        : `E: ${result.input.easting.toFixed(2)}, N: ${result.input.northing.toFixed(2)}, Zone: ${result.input.zone}${result.input.hemisphere}`;
-      
-      const outputStr = state.coordinateType === "WGS84"
-        ? `E: ${result.output.easting.toFixed(2)}, N: ${result.output.northing.toFixed(2)}, Zone: ${result.output.zone}${result.output.hemisphere}`
-        : `Lat: ${result.output.latitude.toFixed(8)}, Lng: ${result.output.longitude.toFixed(8)}`;
+      const inputStr =
+        state.coordinateType === "WGS84"
+          ? `Lat: ${result.input.latitude.toFixed(
+              8
+            )}, Lng: ${result.input.longitude.toFixed(8)}`
+          : `E: ${result.input.easting.toFixed(
+              2
+            )}, N: ${result.input.northing.toFixed(2)}, Zone: ${
+              result.input.zone
+            }${result.input.hemisphere}`;
+
+      const outputStr =
+        state.coordinateType === "WGS84"
+          ? `E: ${result.output.easting.toFixed(
+              2
+            )}, N: ${result.output.northing.toFixed(2)}, Zone: ${
+              result.output.zone
+            }${result.output.hemisphere}`
+          : `Lat: ${result.output.latitude.toFixed(
+              8
+            )}, Lng: ${result.output.longitude.toFixed(8)}`;
 
       return `
         <div class="result-item bg-white/[0.03] rounded p-3 border border-white/10 mb-2">
@@ -531,8 +592,10 @@ const displayResults = (
 const hideResults = (modal: HTMLDivElement): void => {
   const resultsSection = modal.querySelector("#results-section") as HTMLElement;
   const convertBtn = modal.querySelector("#convert-bulk") as HTMLElement;
-  const confirmBtn = modal.querySelector("#confirm-bulk-conversion") as HTMLElement;
-  
+  const confirmBtn = modal.querySelector(
+    "#confirm-bulk-conversion"
+  ) as HTMLElement;
+
   resultsSection.style.display = "none";
   convertBtn.style.display = "block";
   confirmBtn.style.display = "none";
