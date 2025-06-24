@@ -6,10 +6,20 @@ import {
   parseCSV,
   parseExcel,
 } from "./converters";
-import { createIcons, Pencil, Trash2, Upload, Info, Sheet } from "lucide";
+import {
+  createIcons,
+  Pencil,
+  Trash2,
+  Upload,
+  Info,
+  Sheet,
+  Sun,
+  Moon,
+} from "lucide";
 import { generateId } from "./utils/generateId";
 import { initI18n, changeLanguage, t, getCurrentLanguage } from "./i18n";
 import { createInfoButton } from "./components/infoButton";
+import { createThemeToggle } from "./components/themeToggle";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import type {
@@ -29,6 +39,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <h1 class="mb-0 flex-shrink-0 leading-none text-4xl text-white" data-i18n="title">Geographic Coordinate Converter</h1>
       </div>
       <div class="flex items-center gap-2 flex-shrink-0 h-[2.5rem]">
+        <div id="theme-toggle-container"></div>
         <select id="language-select" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm h-full">
           <option value="he">עברית</option>
           <option value="en">English</option>
@@ -164,6 +175,13 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 `;
 
+// Create and insert the theme toggle and info button
+const themeToggleContainer = document.querySelector<HTMLDivElement>(
+  "#theme-toggle-container"
+)!;
+const themeToggle = createThemeToggle();
+themeToggleContainer.appendChild(themeToggle);
+
 // Create and insert the info button
 const infoButtonContainer = document.querySelector<HTMLDivElement>(
   "#info-button-container"
@@ -171,7 +189,7 @@ const infoButtonContainer = document.querySelector<HTMLDivElement>(
 const infoButton = createInfoButton();
 infoButtonContainer.appendChild(infoButton);
 
-createIcons({ icons: { Pencil, Trash2, Upload, Info, Sheet } });
+createIcons({ icons: { Pencil, Trash2, Upload, Info, Sheet, Sun, Moon } });
 
 // Initialize Notyf for toast notifications
 const notyf = new Notyf({
