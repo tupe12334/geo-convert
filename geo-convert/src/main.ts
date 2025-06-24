@@ -1353,7 +1353,7 @@ function handleExcelFileSelect(event: Event): void {
   }
 
   // Show loading notification
-  notyf.success("Processing Excel file...");
+  notyf.success(t("processingExcelFile"));
 
   parseExcel(file)
     .then((parseResult) => {

@@ -66,6 +66,7 @@
   "selectColumn": "Seleziona una colonna...",
   "columnMappingRequired": "Si prega di mappare tutte le colonne richieste",
   "csvConvertedMessage": "Il tuo CSV è stato convertito da {{from}} a {{to}}. Vuoi scaricare i risultati?",
+  "processingExcelFile": "Elaborazione file Excel...",
   "infoDialogMessage": "Contattami per qualsiasi problema - Ofek Gabay {{phone}} Questo sistema è civile",
   "close": "Chiudi"
 }
