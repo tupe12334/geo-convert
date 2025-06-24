@@ -1,1 +1,1 @@
-export * from './parseUTMInputs'
+export * from "./parseUTMInputs";
