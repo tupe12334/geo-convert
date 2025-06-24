@@ -862,13 +862,18 @@ button:focus-visible {
 }
 
 .history-list-scrollable::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 30px;
-  background: linear-gradient(to top, rgba(36, 36, 36, 0.9) 0%, rgba(36, 36, 36, 0.6) 40%, transparent 100%);
+  background: linear-gradient(
+    to top,
+    rgba(36, 36, 36, 0.9) 0%,
+    rgba(36, 36, 36, 0.6) 40%,
+    transparent 100%
+  );
   pointer-events: none;
   z-index: 10;
   border-radius: 0 0 8px 8px;
