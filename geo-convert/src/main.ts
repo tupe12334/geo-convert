@@ -27,6 +27,7 @@ import {
   loadDarkModePreference,
 } from "./components/darkModeToggle";
 import { showCSVImportDialog } from "./components/csvImportDialog";
+import { showBulkConversionDialog } from "./components/bulkConversionDialog";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import type {
@@ -80,6 +81,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
             ></textarea>
           </div>
           <div class="mt-4 space-y-2">
+            <button id="bulk-convert-btn" class="import-csv-button w-full text-sm sm:text-base" data-i18n="bulkConvertCoordinates">
+              <i data-lucide="check-circle"></i>
+              Bulk Convert Coordinates
+            </button>
             <button id="import-csv-btn" class="import-csv-button w-full text-sm sm:text-base" data-i18n="importCSV">
               <i data-lucide="upload"></i>
               Import CSV File
@@ -570,6 +575,34 @@ function exportHistory(): void {
   notyf.success(`${t("historyExported")}`);
 }
 
+// Bulk Conversion functionality
+function showBulkConversionDialogHandler(): void {
+  showBulkConversionDialog({
+    onConfirm: (results: any[]) => {
+      // Add all conversion results to history
+      let addedCount = 0;
+      for (const result of results) {
+        try {
+          addToHistory(result.type, result.input, result.output, result.title);
+          addedCount++;
+        } catch (error) {
+          console.error("Failed to add conversion to history:", error);
+        }
+      }
+      
+      if (addedCount > 0) {
+        notyf.success(t("bulkConversionsAddedToHistory", { count: addedCount }));
+      }
+    },
+    onCancel: () => {
+      // Dialog cancelled, no action needed
+    },
+    t,
+    showError: (message: string) => notyf.error(message),
+    showSuccess: (message: string) => notyf.success(message),
+  });
+}
+
 // CSV Import functionality
 function importCSVFile(): void {
   const csvFileInput =
@@ -927,6 +960,8 @@ const clearHistoryBtn =
   document.querySelector<HTMLButtonElement>("#clear-history")!;
 const exportHistoryBtn =
   document.querySelector<HTMLButtonElement>("#export-history")!;
+const bulkConvertBtn =
+  document.querySelector<HTMLButtonElement>("#bulk-convert-btn")!;
 const importCSVBtn =
   document.querySelector<HTMLButtonElement>("#import-csv-btn")!;
 const csvFileInput =
@@ -1026,6 +1061,7 @@ convertToWGS84Btn.addEventListener("click", convertUTMToWGS84);
 convertToUTMBtn.addEventListener("click", convertWGS84ToUTM);
 clearHistoryBtn.addEventListener("click", clearHistory);
 exportHistoryBtn.addEventListener("click", exportHistory);
+bulkConvertBtn.addEventListener("click", showBulkConversionDialogHandler);
 importCSVBtn.addEventListener("click", importCSVFile);
 csvFileInput.addEventListener("change", handleCSVFileSelect);
 importExcelBtn.addEventListener("click", importExcelFile);
